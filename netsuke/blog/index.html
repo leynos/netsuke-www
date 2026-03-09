@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Netsuke Build System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };
+<script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -51,7 +49,7 @@
             }
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -104,7 +102,7 @@
 
                 <div class="flex items-center space-x-4">
                     <a href="../examples/" class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors">
-                        <i class="fa-brands fa-github mr-2"></i> GitHub
+                        <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
                     </a>
                     <a href="../install/" class="inline-flex items-center px-4 py-1.5 bg-indigo text-white rounded-md text-sm font-medium shadow-sm hover:bg-indigo-light transition-colors">
                         Install
@@ -120,7 +118,7 @@
         <!-- Hero Section -->
         <header id="blog-hero" class="mb-16 text-center max-w-3xl mx-auto">
             <div class="inline-flex items-center px-3 py-1 rounded-full bg-boxwood text-charcoal-mid text-xs font-semibold uppercase tracking-wider border border-stone mb-6">
-                <i class="fa-solid fa-pen-nib mr-2 text-vermillion"></i> Devlog & Releases
+                <span  class="iconify mr-2 text-vermillion" data-icon="carbon:pen-fountain" aria-hidden="true"></span> Devlog & Releases
             </div>
             <h1 class="font-serif text-5xl lg:text-6xl font-bold text-charcoal mb-6">Latest Updates</h1>
             <p class="text-xl text-charcoal-mid font-light leading-relaxed mb-8">
@@ -128,10 +126,10 @@
             </p>
             <div class="flex justify-center space-x-4">
                 <a href="./" class="inline-flex items-center px-4 py-2 border border-stone rounded-md text-sm font-medium text-charcoal hover:bg-white hover:text-vermillion transition-colors">
-                    <i class="fa-solid fa-rss mr-2"></i> RSS Feed
+                    <span  class="iconify mr-2" data-icon="carbon:rss" aria-hidden="true"></span> RSS Feed
                 </a>
                 <a href="#newsletter" class="inline-flex items-center px-4 py-2 border border-stone rounded-md text-sm font-medium text-charcoal hover:bg-white hover:text-indigo transition-colors">
-                    <i class="fa-regular fa-envelope mr-2"></i> Subscribe
+                    <span  class="iconify mr-2" data-icon="carbon:email" aria-hidden="true"></span> Subscribe
                 </a>
             </div>
         </header>
@@ -140,7 +138,7 @@
         <section id="featured-post" class="mb-20">
             <div class="bg-white rounded-2xl border border-stone shadow-paper-lg overflow-hidden relative group">
                 <div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none hidden lg:block">
-                     <i class="fa-solid fa-cube text-9xl text-indigo"></i>
+                     <span  class="iconify text-9xl text-indigo" data-icon="carbon:cube" aria-hidden="true"></span>
                 </div>
 
                 <div class="p-8 lg:p-12 relative z-10">
@@ -170,7 +168,7 @@
                                     Read Announcement
                                 </a>
                                 <a href="../install/" class="inline-flex items-center px-5 py-2.5 bg-white border border-stone text-charcoal rounded-md font-medium shadow-sm hover:bg-boxwood-pale transition-colors">
-                                    <i class="fa-solid fa-download mr-2 text-charcoal-mid"></i> Install v2.4.0
+                                    <span  class="iconify mr-2 text-charcoal-mid" data-icon="carbon:download" aria-hidden="true"></span> Install v2.4.0
                                 </a>
                             </div>
                         </div>
@@ -258,7 +256,7 @@
                                 <span class="text-xs text-charcoal-mid font-medium">Sarah Jenkins</span>
                             </div>
                             <div class="flex items-center space-x-4">
-                                <a href="./" class="text-charcoal-mid text-xs font-medium hover:text-vermillion"><i class="fa-solid fa-list-check mr-1"></i> Changelog</a>
+                                <a href="./" class="text-charcoal-mid text-xs font-medium hover:text-vermillion"><span  class="iconify mr-1" data-icon="carbon:list-checked" aria-hidden="true"></span> Changelog</a>
                                 <a href="./" class="text-indigo text-xs font-bold hover:underline">Read Release Notes &rarr;</a>
                             </div>
                         </div>
@@ -293,14 +291,14 @@
                 <div class="flex justify-center pt-8">
                     <nav class="flex items-center space-x-2">
                         <a href="./" class="w-10 h-10 flex items-center justify-center rounded-md border border-stone text-charcoal-mid hover:bg-boxwood-pale hover:text-charcoal transition-colors disabled:opacity-50">
-                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                            <span  class="iconify text-xs" data-icon="carbon:chevron-left" aria-hidden="true"></span>
                         </a>
                         <a href="./" class="w-10 h-10 flex items-center justify-center rounded-md bg-indigo text-white font-medium shadow-sm">1</a>
                         <a href="./" class="w-10 h-10 flex items-center justify-center rounded-md border border-stone text-charcoal hover:bg-boxwood-pale transition-colors">2</a>
                         <span class="w-10 h-10 flex items-center justify-center text-charcoal-mid">...</span>
                         <a href="./" class="w-10 h-10 flex items-center justify-center rounded-md border border-stone text-charcoal hover:bg-boxwood-pale transition-colors">8</a>
                         <a href="./" class="w-10 h-10 flex items-center justify-center rounded-md border border-stone text-charcoal-mid hover:bg-boxwood-pale hover:text-charcoal transition-colors">
-                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                            <span  class="iconify text-xs" data-icon="carbon:chevron-right" aria-hidden="true"></span>
                         </a>
                     </nav>
                 </div>
@@ -314,7 +312,7 @@
                     <div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
                     <div class="relative z-10">
                         <div class="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-vermillion">
-                            <i class="fa-regular fa-paper-plane"></i>
+                            <span  class="iconify" data-icon="carbon:send" aria-hidden="true"></span>
                         </div>
                         <h3 class="font-serif text-xl font-bold mb-2">Stay Updated</h3>
                         <p class="text-stone-light text-sm mb-6 leading-relaxed">
@@ -331,7 +329,7 @@
                 <!-- Release History -->
                 <div class="bg-white rounded-xl border border-stone shadow-sm p-6">
                     <h3 class="font-serif text-lg font-bold text-charcoal mb-4 flex items-center">
-                        <i class="fa-solid fa-code-commit text-indigo mr-2 text-sm"></i> Version History
+                        <span  class="iconify text-indigo mr-2 text-sm" data-icon="carbon:commit" aria-hidden="true"></span> Version History
                     </h3>
                     <div class="relative pl-4 border-l-2 border-stone-light space-y-6">
                         <!-- Item -->
@@ -408,9 +406,9 @@
                         Netsuke is free, open-source, and written in Rust. It aims to bring the power of large-scale build systems to projects of any size.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="../examples/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-github"></i></a>
-                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-discord"></i></a>
+                        <a href="../examples/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
+                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-x" aria-hidden="true"></span></a>
+                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-discord" aria-hidden="true"></span></a>
                     </div>
                 </div>
 

@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guides Hub - Netsuke Build System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };
+<script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -51,7 +49,7 @@
             }
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -105,7 +103,7 @@
 
                 <div class="flex items-center space-x-4">
                     <a href="../examples/" class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors">
-                        <i class="fa-brands fa-github mr-2"></i> GitHub
+                        <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
                     </a>
                     <a href="../install/" class="inline-flex items-center px-4 py-1.5 bg-indigo text-white rounded-md text-sm font-medium shadow-sm hover:bg-indigo-light transition-colors">
                         Install
@@ -135,7 +133,7 @@
                 <div class="grid lg:grid-cols-2">
                     <div class="p-8 lg:p-12 flex flex-col justify-center">
                         <div class="flex items-center space-x-2 text-indigo font-mono text-sm mb-4">
-                            <i class="fa-solid fa-layer-group"></i>
+                            <span  class="iconify" data-icon="carbon:layers" aria-hidden="true"></span>
                             <span>Architecture</span>
                         </div>
                         <h2 class="font-serif text-3xl font-bold text-charcoal mb-4 group-hover:text-indigo transition-colors">How Netsuke Works</h2>
@@ -168,7 +166,7 @@
                         </div>
 
                         <a href="./" class="inline-flex items-center text-indigo font-bold hover:text-vermillion transition-colors">
-                            Read the full deep dive <i class="fa-solid fa-arrow-right ml-2"></i>
+                            Read the full deep dive <span  class="iconify ml-2" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                     </div>
                     <div class="bg-boxwood-pale p-8 lg:p-12 border-t lg:border-t-0 lg:border-l border-stone flex items-center justify-center relative overflow-hidden">
@@ -191,11 +189,11 @@
                                 <div class="pl-4 text-stone-light">... internal logic ...</div>
                                 <div class="bg-indigo/5 p-2 rounded border border-indigo/10 text-indigo flex justify-between items-center">
                                     <span>Analysis Phase</span>
-                                    <i class="fa-solid fa-check text-matcha"></i>
+                                    <span  class="iconify text-matcha" data-icon="carbon:checkmark" aria-hidden="true"></span>
                                 </div>
                                 <div class="bg-boxwood p-2 rounded border border-stone text-charcoal shadow-sm flex justify-between items-center">
                                     <span>Execution Phase</span>
-                                    <i class="fa-solid fa-spinner fa-spin text-charcoal-mid"></i>
+                                    <span  class="iconify text-charcoal-mid animate-spin" data-icon="carbon:rotate-360" aria-hidden="true"></span>
                                 </div>
                                 <div class="text-charcoal-mid">}</div>
                             </div>
@@ -219,7 +217,7 @@
                 <section id="philosophy">
                     <div class="flex items-center mb-8">
                         <div class="w-10 h-10 rounded-full bg-indigo/10 text-indigo flex items-center justify-center mr-4">
-                            <i class="fa-solid fa-lightbulb"></i>
+                            <span  class="iconify" data-icon="carbon:idea" aria-hidden="true"></span>
                         </div>
                         <h2 class="font-serif text-2xl font-bold text-charcoal">Philosophy & Context</h2>
                     </div>
@@ -249,7 +247,7 @@
                 <section id="contributing">
                     <div class="flex items-center mb-8">
                         <div class="w-10 h-10 rounded-full bg-matcha/10 text-matcha flex items-center justify-center mr-4">
-                            <i class="fa-solid fa-code-branch"></i>
+                            <span  class="iconify" data-icon="carbon:branch" aria-hidden="true"></span>
                         </div>
                         <h2 class="font-serif text-2xl font-bold text-charcoal">Contributing</h2>
                     </div>
@@ -259,42 +257,42 @@
                             <a href="../contributing/" class="block p-6 hover:bg-boxwood-pale transition-colors group">
                                 <div class="flex items-start">
                                     <div class="flex-shrink-0 mt-1">
-                                        <i class="fa-regular fa-file-lines text-stone group-hover:text-indigo transition-colors"></i>
+                                        <span  class="iconify text-stone group-hover:text-indigo transition-colors" data-icon="carbon:notebook" aria-hidden="true"></span>
                                     </div>
                                     <div class="ml-4">
                                         <h3 class="text-base font-bold text-charcoal group-hover:text-indigo transition-colors">Contribution Guidelines</h3>
                                         <p class="text-sm text-charcoal-mid mt-1">Start here. Code of conduct, setting up your dev environment, and pull request etiquette.</p>
                                     </div>
                                     <div class="ml-auto pl-4">
-                                        <i class="fa-solid fa-chevron-right text-stone text-xs"></i>
+                                        <span  class="iconify text-stone text-xs" data-icon="carbon:chevron-right" aria-hidden="true"></span>
                                     </div>
                                 </div>
                             </a>
                             <a href="../contributing/" class="block p-6 hover:bg-boxwood-pale transition-colors group">
                                 <div class="flex items-start">
                                     <div class="flex-shrink-0 mt-1">
-                                        <i class="fa-solid fa-language text-stone group-hover:text-indigo transition-colors"></i>
+                                        <span  class="iconify text-stone group-hover:text-indigo transition-colors" data-icon="carbon:language" aria-hidden="true"></span>
                                     </div>
                                     <div class="ml-4">
                                         <h3 class="text-base font-bold text-charcoal group-hover:text-indigo transition-colors">Translating Documentation</h3>
                                         <p class="text-sm text-charcoal-mid mt-1">Help us localize Netsuke. Guide to our i18n workflow and glossary.</p>
                                     </div>
                                     <div class="ml-auto pl-4">
-                                        <i class="fa-solid fa-chevron-right text-stone text-xs"></i>
+                                        <span  class="iconify text-stone text-xs" data-icon="carbon:chevron-right" aria-hidden="true"></span>
                                     </div>
                                 </div>
                             </a>
                             <a href="../docs/templating-and-standard-library/" class="block p-6 hover:bg-boxwood-pale transition-colors group">
                                 <div class="flex items-start">
                                     <div class="flex-shrink-0 mt-1">
-                                        <i class="fa-solid fa-cube text-stone group-hover:text-indigo transition-colors"></i>
+                                        <span  class="iconify text-stone group-hover:text-indigo transition-colors" data-icon="carbon:cube" aria-hidden="true"></span>
                                     </div>
                                     <div class="ml-4">
                                         <h3 class="text-base font-bold text-charcoal group-hover:text-indigo transition-colors">Writing Rules</h3>
                                         <p class="text-sm text-charcoal-mid mt-1">Advanced guide on creating custom rulesets using Starlark for the standard library.</p>
                                     </div>
                                     <div class="ml-auto pl-4">
-                                        <i class="fa-solid fa-chevron-right text-stone text-xs"></i>
+                                        <span  class="iconify text-stone text-xs" data-icon="carbon:chevron-right" aria-hidden="true"></span>
                                     </div>
                                 </div>
                             </a>
@@ -306,26 +304,26 @@
                 <section id="community">
                     <div class="flex items-center mb-8">
                         <div class="w-10 h-10 rounded-full bg-vermillion/10 text-vermillion flex items-center justify-center mr-4">
-                            <i class="fa-solid fa-users"></i>
+                            <span  class="iconify" data-icon="carbon:group" aria-hidden="true"></span>
                         </div>
                         <h2 class="font-serif text-2xl font-bold text-charcoal">Community Resources</h2>
                     </div>
 
                     <div class="grid md:grid-cols-3 gap-6">
                         <div class="p-6 bg-boxwood-pale rounded-xl border border-stone text-center">
-                            <i class="fa-brands fa-discord text-3xl text-indigo mb-4"></i>
+                            <span  class="iconify text-3xl text-indigo mb-4" data-icon="carbon:logo-discord" aria-hidden="true"></span>
                             <h3 class="font-bold text-charcoal mb-2">Discord Server</h3>
                             <p class="text-xs text-charcoal-mid mb-4">Chat with core maintainers and other users.</p>
                             <a href="./" class="text-indigo text-sm font-bold hover:underline">Join Server</a>
                         </div>
                         <div class="p-6 bg-boxwood-pale rounded-xl border border-stone text-center">
-                            <i class="fa-brands fa-github text-3xl text-charcoal mb-4"></i>
+                            <span  class="iconify text-3xl text-charcoal mb-4" data-icon="carbon:logo-github" aria-hidden="true"></span>
                             <h3 class="font-bold text-charcoal mb-2">GitHub Discussions</h3>
                             <p class="text-xs text-charcoal-mid mb-4">Q&A, ideas, and show & tell.</p>
                             <a href="../contributing/" class="text-indigo text-sm font-bold hover:underline">Go to GitHub</a>
                         </div>
                         <div class="p-6 bg-boxwood-pale rounded-xl border border-stone text-center">
-                            <i class="fa-solid fa-calendar-check text-3xl text-vermillion mb-4"></i>
+                            <span  class="iconify text-3xl text-vermillion mb-4" data-icon="carbon:calendar" aria-hidden="true"></span>
                             <h3 class="font-bold text-charcoal mb-2">Office Hours</h3>
                             <p class="text-xs text-charcoal-mid mb-4">Weekly calls for maintainers and contributors.</p>
                             <a href="./" class="text-indigo text-sm font-bold hover:underline">View Calendar</a>
@@ -401,7 +399,7 @@
                 <div class="bg-charcoal rounded-xl p-6 text-white shadow-lg text-center relative overflow-hidden">
                     <div class="absolute top-0 right-0 -mr-10 -mt-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                     <div class="relative z-10">
-                        <i class="fa-regular fa-paper-plane text-2xl mb-3 text-vermillion"></i>
+                        <span  class="iconify text-2xl mb-3 text-vermillion" data-icon="carbon:send" aria-hidden="true"></span>
                         <h3 class="font-serif text-lg font-bold mb-2">Devlog Updates</h3>
                         <p class="text-stone-light text-xs mb-4">
                             Get the latest guides and release notes delivered to your inbox.
@@ -432,9 +430,9 @@
                         Netsuke is free, open-source, and written in Rust. It aims to bring the power of large-scale build systems to projects of any size.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="../examples/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-github"></i></a>
-                        <a href="./" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="./" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-discord"></i></a>
+                        <a href="../examples/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
+                        <a href="./" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-x" aria-hidden="true"></span></a>
+                        <a href="./" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-discord" aria-hidden="true"></span></a>
                     </div>
                 </div>
 

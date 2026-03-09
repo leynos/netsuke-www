@@ -1,16 +1,11 @@
 <html lang="en">
 
   <head>
-    <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Himotoshi Design Language (Netsuke) - Design System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      window.FontAwesomeConfig = {
-        autoReplaceSvg: 'nest'
-      };
       tailwind.config = {
         theme:
         {
@@ -62,9 +57,7 @@
         }
       }
     </script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link
@@ -141,8 +134,8 @@
               class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm">Tokens</a>
           </div>
           <div class="flex items-center space-x-4"><a href="../examples/"
-              class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors"><i
-                class="fa-brands fa-github mr-2"></i> GitHub
+              class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors"><span
+                 class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
             </a></div>
         </div>
       </div>
@@ -293,7 +286,7 @@
               class="p-6 rounded-lg bg-boxwood-pale border border-stone flex items-start space-x-4">
               <div
                 class="w-10 h-10 rounded-full bg-matcha flex items-center justify-center text-white shrink-0">
-                <i class="fa-solid fa-check"></i></div>
+                <span  class="iconify" data-icon="carbon:checkmark" aria-hidden="true"></span></div>
               <div>
                 <h4 class="font-bold text-charcoal mb-1">Success</h4>
                 <p class="text-sm text-charcoal-mid">Use Matcha (#4A7C59) for
@@ -304,7 +297,7 @@
               class="p-6 rounded-lg bg-boxwood-pale border border-stone flex items-start space-x-4">
               <div
                 class="w-10 h-10 rounded-full bg-amber flex items-center justify-center text-white shrink-0">
-                <i class="fa-solid fa-triangle-exclamation"></i></div>
+                <span  class="iconify" data-icon="carbon:warning-alt-filled" aria-hidden="true"></span></div>
               <div>
                 <h4 class="font-bold text-charcoal mb-1">Warning</h4>
                 <p class="text-sm text-charcoal-mid">Use Amber (#C48B2C) for
@@ -315,7 +308,7 @@
               class="p-6 rounded-lg bg-boxwood-pale border border-stone flex items-start space-x-4">
               <div
                 class="w-10 h-10 rounded-full bg-vermillion flex items-center justify-center text-white shrink-0">
-                <i class="fa-solid fa-xmark"></i></div>
+                <span  class="iconify" data-icon="carbon:close" aria-hidden="true"></span></div>
               <div>
                 <h4 class="font-bold text-charcoal mb-1">Error</h4>
                 <p class="text-sm text-charcoal-mid">Use Vermillion (#C23B22)
@@ -429,7 +422,7 @@
           <div class="bg-white p-8 rounded-xl border border-stone shadow-sm">
             <h3
               class="font-serif text-xl font-bold text-charcoal mb-6 flex items-center">
-              <i class="fa-solid fa-hand-pointer text-indigo mr-3 text-sm"></i>
+              <span  class="iconify text-indigo mr-3 text-sm" data-icon="carbon:cursor-1" aria-hidden="true"></span>
               Buttons
             </h3>
             <div class="space-y-8">
@@ -466,7 +459,7 @@
           <div class="bg-white p-8 rounded-xl border border-stone shadow-sm">
             <h3
               class="font-serif text-xl font-bold text-charcoal mb-6 flex items-center">
-              <i class="fa-solid fa-tag text-indigo mr-3 text-sm"></i> Tags
+              <span  class="iconify text-indigo mr-3 text-sm" data-icon="carbon:tag" aria-hidden="true"></span> Tags
               &amp; Badges
             </h3>
             <div class="space-y-6">
@@ -496,8 +489,8 @@
                 <div
                   class="border-l-4 border-indigo bg-indigo/5 p-4 rounded-r-md">
                   <div class="flex">
-                    <div class="flex-shrink-0"><i
-                        class="fa-solid fa-circle-info text-indigo"></i></div>
+                    <div class="flex-shrink-0"><span
+                         class="iconify text-indigo" data-icon="carbon:information-filled" aria-hidden="true"></span></div>
                     <div class="ml-3">
                       <h3 class="text-sm font-medium text-indigo">Information
                       </h3>
@@ -511,8 +504,8 @@
                 <div
                   class="mt-4 border-l-4 border-vermillion bg-vermillion/5 p-4 rounded-r-md">
                   <div class="flex">
-                    <div class="flex-shrink-0"><i
-                        class="fa-solid fa-circle-exclamation text-vermillion"></i>
+                    <div class="flex-shrink-0"><span
+                         class="iconify text-vermillion" data-icon="carbon:error-filled" aria-hidden="true"></span>
                     </div>
                     <div class="ml-3">
                       <h3 class="text-sm font-medium text-vermillion">Critical
@@ -603,7 +596,7 @@
                 to avoid conflicts.
               </p><button
                 class="text-indigo text-sm font-medium hover:text-indigo-light flex items-center">
-                Download JSON <i class="fa-solid fa-download ml-2"></i></button>
+                Download JSON <span  class="iconify ml-2" data-icon="carbon:download" aria-hidden="true"></span></button>
             </div>
           </div>
           <div class="lg:col-span-2">
@@ -794,12 +787,12 @@
             © 2024 Netsuke Design System. All rights reserved.
           </p>
           <div class="flex space-x-6"><a href="../examples/"
-              class="text-charcoal-light hover:text-white transition-colors"><i
-                class="fa-brands fa-github text-lg"></i></a><a href="./"
-              class="text-charcoal-light hover:text-white transition-colors"><i
-                class="fa-brands fa-figma text-lg"></i></a><a href="./"
-              class="text-charcoal-light hover:text-white transition-colors"><i
-                class="fa-brands fa-npm text-lg"></i></a></div>
+              class="text-charcoal-light hover:text-white transition-colors"><span
+                 class="iconify text-lg" data-icon="carbon:logo-github" aria-hidden="true"></span></a><a href="./"
+              class="text-charcoal-light hover:text-white transition-colors"><span
+                 class="iconify text-lg" data-icon="carbon:logo-figma" aria-hidden="true"></span></a><a href="./"
+              class="text-charcoal-light hover:text-white transition-colors"><span
+                 class="iconify text-lg" data-icon="carbon:logo-npm" aria-hidden="true"></span></a></div>
         </div>
       </div>
     </footer>

@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Examples Hub - Netsuke Build System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };
+<script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -51,7 +49,7 @@
             }
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -118,7 +116,7 @@
 
                 <div class="flex items-center space-x-4">
                     <a href="./" class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors">
-                        <i class="fa-brands fa-github mr-2"></i> GitHub
+                        <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
                     </a>
                     <a href="../install/" class="inline-flex items-center px-4 py-1.5 bg-indigo text-white rounded-md text-sm font-medium shadow-sm hover:bg-indigo-light transition-colors">
                         Install
@@ -160,10 +158,10 @@
                     </p>
                     <div class="flex flex-wrap gap-4 mt-auto">
                         <a href="basic-c-application/" class="inline-flex items-center px-6 py-3 bg-indigo text-white rounded-md font-medium shadow-sm hover:bg-indigo-light transition-all">
-                            View Example <i class="fa-solid fa-arrow-right ml-2"></i>
+                            View Example <span  class="iconify ml-2" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                         <a href="./" class="inline-flex items-center px-6 py-3 bg-white border border-charcoal/20 text-charcoal rounded-md font-medium hover:bg-stone-light transition-colors">
-                            <i class="fa-brands fa-github mr-2"></i> Open in GitHub
+                            <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> Open in GitHub
                         </a>
                     </div>
                 </div>
@@ -211,7 +209,7 @@
                 </div>
 
                 <div class="relative w-full sm:w-64">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-stone text-sm"></i>
+                    <span  class="iconify absolute left-3 top-2.5 text-stone text-sm" data-icon="carbon:search" aria-hidden="true"></span>
                     <input type="text" placeholder="Search examples..." class="w-full pl-9 pr-4 py-1.5 bg-white border border-stone rounded-md text-sm text-charcoal placeholder-stone focus:border-indigo focus:ring-1 focus:ring-indigo transition-colors">
                 </div>
             </div>
@@ -225,7 +223,7 @@
                 <div class="h-48 bg-charcoal relative overflow-hidden group">
                     <div class="absolute inset-0 bg-[url('../assets/example-card-photo-1507238691740.jpg')] bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-30"></div>
                     <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-mono text-white border border-white/20">
-                        <i class="fa-brands fa-js mr-1 text-amber"></i> Web
+                        <span  class="iconify mr-1 text-amber" data-icon="carbon:application-web" aria-hidden="true"></span> Web
                     </div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
@@ -244,11 +242,11 @@
 
                     <div class="mt-auto pt-6 border-t border-stone-light flex justify-between items-center">
                         <a href="basic-c-application/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
-                            Read Guide <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                            Read Guide <span  class="iconify ml-2 text-xs" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                         <div class="flex space-x-3">
-                            <button class="text-stone hover:text-charcoal transition-colors" title="Copy Snippet"><i class="fa-regular fa-copy"></i></button>
-                            <a href="./" class="text-stone hover:text-charcoal transition-colors" title="View on GitHub"><i class="fa-brands fa-github"></i></a>
+                            <button class="text-stone hover:text-charcoal transition-colors" title="Copy Snippet"><span  class="iconify" data-icon="carbon:copy" aria-hidden="true"></span></button>
+                            <a href="./" class="text-stone hover:text-charcoal transition-colors" title="View on GitHub"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
                         </div>
                     </div>
                 </div>
@@ -259,7 +257,7 @@
                 <div class="h-48 bg-charcoal relative overflow-hidden group">
                      <div class="absolute inset-0 bg-[url('../assets/example-card-photo-1633525287515.jpg')] bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-30"></div>
                     <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-mono text-white border border-white/20">
-                        <i class="fa-solid fa-image mr-1 text-matcha"></i> Media
+                        <span  class="iconify mr-1 text-matcha" data-icon="carbon:image" aria-hidden="true"></span> Media
                     </div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
@@ -277,11 +275,11 @@
 
                     <div class="mt-auto pt-6 border-t border-stone-light flex justify-between items-center">
                         <a href="basic-c-application/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
-                            Read Guide <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                            Read Guide <span  class="iconify ml-2 text-xs" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                         <div class="flex space-x-3">
-                            <button class="text-stone hover:text-charcoal transition-colors" title="Copy Snippet"><i class="fa-regular fa-copy"></i></button>
-                            <a href="./" class="text-stone hover:text-charcoal transition-colors" title="View on GitHub"><i class="fa-brands fa-github"></i></a>
+                            <button class="text-stone hover:text-charcoal transition-colors" title="Copy Snippet"><span  class="iconify" data-icon="carbon:copy" aria-hidden="true"></span></button>
+                            <a href="./" class="text-stone hover:text-charcoal transition-colors" title="View on GitHub"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
                         </div>
                     </div>
                 </div>
@@ -292,7 +290,7 @@
                 <div class="h-48 bg-charcoal relative overflow-hidden group">
                      <div class="absolute inset-0 bg-[url('../assets/example-card-photo-1618005182384.jpg')] bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-30"></div>
                     <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-mono text-white border border-white/20">
-                        <i class="fa-solid fa-pen-nib mr-1 text-vermillion"></i> Design
+                        <span  class="iconify mr-1 text-vermillion" data-icon="carbon:pen-fountain" aria-hidden="true"></span> Design
                     </div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
@@ -310,11 +308,11 @@
 
                     <div class="mt-auto pt-6 border-t border-stone-light flex justify-between items-center">
                         <a href="basic-c-application/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
-                            Read Guide <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                            Read Guide <span  class="iconify ml-2 text-xs" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                         <div class="flex space-x-3">
-                            <button class="text-stone hover:text-charcoal transition-colors" title="Copy Snippet"><i class="fa-regular fa-copy"></i></button>
-                            <a href="./" class="text-stone hover:text-charcoal transition-colors" title="View on GitHub"><i class="fa-brands fa-github"></i></a>
+                            <button class="text-stone hover:text-charcoal transition-colors" title="Copy Snippet"><span  class="iconify" data-icon="carbon:copy" aria-hidden="true"></span></button>
+                            <a href="./" class="text-stone hover:text-charcoal transition-colors" title="View on GitHub"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
                         </div>
                     </div>
                 </div>
@@ -325,7 +323,7 @@
                 <div class="h-48 bg-charcoal relative overflow-hidden group">
                      <div class="absolute inset-0 bg-[url('../assets/example-card-photo-1455390582262.jpg')] bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-30"></div>
                     <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-mono text-white border border-white/20">
-                        <i class="fa-solid fa-book mr-1 text-boxwood"></i> Docs
+                        <span  class="iconify mr-1 text-boxwood" data-icon="carbon:book" aria-hidden="true"></span> Docs
                     </div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
@@ -343,11 +341,11 @@
 
                     <div class="mt-auto pt-6 border-t border-stone-light flex justify-between items-center">
                         <a href="basic-c-application/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
-                            Read Guide <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                            Read Guide <span  class="iconify ml-2 text-xs" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                         <div class="flex space-x-3">
-                            <button class="text-stone hover:text-charcoal transition-colors" title="Copy Snippet"><i class="fa-regular fa-copy"></i></button>
-                            <a href="./" class="text-stone hover:text-charcoal transition-colors" title="View on GitHub"><i class="fa-brands fa-github"></i></a>
+                            <button class="text-stone hover:text-charcoal transition-colors" title="Copy Snippet"><span  class="iconify" data-icon="carbon:copy" aria-hidden="true"></span></button>
+                            <a href="./" class="text-stone hover:text-charcoal transition-colors" title="View on GitHub"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
                         </div>
                     </div>
                 </div>
@@ -358,7 +356,7 @@
                 <div class="h-48 bg-charcoal relative overflow-hidden group">
                      <div class="absolute inset-0 bg-[url('../assets/example-card-photo-1518770660439.jpg')] bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-30"></div>
                     <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-mono text-white border border-white/20">
-                        <i class="fa-brands fa-rust mr-1 text-vermillion"></i> Rust
+                        <span  class="iconify mr-1 text-vermillion" data-icon="carbon:development" aria-hidden="true"></span> Rust
                     </div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
@@ -376,11 +374,11 @@
 
                     <div class="mt-auto pt-6 border-t border-stone-light flex justify-between items-center">
                         <a href="basic-c-application/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
-                            Read Guide <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                            Read Guide <span  class="iconify ml-2 text-xs" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                         <div class="flex space-x-3">
-                            <button class="text-stone hover:text-charcoal transition-colors" title="Copy Snippet"><i class="fa-regular fa-copy"></i></button>
-                            <a href="./" class="text-stone hover:text-charcoal transition-colors" title="View on GitHub"><i class="fa-brands fa-github"></i></a>
+                            <button class="text-stone hover:text-charcoal transition-colors" title="Copy Snippet"><span  class="iconify" data-icon="carbon:copy" aria-hidden="true"></span></button>
+                            <a href="./" class="text-stone hover:text-charcoal transition-colors" title="View on GitHub"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
                         </div>
                     </div>
                 </div>
@@ -391,7 +389,7 @@
                 <div class="h-48 bg-charcoal relative overflow-hidden group">
                      <div class="absolute inset-0 bg-[url('../assets/example-card-photo-1551288049.jpg')] bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-30"></div>
                     <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-mono text-white border border-white/20">
-                        <i class="fa-solid fa-chart-line mr-1 text-indigo-light"></i> Data
+                        <span  class="iconify mr-1 text-indigo-light" data-icon="carbon:chart-line" aria-hidden="true"></span> Data
                     </div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
@@ -409,11 +407,11 @@
 
                     <div class="mt-auto pt-6 border-t border-stone-light flex justify-between items-center">
                         <a href="basic-c-application/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
-                            Read Guide <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                            Read Guide <span  class="iconify ml-2 text-xs" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                         <div class="flex space-x-3">
-                            <button class="text-stone hover:text-charcoal transition-colors" title="Copy Snippet"><i class="fa-regular fa-copy"></i></button>
-                            <a href="./" class="text-stone hover:text-charcoal transition-colors" title="View on GitHub"><i class="fa-brands fa-github"></i></a>
+                            <button class="text-stone hover:text-charcoal transition-colors" title="Copy Snippet"><span  class="iconify" data-icon="carbon:copy" aria-hidden="true"></span></button>
+                            <a href="./" class="text-stone hover:text-charcoal transition-colors" title="View on GitHub"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
                         </div>
                     </div>
                 </div>
@@ -477,9 +475,9 @@
                         Netsuke is free, open-source, and written in Rust. It aims to bring the power of large-scale build systems to projects of any size.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="./" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-github"></i></a>
-                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-discord"></i></a>
+                        <a href="./" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
+                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-x" aria-hidden="true"></span></a>
+                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-discord" aria-hidden="true"></span></a>
                     </div>
                 </div>
 

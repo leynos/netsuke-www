@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basic C Application - Netsuke Examples</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };
+<script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -51,7 +49,7 @@
             }
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -138,7 +136,7 @@
 
                 <div class="flex items-center space-x-4">
                     <a href="../" class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors">
-                        <i class="fa-brands fa-github mr-2"></i> GitHub
+                        <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
                     </a>
                     <a href="../../install/" class="inline-flex items-center px-4 py-1.5 bg-indigo text-white rounded-md text-sm font-medium shadow-sm hover:bg-indigo-light transition-colors">
                         Install
@@ -161,13 +159,13 @@
                 </li>
                 <li>
                     <div class="flex items-center">
-                        <i class="fa-solid fa-chevron-right text-stone text-xs mx-2"></i>
+                        <span  class="iconify text-stone text-xs mx-2" data-icon="carbon:chevron-right" aria-hidden="true"></span>
                         <a href="./" class="ml-1 font-medium hover:text-indigo">System Programming</a>
                     </div>
                 </li>
                 <li aria-current="page">
                     <div class="flex items-center">
-                        <i class="fa-solid fa-chevron-right text-stone text-xs mx-2"></i>
+                        <span  class="iconify text-stone text-xs mx-2" data-icon="carbon:chevron-right" aria-hidden="true"></span>
                         <span class="ml-1 font-medium text-charcoal">Basic C Application</span>
                     </div>
                 </li>
@@ -186,7 +184,7 @@
                             Beginner
                         </span>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-matcha/10 text-matcha font-mono border border-matcha/20">
-                            <i class="fa-solid fa-check mr-1.5"></i> Verified v2.4
+                            <span  class="iconify mr-1.5" data-icon="carbon:checkmark" aria-hidden="true"></span> Verified v2.4
                         </span>
                     </div>
                     <h1 class="font-serif text-4xl lg:text-5xl font-bold text-charcoal mb-6">Basic C Application</h1>
@@ -196,10 +194,10 @@
                 </div>
                 <div class="flex flex-col gap-3 w-full lg:w-auto shrink-0">
                     <a href="./" class="inline-flex items-center justify-center px-6 py-3 bg-indigo text-white rounded-md font-medium shadow-sm hover:bg-indigo-light transition-all w-full lg:w-auto">
-                        <i class="fa-solid fa-download mr-2"></i> Download Source
+                        <span  class="iconify mr-2" data-icon="carbon:download" aria-hidden="true"></span> Download Source
                     </a>
                     <a href="../" class="inline-flex items-center justify-center px-6 py-3 bg-white border border-charcoal/20 text-charcoal rounded-md font-medium hover:bg-stone-light transition-colors w-full lg:w-auto">
-                        <i class="fa-brands fa-github mr-2"></i> View on GitHub
+                        <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> View on GitHub
                     </a>
                 </div>
             </div>
@@ -213,28 +211,28 @@
                 <!-- Section: Project Structure -->
                 <section id="structure" class="bg-white rounded-xl border border-stone shadow-sm p-6 lg:p-8">
                     <h2 class="font-serif text-2xl font-bold text-charcoal mb-6 flex items-center">
-                        <i class="fa-regular fa-folder-open text-vermillion mr-3 text-lg"></i> Directory Structure
+                        <span  class="iconify text-vermillion mr-3 text-lg" data-icon="carbon:folder-open" aria-hidden="true"></span> Directory Structure
                     </h2>
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="font-mono text-sm text-charcoal-mid bg-boxwood-pale p-6 rounded-lg border border-stone">
                             <div class="flex items-center mb-2">
-                                <i class="fa-regular fa-folder text-indigo mr-2"></i>
+                                <span  class="iconify text-indigo mr-2" data-icon="carbon:folder" aria-hidden="true"></span>
                                 <span class="font-bold">basic-c/</span>
                             </div>
                             <div class="file-tree-item">
-                                <i class="fa-regular fa-file-code text-stone mr-2"></i>
+                                <span  class="iconify text-stone mr-2" data-icon="carbon:code-reference" aria-hidden="true"></span>
                                 <span>main.c</span>
                             </div>
                             <div class="file-tree-item">
-                                <i class="fa-regular fa-file-code text-stone mr-2"></i>
+                                <span  class="iconify text-stone mr-2" data-icon="carbon:code-reference" aria-hidden="true"></span>
                                 <span>utils.c</span>
                             </div>
                             <div class="file-tree-item">
-                                <i class="fa-regular fa-file-code text-stone mr-2"></i>
+                                <span  class="iconify text-stone mr-2" data-icon="carbon:code-reference" aria-hidden="true"></span>
                                 <span>utils.h</span>
                             </div>
                             <div class="file-tree-item">
-                                <i class="fa-solid fa-cube text-vermillion mr-2"></i>
+                                <span  class="iconify text-vermillion mr-2" data-icon="carbon:cube" aria-hidden="true"></span>
                                 <span class="font-bold text-charcoal">Netsukefile</span>
                             </div>
                         </div>
@@ -254,7 +252,7 @@
                 <section id="manifest">
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="font-serif text-2xl font-bold text-charcoal flex items-center">
-                            <i class="fa-solid fa-code text-vermillion mr-3 text-lg"></i> Annotated Manifest
+                            <span  class="iconify text-vermillion mr-3 text-lg" data-icon="carbon:code" aria-hidden="true"></span> Annotated Manifest
                         </h2>
                         <span class="text-xs font-mono text-stone bg-charcoal px-2 py-1 rounded">Netsukefile</span>
                     </div>
@@ -263,7 +261,7 @@
                         <!-- Code Block -->
                         <div class="code-block p-6 text-sm relative shadow-paper-lg">
                             <div class="absolute top-4 right-4 flex space-x-2">
-                                <button class="text-stone-light hover:text-white transition-colors" title="Copy"><i class="fa-regular fa-copy"></i></button>
+                                <button class="text-stone-light hover:text-white transition-colors" title="Copy"><span  class="iconify" data-icon="carbon:copy" aria-hidden="true"></span></button>
                             </div>
                             <pre><code class="language-python"><span class="text-stone-light/50 italic"># Load standard C rules from the standard library</span>
 <span class="text-amber">load</span>(<span class="text-matcha">"@std/c"</span>, <span class="text-matcha">"cc_binary"</span>, <span class="text-matcha">"cc_library"</span>) <span class="relative inline-block ml-2"><span class="annotation-marker w-5 h-5 rounded-full bg-vermillion text-white text-xs font-bold flex items-center justify-center absolute -top-1 -left-1 shadow-sm">1</span></span>
@@ -314,7 +312,7 @@
                 <!-- Section: Running the Build -->
                 <section id="terminal-preview">
                     <h2 class="font-serif text-2xl font-bold text-charcoal mb-6 flex items-center">
-                        <i class="fa-solid fa-terminal text-vermillion mr-3 text-lg"></i> Running the Build
+                        <span  class="iconify text-vermillion mr-3 text-lg" data-icon="carbon:terminal" aria-hidden="true"></span> Running the Build
                     </h2>
 
                     <div class="bg-charcoal rounded-xl border border-charcoal-mid shadow-lg overflow-hidden">
@@ -375,7 +373,7 @@
                 <!-- Section: Visual Graph -->
                 <section id="dependency-graph">
                     <h2 class="font-serif text-2xl font-bold text-charcoal mb-6 flex items-center">
-                        <i class="fa-solid fa-diagram-project text-vermillion mr-3 text-lg"></i> Dependency Graph
+                        <span  class="iconify text-vermillion mr-3 text-lg" data-icon="carbon:chart-relationship" aria-hidden="true"></span> Dependency Graph
                     </h2>
                     <div class="bg-boxwood-pale rounded-xl border border-stone p-8 flex justify-center items-center h-64 relative overflow-hidden">
                         <!-- Simple CSS Nodes Graph -->
@@ -429,7 +427,7 @@
                         <ul class="space-y-3">
                             <li>
                                 <a href="../../docs/rules-and-targets/" class="flex items-start group">
-                                    <i class="fa-solid fa-book text-stone mt-1 mr-2 group-hover:text-indigo transition-colors"></i>
+                                    <span  class="iconify text-stone mt-1 mr-2 group-hover:text-indigo transition-colors" data-icon="carbon:book" aria-hidden="true"></span>
                                     <div>
                                         <span class="block text-sm font-medium text-charcoal group-hover:text-indigo transition-colors">C/C++ Rules</span>
                                         <span class="text-xs text-charcoal-light">Reference for cc_binary</span>
@@ -438,7 +436,7 @@
                             </li>
                             <li>
                                 <a href="../../docs/rules-and-targets/" class="flex items-start group">
-                                    <i class="fa-solid fa-book text-stone mt-1 mr-2 group-hover:text-indigo transition-colors"></i>
+                                    <span  class="iconify text-stone mt-1 mr-2 group-hover:text-indigo transition-colors" data-icon="carbon:book" aria-hidden="true"></span>
                                     <div>
                                         <span class="block text-sm font-medium text-charcoal group-hover:text-indigo transition-colors">Target Visibility</span>
                                         <span class="text-xs text-charcoal-light">Understanding public/private</span>
@@ -447,7 +445,7 @@
                             </li>
                             <li>
                                 <a href="../../docs/cli-security-and-configuration/#cli" class="flex items-start group">
-                                    <i class="fa-solid fa-terminal text-stone mt-1 mr-2 group-hover:text-indigo transition-colors"></i>
+                                    <span  class="iconify text-stone mt-1 mr-2 group-hover:text-indigo transition-colors" data-icon="carbon:terminal" aria-hidden="true"></span>
                                     <div>
                                         <span class="block text-sm font-medium text-charcoal group-hover:text-indigo transition-colors">CLI Reference</span>
                                         <span class="text-xs text-charcoal-light">netsuke build options</span>
@@ -468,7 +466,7 @@
                     <a href="./" class="block bg-white/10 backdrop-blur border border-white/20 rounded-lg p-3 hover:bg-white/20 transition-colors relative z-10">
                         <div class="flex justify-between items-center mb-1">
                             <span class="text-xs font-mono text-amber">Web</span>
-                            <i class="fa-solid fa-arrow-right text-xs opacity-70"></i>
+                            <span  class="iconify text-xs opacity-70" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </div>
                         <div class="font-bold text-sm">Static Site Pipeline</div>
                     </a>
@@ -493,9 +491,9 @@
                         Netsuke is free, open-source, and written in Rust. It aims to bring the power of large-scale build systems to projects of any size.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="../" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-github"></i></a>
-                        <a href="../../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="../../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-discord"></i></a>
+                        <a href="../" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
+                        <a href="../../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-x" aria-hidden="true"></span></a>
+                        <a href="../../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-discord" aria-hidden="true"></span></a>
                     </div>
                 </div>
 

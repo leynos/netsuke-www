@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Install Netsuke - Build System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };
+<script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -51,7 +49,7 @@
             }
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -123,7 +121,7 @@
 
                 <div class="flex items-center space-x-4">
                     <a href="../examples/" class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors">
-                        <i class="fa-brands fa-github mr-2"></i> GitHub
+                        <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
                     </a>
                     <a href="./" class="inline-flex items-center px-4 py-1.5 bg-vermillion text-white rounded-md text-sm font-medium shadow-sm hover:bg-vermillion-dim transition-colors ring-2 ring-vermillion ring-offset-2 ring-offset-[#FAF6F0]">
                         Install
@@ -139,16 +137,16 @@
         <!-- Hero Section -->
         <header id="install-hero" class="mb-16 text-center max-w-3xl mx-auto">
             <div class="inline-flex items-center px-3 py-1 rounded-full bg-boxwood text-charcoal-mid text-xs font-semibold uppercase tracking-wider border border-stone mb-6">
-                <i class="fa-solid fa-download mr-2 text-indigo"></i> Get Started
+                <span  class="iconify mr-2 text-indigo" data-icon="carbon:download" aria-hidden="true"></span> Get Started
             </div>
             <h1 class="font-serif text-5xl lg:text-6xl font-bold text-charcoal mb-6">Install Netsuke</h1>
             <p class="text-xl text-charcoal-mid font-light leading-relaxed mb-8">
                 Get up and running in seconds. Netsuke is a single binary with no external dependencies, available for macOS, Linux, and Windows.
             </p>
             <div class="flex justify-center space-x-6 text-sm text-charcoal-mid">
-                <span class="flex items-center"><i class="fa-brands fa-apple mr-2 text-lg"></i> macOS</span>
-                <span class="flex items-center"><i class="fa-brands fa-linux mr-2 text-lg"></i> Linux</span>
-                <span class="flex items-center"><i class="fa-brands fa-windows mr-2 text-lg"></i> Windows</span>
+                <span class="flex items-center"><span  class="iconify mr-2 text-lg" data-icon="carbon:apple" aria-hidden="true"></span> macOS</span>
+                <span class="flex items-center"><span  class="iconify mr-2 text-lg" data-icon="carbon:linux" aria-hidden="true"></span> Linux</span>
+                <span class="flex items-center"><span  class="iconify mr-2 text-lg" data-icon="carbon:window-base" aria-hidden="true"></span> Windows</span>
             </div>
         </header>
 
@@ -158,16 +156,16 @@
                 <!-- OS Tabs -->
                 <div class="flex border-b border-stone bg-boxwood-pale/50 overflow-x-auto">
                     <button class="tab-btn active px-6 py-4 text-sm font-bold text-charcoal border-r border-stone hover:bg-boxwood-pale transition-colors flex items-center whitespace-nowrap">
-                        <i class="fa-brands fa-apple mr-2"></i> macOS / Linux
+                        <span  class="iconify mr-2" data-icon="carbon:apple" aria-hidden="true"></span> macOS / Linux
                     </button>
                     <button class="tab-btn px-6 py-4 text-sm font-medium text-charcoal-mid border-r border-stone hover:bg-boxwood-pale transition-colors flex items-center whitespace-nowrap">
-                        <i class="fa-brands fa-windows mr-2"></i> Windows
+                        <span  class="iconify mr-2" data-icon="carbon:window-base" aria-hidden="true"></span> Windows
                     </button>
                     <button class="tab-btn px-6 py-4 text-sm font-medium text-charcoal-mid border-r border-stone hover:bg-boxwood-pale transition-colors flex items-center whitespace-nowrap">
-                        <i class="fa-brands fa-rust mr-2"></i> Cargo
+                        <span  class="iconify mr-2" data-icon="carbon:development" aria-hidden="true"></span> Cargo
                     </button>
                     <button class="tab-btn px-6 py-4 text-sm font-medium text-charcoal-mid hover:bg-boxwood-pale transition-colors flex items-center whitespace-nowrap">
-                        <i class="fa-solid fa-box-open mr-2"></i> Manual
+                        <span  class="iconify mr-2" data-icon="carbon:box" aria-hidden="true"></span> Manual
                     </button>
                 </div>
 
@@ -180,7 +178,7 @@
                     <div class="bg-charcoal rounded-lg p-6 relative group code-block-wrapper">
                         <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                             <button class="text-xs text-white bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded border border-white/20 transition-colors">
-                                <i class="fa-regular fa-copy mr-1"></i> Copy
+                                <span  class="iconify mr-1" data-icon="carbon:copy" aria-hidden="true"></span> Copy
                             </button>
                         </div>
                         <code class="font-mono text-sm text-stone-light break-all">
@@ -191,7 +189,7 @@
                     <div class="mt-8 grid md:grid-cols-2 gap-6">
                         <div class="bg-boxwood-pale p-4 rounded-lg border border-stone">
                             <h4 class="font-bold text-sm text-charcoal mb-2 flex items-center">
-                                <i class="fa-brands fa-brew mr-2 text-amber"></i> Homebrew
+                                <span  class="iconify mr-2 text-amber" data-icon="carbon:chemistry" aria-hidden="true"></span> Homebrew
                             </h4>
                             <div class="bg-white p-3 rounded border border-stone font-mono text-xs text-charcoal-mid">
                                 brew install netsuke
@@ -199,7 +197,7 @@
                         </div>
                         <div class="bg-boxwood-pale p-4 rounded-lg border border-stone">
                             <h4 class="font-bold text-sm text-charcoal mb-2 flex items-center">
-                                <i class="fa-solid fa-cube mr-2 text-indigo"></i> Nix
+                                <span  class="iconify mr-2 text-indigo" data-icon="carbon:cube" aria-hidden="true"></span> Nix
                             </h4>
                             <div class="bg-white p-3 rounded border border-stone font-mono text-xs text-charcoal-mid">
                                 nix-env -iA nixpkgs.netsuke
@@ -208,7 +206,7 @@
                     </div>
 
                     <div class="mt-8 pt-6 border-t border-stone-light flex items-start gap-3">
-                        <i class="fa-solid fa-circle-info text-indigo mt-0.5"></i>
+                        <span  class="iconify text-indigo mt-0.5" data-icon="carbon:information-filled" aria-hidden="true"></span>
                         <p class="text-xs text-charcoal-mid">
                             <strong>Note:</strong> You may need to restart your terminal after installation for the <code>netsuke</code> command to be recognized.
                         </p>
@@ -277,7 +275,7 @@
 
                         <div class="mt-6 flex gap-4">
                             <a href="../docs/getting-started/" class="inline-flex items-center px-5 py-2.5 bg-indigo text-white rounded-md font-medium shadow-sm hover:bg-indigo-light transition-colors">
-                                Read Getting Started Guide <i class="fa-solid fa-arrow-right ml-2"></i>
+                                Read Getting Started Guide <span  class="iconify ml-2" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                             </a>
                         </div>
                     </div>
@@ -288,7 +286,7 @@
                 <div class="lg:col-span-4 space-y-8">
                     <div class="bg-boxwood-pale p-6 rounded-xl border border-stone">
                         <h3 class="font-serif text-lg font-bold text-charcoal mb-4 flex items-center">
-                            <i class="fa-solid fa-wrench text-amber mr-2 text-sm"></i> Troubleshooting
+                            <span  class="iconify text-amber mr-2 text-sm" data-icon="carbon:tool-box" aria-hidden="true"></span> Troubleshooting
                         </h3>
                         <div class="space-y-4">
                             <div class="p-3 bg-white rounded border border-stone">
@@ -317,16 +315,16 @@
 
                         <div class="space-y-2">
                              <a href="./" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
-                                <span class="text-sm font-medium text-charcoal"><i class="fa-brands fa-apple mr-2 text-charcoal-light"></i> macOS (Universal)</span>
-                                <i class="fa-solid fa-download text-indigo opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                <span class="text-sm font-medium text-charcoal"><span  class="iconify mr-2 text-charcoal-light" data-icon="carbon:apple" aria-hidden="true"></span> macOS (Universal)</span>
+                                <span  class="iconify text-indigo opacity-0 group-hover:opacity-100 transition-opacity" data-icon="carbon:download" aria-hidden="true"></span>
                              </a>
                              <a href="./" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
-                                <span class="text-sm font-medium text-charcoal"><i class="fa-brands fa-linux mr-2 text-charcoal-light"></i> Linux (x86_64)</span>
-                                <i class="fa-solid fa-download text-indigo opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                <span class="text-sm font-medium text-charcoal"><span  class="iconify mr-2 text-charcoal-light" data-icon="carbon:linux" aria-hidden="true"></span> Linux (x86_64)</span>
+                                <span  class="iconify text-indigo opacity-0 group-hover:opacity-100 transition-opacity" data-icon="carbon:download" aria-hidden="true"></span>
                              </a>
                              <a href="./" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
-                                <span class="text-sm font-medium text-charcoal"><i class="fa-brands fa-windows mr-2 text-charcoal-light"></i> Windows (x64)</span>
-                                <i class="fa-solid fa-download text-indigo opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                <span class="text-sm font-medium text-charcoal"><span  class="iconify mr-2 text-charcoal-light" data-icon="carbon:window-base" aria-hidden="true"></span> Windows (x64)</span>
+                                <span  class="iconify text-indigo opacity-0 group-hover:opacity-100 transition-opacity" data-icon="carbon:download" aria-hidden="true"></span>
                              </a>
                         </div>
                         <div class="mt-4 text-center">
@@ -410,9 +408,9 @@
                         Netsuke is free, open-source, and written in Rust. It aims to bring the power of large-scale build systems to projects of any size.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="../examples/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-github"></i></a>
-                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-discord"></i></a>
+                        <a href="../examples/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
+                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-x" aria-hidden="true"></span></a>
+                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-discord" aria-hidden="true"></span></a>
                     </div>
                 </div>
 
