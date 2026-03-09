@@ -5,7 +5,7 @@ This ExecPlan (execution plan) is a living document. The sections
 `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work
 proceeds.
 
-Status: DRAFT
+Status: IN PROGRESS
 
 ## Purpose / big picture
 
@@ -273,6 +273,8 @@ running them and record the results in `Outcomes & Retrospective`.
   between the reviewed docs and the current prototype pages.
 - [x] 2026-03-09 17:00 GMT: Drafted this ExecPlan for the website copy,
   examples, and inline-code overhaul.
+- [x] 2026-03-09 17:25 GMT: Approval received; implementation started and the
+  plan status moved to `IN PROGRESS`.
 - [ ] Build the canonical content matrix for page-by-page claims.
 - [ ] Rewrite high-traffic pages in `netsuke/` without layout changes.
 - [ ] Normalize `docs/examples/*` to the reviewed manifest syntax.
