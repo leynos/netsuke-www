@@ -5,7 +5,7 @@ This ExecPlan (execution plan) is a living document. The sections
 `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work
 proceeds.
 
-Status: IN PROGRESS
+Status: COMPLETE
 
 ## Purpose / big picture
 
@@ -284,8 +284,10 @@ running them and record the results in `Outcomes & Retrospective`.
   align with the reviewed YAML-plus-Jinja design.
 - [x] 2026-03-09 18:05 GMT: Rewrote the examples hub and the basic C example
   page to match the normalized examples.
-- [ ] Run terminology sweep, then run doc gates and capture logs.
-- [ ] Update this ExecPlan with implementation outcomes and retrospective notes.
+- [x] 2026-03-09 18:15 GMT: Ran the terminology sweep, removed the final drift
+  stragglers, and captured gate output under `/tmp/`.
+- [x] 2026-03-09 18:15 GMT: Updated this ExecPlan with implementation outcomes
+  and retrospective notes.
 
 ## Surprises & Discoveries
 
@@ -325,11 +327,82 @@ running them and record the results in `Outcomes & Retrospective`.
 
 ## Outcomes & Retrospective
 
-This section will be completed after implementation. It must include:
+Implementation completed in three slices:
 
-- the final list of changed files,
-- the exact validation commands run,
-- the log file paths under `/tmp/`,
-- whether any unsupported claims were intentionally removed rather than
-  rewritten, and
-- any follow-up gaps left outside this overhaul.
+- `a1f2f80` normalized the canonical example manifests under `docs/examples/`
+  and moved this plan to `IN PROGRESS`.
+- `63af7e4` rewrote the main site HTML pages so the prototype consistently
+  describes YAML-plus-Jinja manifests compiled to Ninja.
+- The current working change-set closes the remaining drift stragglers and
+  finalizes this plan.
+
+Changed files across the overhaul:
+
+- `docs/examples/basic_c.yml`
+- `docs/examples/photo_edit.yml`
+- `docs/examples/visual_design.yml`
+- `docs/examples/website.yml`
+- `docs/examples/writing.yml`
+- `docs/execplans/initial-content.md`
+- `netsuke/index.html`
+- `netsuke/install/index.html`
+- `netsuke/blog/index.html`
+- `netsuke/docs/index.html`
+- `netsuke/docs/getting-started/index.html`
+- `netsuke/docs/manifest-reference/index.html`
+- `netsuke/docs/rules-and-targets/index.html`
+- `netsuke/docs/templating-and-standard-library/index.html`
+- `netsuke/docs/cli-security-and-configuration/index.html`
+- `netsuke/examples/index.html`
+- `netsuke/examples/basic-c-application/index.html`
+- `netsuke/guides/index.html`
+- `netsuke/icon-replacements/index.html`
+
+Validation commands run for the final pass:
+
+    set -o pipefail
+    rg -n -e "Starlark|netsuke init|remote cache|remote caching|watch mode" \
+      -e "v2\.4\.0|v2\.3\.0|single binary|graph visual|YAML/Starlark" \
+      -e "Python-like syntax|hermetic|cc_binary|cc_library|genrule" \
+      -e "select\(|@repo//|//src|//app|http_archive|\{ins\}|\{outs\}" \
+      netsuke docs/examples | tee /tmp/rg-drift-netsuke-www-initial-content-final.out
+
+    set -o pipefail
+    git diff --check 2>&1 | tee /tmp/git-diff-check-netsuke-www-initial-content-final.out
+
+    set -o pipefail
+    markdownlint-cli2 docs/execplans/initial-content.md \
+      docs/examples/hello-world/README.md 2>&1 | tee \
+      /tmp/markdownlint-netsuke-www-initial-content-final.out
+
+    set -o pipefail
+    nixie 2>&1 | tee /tmp/nixie-netsuke-www-initial-content-final.out
+
+Additional gate and sweep logs captured earlier in the rollout:
+
+- `/tmp/markdownlint-netsuke-www-initial-content.out`
+- `/tmp/markdownlint-netsuke-www-initial-content-file.out`
+- `/tmp/markdownlint-netsuke-www-initial-content-examples.out`
+- `/tmp/markdownlint-netsuke-www-initial-content-sitepass.out`
+- `/tmp/nixie-netsuke-www-initial-content.out`
+- `/tmp/nixie-netsuke-www-initial-content-examples.out`
+- `/tmp/nixie-netsuke-www-initial-content-sitepass.out`
+- `/tmp/git-diff-check-netsuke-www-initial-content-examples.out`
+- `/tmp/git-diff-check-netsuke-www-initial-content-sitepass.out`
+- `/tmp/rg-drift-netsuke-www-initial-content-sitepass.out`
+
+Unsupported claims intentionally removed rather than preserved:
+
+- fictional release version marketing and release-note claims,
+- Starlark/Bazel language and label syntax,
+- `netsuke init` onboarding,
+- undocumented remote caching, remote execution, watch mode, and sandbox
+  guarantees.
+
+Follow-up gaps outside this overhaul:
+
+- The repo still contains many untracked source documents and assets that were
+  already present before this work; they were left untouched.
+- The repo-wide markdownlint baseline is still red if the large design docs are
+  included, because those documents contain pre-existing `MD013` line-length
+  violations outside this task’s write set.
