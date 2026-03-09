@@ -184,7 +184,7 @@ targets:
 
   - name: "{{ build_dir }}/book.pdf"
     rule: combine
-    sources: "{{ glob(build_dir ~ '/*.tex') | sort }}"
+    sources: "{{ glob(build_dir ~ '/*.tex') | sorted }}"
 
   - name: "{{ build_dir }}"
     rule: mkdir
