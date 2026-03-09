@@ -5,7 +5,7 @@ This ExecPlan (execution plan) is a living document. The sections
 `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work
 proceeds.
 
-Status: DRAFT
+Status: IN PROGRESS
 
 ## Purpose / big picture
 
@@ -239,6 +239,26 @@ The output of this phase is a short brand matrix added back into this
 ExecPlan before implementation starts. It should name the approved global shell
 patterns, CTA hierarchy, card families, typography scale, and imagery rules.
 
+Implementation-phase brand matrix, established 2026-03-09:
+
+- Homepage: keep the existing full-bleed banner hero, but use Himotoshi token
+  colours, more disciplined CTA hierarchy, and a smoother transition into the
+  lighter editorial sections below.
+- Hub pages (`docs/`, `examples/`, `guides/`, `blog/`, `install/`): use light
+  paper surfaces, warm bordered cards, and a consistent glass-panel shell so
+  they read as the canonical Himotoshi application.
+- Leaf docs and example pages: prioritise consistent shell, typography, code
+  surfaces, badges, and footer/nav treatment over bespoke landing-page drama.
+- Legal and placeholder pages: keep them simple, but ensure they inherit the
+  same font, paper texture, and token palette rather than falling back to
+  isolated inline styling.
+- CTA hierarchy: indigo is the standard primary action, vermillion is the
+  heightened action where emphasis is intentional, and bordered or translucent
+  ghost buttons are reserved for secondary actions.
+- Shared extraction boundary: `netsuke/assets/js/tailwind-config.js` owns the
+  theme tokens; `netsuke/assets/css/himotoshi.css` owns the shared shell and
+  semantic component classes.
+
 ### Phase 2: Introduce shared brand sources without adding a build pipeline
 
 Create one shared script for the Tailwind theme configuration and one shared
@@ -389,8 +409,10 @@ The overhaul is complete only when all of the following are true:
 - [x] 2026-03-09T23:39:00+00:00: Updated the plan to preserve the existing
   homepage hero-banner format while minimising its inconsistencies with the
   Himotoshi system.
-- [ ] Await user approval before implementation.
-- [ ] Add the implementation-phase brand matrix once execution begins.
+- [x] 2026-03-09T23:56:00+00:00: Marked the plan `IN PROGRESS`, added the
+  implementation-phase brand matrix, and extracted shared theme assets into
+  `netsuke/assets/js/tailwind-config.js` and
+  `netsuke/assets/css/himotoshi.css`.
 - [ ] Record route-by-route validation evidence and any deviations accepted as
   intentional exceptions.
 
@@ -407,6 +429,10 @@ The overhaul is complete only when all of the following are true:
 - Plotly is still imported by 8 website pages, which should be audited as part
   of the shared-brand cleanup so decorative dependencies do not linger
   accidentally.
+- The current docs-search sidebar expects generated search data under
+  `assets/search/docs-search.json`, so source-preview checks against the raw
+  `netsuke/` tree can still show a missing-search-index console error until the
+  built `dist/` output is served.
 
 ## Decision Log
 
@@ -423,6 +449,9 @@ The overhaul is complete only when all of the following are true:
   constraint. Harmonise that banner with Himotoshi tokens and component logic
   instead of replacing it with the showcase hero pattern from the design
   system file.
+- 2026-03-09: Introduce the shared brand layer through static assets instead
+  of a compiled Tailwind pipeline. The mechanical extraction pass should be
+  visually conservative so later commits can focus on intentional restyling.
 - 2026-03-09: Include link semantics in the brand overhaul. A brand refresh
   that leaves misleading `GitHub` actions in place is incomplete.
 - 2026-03-09: Require both Playwright and `css-view` evidence before calling
