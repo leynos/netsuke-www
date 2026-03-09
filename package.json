@@ -1,0 +1,12 @@
+{
+  "name": "netsuke-www",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-site.mjs"
+  },
+  "dependencies": {
+    "minisearch": "7.2.0"
+  }
+}

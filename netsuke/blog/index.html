@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Netsuke Build System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: {
+                            DEFAULT: '#2E2A25',
+                            mid: '#5C554D',
+                            light: '#8A8279',
+                        },
+                        indigo: {
+                            DEFAULT: '#2B4162',
+                            light: '#3A5A7C',
+                        },
+                        vermillion: {
+                            DEFAULT: '#C23B22',
+                            dim: '#9E3020',
+                        },
+                        boxwood: {
+                            DEFAULT: '#E8D5B5',
+                            light: '#F5EDE0',
+                            pale: '#FAF6F0',
+                        },
+                        stone: {
+                            DEFAULT: '#D1C7B8',
+                            light: '#E5DDD0',
+                        },
+                        matcha: '#4A7C59',
+                        amber: '#C48B2C',
+                    },
+                    fontFamily: {
+                        sans: ['"Source Sans 3"', 'sans-serif'],
+                        serif: ['"Fraunces"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    boxShadow: {
+                        'paper': '0 4px 6px -1px rgba(46, 42, 37, 0.1), 0 2px 4px -1px rgba(46, 42, 37, 0.06)',
+                        'paper-lg': '0 10px 15px -3px rgba(46, 42, 37, 0.1), 0 4px 6px -2px rgba(46, 42, 37, 0.05)',
+                        'paper-xl': '0 20px 25px -5px rgba(46, 42, 37, 0.1), 0 10px 10px -5px rgba(46, 42, 37, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #FAF6F0; }
+        ::-webkit-scrollbar-thumb { background: #D1C7B8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8A8279; }
+
+        .texture-paper {
+            background-color: #FAF6F0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+
+        .glass-panel {
+            background: rgba(250, 246, 240, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(209, 199, 184, 0.6);
+        }
+
+        .post-card {
+            transition: all 0.3s ease;
+        }
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(46, 42, 37, 0.1), 0 4px 6px -2px rgba(46, 42, 37, 0.05);
+            border-color: #2B4162;
+        }
+    </style>
+</head>
+<body class="texture-paper text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 glass-panel transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3 cursor-pointer">
+                    <div class="w-8 h-8 rounded-full bg-vermillion flex items-center justify-center text-white font-serif font-bold text-lg shadow-sm">N</div>
+                    <span class="font-serif font-bold text-xl tracking-tight text-charcoal">Netsuke</span>
+                </div>
+
+                <div class="hidden lg:flex space-x-8">
+                    <a href="../" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Home</a>
+                    <a href="../docs/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Docs</a>
+                    <a href="../examples/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Examples</a>
+                    <a href="../guides/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Guides</a>
+                    <a href="./" class="text-charcoal font-semibold border-b-2 border-vermillion transition-colors text-sm py-1">Blog</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="../examples/" class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors">
+                        <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
+                    </a>
+                    <a href="../install/" class="inline-flex items-center px-4 py-1.5 bg-indigo text-white rounded-md text-sm font-medium shadow-sm hover:bg-indigo-light transition-colors">
+                        Install
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-grow pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+
+        <!-- Hero Section -->
+        <header id="blog-hero" class="mb-16 text-center max-w-3xl mx-auto">
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-boxwood text-charcoal-mid text-xs font-semibold uppercase tracking-wider border border-stone mb-6">
+                <span  class="iconify mr-2 text-vermillion" data-icon="carbon:pen-fountain" aria-hidden="true"></span> Devlog & Releases
+            </div>
+            <h1 class="font-serif text-5xl lg:text-6xl font-bold text-charcoal mb-6">Latest Updates</h1>
+            <p class="text-xl text-charcoal-mid font-light leading-relaxed mb-8">
+                News from the Netsuke team, deep dives into build system architecture, and release notes for the latest versions.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="./" class="inline-flex items-center px-4 py-2 border border-stone rounded-md text-sm font-medium text-charcoal hover:bg-white hover:text-vermillion transition-colors">
+                    <span  class="iconify mr-2" data-icon="carbon:rss" aria-hidden="true"></span> RSS Feed
+                </a>
+                <a href="#newsletter" class="inline-flex items-center px-4 py-2 border border-stone rounded-md text-sm font-medium text-charcoal hover:bg-white hover:text-indigo transition-colors">
+                    <span  class="iconify mr-2" data-icon="carbon:email" aria-hidden="true"></span> Subscribe
+                </a>
+            </div>
+        </header>
+
+        <!-- Featured Post (Latest Release) -->
+        <section id="featured-post" class="mb-20">
+            <div class="bg-white rounded-2xl border border-stone shadow-paper-lg overflow-hidden relative group">
+                <div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none hidden lg:block">
+                     <span  class="iconify text-9xl text-indigo" data-icon="carbon:cube" aria-hidden="true"></span>
+                </div>
+
+                <div class="p-8 lg:p-12 relative z-10">
+                    <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+                        <div class="max-w-2xl">
+                            <div class="flex items-center space-x-3 text-sm mb-4">
+                                <span class="px-2.5 py-0.5 rounded-full bg-matcha/10 text-matcha font-mono border border-matcha/20 font-medium">Design note</span>
+                                <span class="text-charcoal-light">Reviewed against current docs</span>
+                            </div>
+
+                            <h2 class="font-serif text-3xl lg:text-4xl font-bold text-charcoal mb-4 group-hover:text-indigo transition-colors">
+                                <a href="./">Why YAML First Matters in Netsuke</a>
+                            </h2>
+
+                            <p class="text-charcoal-mid text-lg mb-6 leading-relaxed">
+                                Netsuke validates the manifest as YAML before it renders templates. That sounds conservative because it is. The reward is a build graph that can still be read by a human.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="inline-flex items-center px-2 py-1 bg-boxwood-pale text-charcoal-mid text-xs rounded border border-stone">Design</span>
+                                <span class="inline-flex items-center px-2 py-1 bg-boxwood-pale text-charcoal-mid text-xs rounded border border-stone">YAML</span>
+                                <span class="inline-flex items-center px-2 py-1 bg-boxwood-pale text-charcoal-mid text-xs rounded border border-stone">Jinja</span>
+                            </div>
+
+                            <div class="flex flex-wrap gap-4">
+                                <a href="./" class="inline-flex items-center px-5 py-2.5 bg-indigo text-white rounded-md font-medium shadow-sm hover:bg-indigo-light transition-colors">
+                                    Read Announcement
+                                </a>
+                                <a href="../install/" class="inline-flex items-center px-5 py-2.5 bg-white border border-stone text-charcoal rounded-md font-medium shadow-sm hover:bg-boxwood-pale transition-colors">
+                                    <span  class="iconify mr-2 text-charcoal-mid" data-icon="carbon:download" aria-hidden="true"></span> Read Install Notes
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Visual/Snippet for featured post -->
+                        <div class="w-full lg:w-96 flex-shrink-0">
+                            <div class="bg-charcoal rounded-lg p-4 font-mono text-xs text-stone-light shadow-inner border border-charcoal-mid">
+                                <div class="flex justify-between border-b border-white/10 pb-2 mb-2">
+                                    <span class="text-vermillion">cargo install netsuke</span>
+                                    <span class="text-charcoal-light">bash</span>
+                                </div>
+                                <div class="space-y-1">
+                                    <p><span class="text-matcha">➜</span> <span class="text-indigo-light">~</span> netsuke --version</p>
+                                    <p class="text-boxwood">netsuke 0.x.y</p>
+                                    <p class="text-charcoal-light mt-2"># First steps:</p>
+                                    <p><span class="text-vermillion">netsuke_version</span>: <span class="text-matcha">"1.0.0"</span></p>
+                                    <p><span class="text-vermillion">targets</span>:</p>
+                                    <p class="pl-4">- <span class="text-amber">name</span>: <span class="text-matcha">"app"</span></p>
+                                    <p class="pl-4">  <span class="text-amber">command</span>: <span class="text-matcha">"gcc {{ ins }} -o {{ outs }}"</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid lg:grid-cols-12 gap-12">
+
+            <!-- Left Column: Blog Feed -->
+            <div class="lg:col-span-8 space-y-12">
+
+                <!-- Section Header -->
+                <div class="flex items-center justify-between border-b border-stone pb-4">
+                    <h3 class="font-serif text-2xl font-bold text-charcoal">Recent Articles</h3>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 text-xs font-medium bg-charcoal text-white rounded-full">All</button>
+                        <button class="px-3 py-1 text-xs font-medium text-charcoal-mid hover:bg-boxwood-light rounded-full transition-colors">Engineering</button>
+                        <button class="px-3 py-1 text-xs font-medium text-charcoal-mid hover:bg-boxwood-light rounded-full transition-colors">Releases</button>
+                        <button class="px-3 py-1 text-xs font-medium text-charcoal-mid hover:bg-boxwood-light rounded-full transition-colors">Community</button>
+                    </div>
+                </div>
+
+                <!-- Post 1 -->
+                <article class="post-card bg-white p-8 rounded-xl border border-stone shadow-sm flex flex-col md:flex-row gap-8">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 text-xs mb-3">
+                            <span class="font-mono text-indigo font-semibold">Engineering</span>
+                            <span class="text-stone-light">•</span>
+                            <span class="text-charcoal-mid">Feb 28, 2024</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-charcoal mb-3 group-hover:text-indigo transition-colors">
+                            <a href="./" class="hover:text-indigo transition-colors">Reading the Six-Stage Pipeline Backwards</a>
+                        </h3>
+                        <p class="text-charcoal-mid text-sm mb-4 leading-relaxed">
+                            Start at the generated Ninja file, then work back to the manifest. It is the fastest way to understand what Netsuke is really doing on a non-trivial project.
+                        </p>
+                        <div class="flex items-center justify-between mt-auto">
+                            <div class="flex items-center space-x-2">
+                                <img src="../assets/blog-author-avatar-2.jpg" alt="Author" class="w-6 h-6 rounded-full border border-stone">
+                                <span class="text-xs text-charcoal-mid font-medium">Alex Chen</span>
+                            </div>
+                            <a href="./" class="text-indigo text-xs font-bold hover:underline">Read Article &rarr;</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="post-card bg-white p-8 rounded-xl border border-stone shadow-sm flex flex-col md:flex-row gap-8">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 text-xs mb-3">
+                            <span class="px-2 py-0.5 rounded-full bg-boxwood/50 text-charcoal-mid font-mono border border-stone font-medium">Language note</span>
+                            <span class="text-stone-light">•</span>
+                            <span class="text-charcoal-mid">Jan 15, 2024</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-charcoal mb-3">
+                            <a href="./" class="hover:text-indigo transition-colors">Macros, `foreach`, and the Smallest Useful Abstractions</a>
+                        </h3>
+                        <p class="text-charcoal-mid text-sm mb-4 leading-relaxed">
+                            The manifest language is not trying to be a general-purpose runtime. This note covers the pieces that keep repetition down without turning the file into a script.
+                        </p>
+                        <div class="flex items-center justify-between mt-auto">
+                            <div class="flex items-center space-x-2">
+                                <img src="../assets/blog-author-avatar-5.jpg" alt="Author" class="w-6 h-6 rounded-full border border-stone">
+                                <span class="text-xs text-charcoal-mid font-medium">Sarah Jenkins</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <a href="./" class="text-charcoal-mid text-xs font-medium hover:text-vermillion"><span  class="iconify mr-1" data-icon="carbon:list-checked" aria-hidden="true"></span> Changelog</a>
+                                <a href="./" class="text-indigo text-xs font-bold hover:underline">Read Release Notes &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="post-card bg-white p-8 rounded-xl border border-stone shadow-sm flex flex-col md:flex-row gap-8">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-3 text-xs mb-3">
+                            <span class="font-mono text-matcha font-semibold">Community</span>
+                            <span class="text-stone-light">•</span>
+                            <span class="text-charcoal-mid">Dec 10, 2023</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-charcoal mb-3">
+                            <a href="./" class="hover:text-indigo transition-colors">2023 Year in Review</a>
+                        </h3>
+                        <p class="text-charcoal-mid text-sm mb-4 leading-relaxed">
+                            A short index of the design docs, CLI design, user guide, and example manifests that currently define Netsuke more accurately than any marketing page should.
+                        </p>
+                        <div class="flex items-center justify-between mt-auto">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-6 h-6 rounded-full bg-vermillion text-white flex items-center justify-center text-xs font-bold">N</div>
+                                <span class="text-xs text-charcoal-mid font-medium">The Netsuke Team</span>
+                            </div>
+                            <a href="./" class="text-indigo text-xs font-bold hover:underline">Read Article &rarr;</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Pagination -->
+                <div class="flex justify-center pt-8">
+                    <nav class="flex items-center space-x-2">
+                        <a href="./" class="w-10 h-10 flex items-center justify-center rounded-md border border-stone text-charcoal-mid hover:bg-boxwood-pale hover:text-charcoal transition-colors disabled:opacity-50">
+                            <span  class="iconify text-xs" data-icon="carbon:chevron-left" aria-hidden="true"></span>
+                        </a>
+                        <a href="./" class="w-10 h-10 flex items-center justify-center rounded-md bg-indigo text-white font-medium shadow-sm">1</a>
+                        <a href="./" class="w-10 h-10 flex items-center justify-center rounded-md border border-stone text-charcoal hover:bg-boxwood-pale transition-colors">2</a>
+                        <span class="w-10 h-10 flex items-center justify-center text-charcoal-mid">...</span>
+                        <a href="./" class="w-10 h-10 flex items-center justify-center rounded-md border border-stone text-charcoal hover:bg-boxwood-pale transition-colors">8</a>
+                        <a href="./" class="w-10 h-10 flex items-center justify-center rounded-md border border-stone text-charcoal-mid hover:bg-boxwood-pale hover:text-charcoal transition-colors">
+                            <span  class="iconify text-xs" data-icon="carbon:chevron-right" aria-hidden="true"></span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Right Column: Sidebar -->
+            <aside class="lg:col-span-4 space-y-8">
+
+                <!-- Newsletter Signup -->
+                <div id="newsletter" class="bg-charcoal rounded-xl p-8 text-white shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
+                    <div class="relative z-10">
+                        <div class="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-vermillion">
+                            <span  class="iconify" data-icon="carbon:send" aria-hidden="true"></span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold mb-2">Stay Updated</h3>
+                        <p class="text-stone-light text-sm mb-6 leading-relaxed">
+                            Get the latest release notes, engineering deep dives, and community news delivered to your inbox.
+                        </p>
+                        <form class="flex flex-col gap-3">
+                            <input type="email" placeholder="email@example.com" class="bg-white/10 border border-white/20 rounded-md px-4 py-2.5 text-sm text-white placeholder-white/40 focus:outline-none focus:border-vermillion focus:ring-1 focus:ring-vermillion transition-all">
+                            <button type="submit" class="bg-vermillion text-white text-sm font-bold py-2.5 rounded-md hover:bg-vermillion-dim transition-colors shadow-lg shadow-vermillion/20">Subscribe</button>
+                        </form>
+                        <p class="text-xs text-charcoal-light mt-4 text-center">No spam, unsubscribe anytime.</p>
+                    </div>
+                </div>
+
+                <!-- Release History -->
+                <div class="bg-white rounded-xl border border-stone shadow-sm p-6">
+                    <h3 class="font-serif text-lg font-bold text-charcoal mb-4 flex items-center">
+                        <span  class="iconify text-indigo mr-2 text-sm" data-icon="carbon:commit" aria-hidden="true"></span> Version History
+                    </h3>
+                    <div class="relative pl-4 border-l-2 border-stone-light space-y-6">
+                        <!-- Item -->
+                        <div class="relative group">
+                            <div class="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-indigo border-2 border-white ring-1 ring-white"></div>
+                            <div class="flex justify-between items-baseline">
+                                <a href="./" class="text-sm font-bold text-charcoal hover:text-indigo transition-colors">YAML-first design</a>
+                                <span class="text-xs text-charcoal-light">Mar 15</span>
+                            </div>
+                            <p class="text-xs text-charcoal-mid mt-0.5">Why manifest validation happens before templating</p>
+                        </div>
+                        <!-- Item -->
+                        <div class="relative group">
+                            <div class="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-stone border-2 border-white ring-1 ring-white group-hover:bg-charcoal-mid transition-colors"></div>
+                            <div class="flex justify-between items-baseline">
+                                <a href="./" class="text-sm font-bold text-charcoal hover:text-indigo transition-colors">v2.3.1</a>
+                                <span class="text-xs text-charcoal-light">Feb 02</span>
+                            </div>
+                            <p class="text-xs text-charcoal-mid mt-0.5">Hotfix for cache invalidation bug</p>
+                        </div>
+                        <!-- Item -->
+                        <div class="relative group">
+                            <div class="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-stone border-2 border-white ring-1 ring-white group-hover:bg-charcoal-mid transition-colors"></div>
+                            <div class="flex justify-between items-baseline">
+                                <a href="./" class="text-sm font-bold text-charcoal hover:text-indigo transition-colors">Jinja usage</a>
+                                <span class="text-xs text-charcoal-light">Jan 15</span>
+                            </div>
+                            <p class="text-xs text-charcoal-mid mt-0.5">Macros, filters, and explicit expansion</p>
+                        </div>
+                        <!-- Item -->
+                        <div class="relative group">
+                            <div class="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-stone border-2 border-white ring-1 ring-white group-hover:bg-charcoal-mid transition-colors"></div>
+                            <div class="flex justify-between items-baseline">
+                                <a href="./" class="text-sm font-bold text-charcoal hover:text-indigo transition-colors">Example set</a>
+                                <span class="text-xs text-charcoal-light">Nov 20</span>
+                            </div>
+                            <p class="text-xs text-charcoal-mid mt-0.5">Small manifests for C, docs, sites, and images</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-stone-light text-center">
+                        <a href="./" class="text-xs font-bold text-indigo hover:text-vermillion transition-colors">View Full Changelog &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Categories/Tags -->
+                <div class="bg-boxwood-pale rounded-xl border border-stone p-6">
+                    <h3 class="font-serif text-lg font-bold text-charcoal mb-4">Topics</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="./" class="px-3 py-1 bg-white border border-stone rounded-full text-xs font-medium text-charcoal hover:border-indigo hover:text-indigo transition-colors">Architecture</a>
+                        <a href="./" class="px-3 py-1 bg-white border border-stone rounded-full text-xs font-medium text-charcoal hover:border-indigo hover:text-indigo transition-colors">Tutorials</a>
+                        <a href="./" class="px-3 py-1 bg-white border border-stone rounded-full text-xs font-medium text-charcoal hover:border-indigo hover:text-indigo transition-colors">Case Studies</a>
+                        <a href="./" class="px-3 py-1 bg-white border border-stone rounded-full text-xs font-medium text-charcoal hover:border-indigo hover:text-indigo transition-colors">Rust</a>
+                        <a href="./" class="px-3 py-1 bg-white border border-stone rounded-full text-xs font-medium text-charcoal hover:border-indigo hover:text-indigo transition-colors">Performance</a>
+                        <a href="./" class="px-3 py-1 bg-white border border-stone rounded-full text-xs font-medium text-charcoal hover:border-indigo hover:text-indigo transition-colors">Ecosystem</a>
+                    </div>
+                </div>
+
+            </aside>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-charcoal pt-16 pb-8 text-stone-light border-t border-charcoal-light mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand Column -->
+                <div class="col-span-1 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-vermillion flex items-center justify-center text-white font-serif font-bold text-lg">N</div>
+                        <span class="font-serif font-bold text-xl tracking-tight text-white">Netsuke</span>
+                    </div>
+                    <p class="text-sm text-charcoal-light leading-relaxed mb-6">
+                        Netsuke is free, open-source, and written in Rust. It aims to bring the power of large-scale build systems to projects of any size.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="../examples/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
+                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-x" aria-hidden="true"></span></a>
+                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-discord" aria-hidden="true"></span></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-boxwood mb-6">Documentation</h4>
+                    <ul class="space-y-3 text-sm text-stone">
+                        <li><a href="../docs/getting-started/" class="hover:text-white transition-colors">Getting Started</a></li>
+                        <li><a href="../docs/manifest-reference/" class="hover:text-white transition-colors">Manifest Reference</a></li>
+                        <li><a href="../docs/rules-and-targets/" class="hover:text-white transition-colors">Rules & Targets</a></li>
+                        <li><a href="../docs/cli-security-and-configuration/#cli" class="hover:text-white transition-colors">CLI Commands</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-boxwood mb-6">Resources</h4>
+                    <ul class="space-y-3 text-sm text-stone">
+                        <li><a href="../examples/" class="hover:text-white transition-colors">Examples Hub</a></li>
+                        <li><a href="../design/" class="hover:text-white transition-colors">Design System</a></li>
+                        <li><a href="./" class="hover:text-white transition-colors">Blog & Releases</a></li>
+                        <li><a href="../contributing/" class="hover:text-white transition-colors">Contributing</a></li>
+                    </ul>
+                </div>
+
+                <!-- CTA Column -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-boxwood mb-6">Ready to build?</h4>
+                    <div class="space-y-4">
+                        <a href="../install/" class="block w-full py-2 px-4 bg-vermillion text-white text-center rounded text-sm font-bold hover:bg-vermillion-dim transition-colors">
+                            Install Netsuke
+                        </a>
+                        <a href="../docs/" class="block w-full py-2 px-4 bg-transparent border border-stone/30 text-stone text-center rounded text-sm font-bold hover:bg-white/5 transition-colors">
+                            Read the docs
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-charcoal-mid pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-charcoal-light">
+                <p class="mb-4 md:mb-0">
+                    &copy; 2026 df12 Productions. Serious tools, <span class="text-boxwood">playful worlds.</span>
+                </p>
+                <div class="flex space-x-6">
+                    <a href="../privacy-policy/" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="../terms-of-use/" class="hover:text-white transition-colors">Terms of Use</a>
+                    <a href="../code-of-conduct/" class="hover:text-white transition-colors">Code of Conduct</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
