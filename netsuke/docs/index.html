@@ -176,7 +176,7 @@
                 </div>
                 <h1 class="font-serif text-4xl lg:text-5xl font-bold text-charcoal mb-6">Documentation Hub</h1>
                 <p class="text-xl text-charcoal-mid font-light leading-relaxed max-w-3xl">
-                    Welcome to the Netsuke documentation. Here you'll find comprehensive guides and reference material to help you build reliable, hermetic software pipelines.
+                    Welcome to the Netsuke documentation. Start with the YAML manifest, learn how Jinja expands it, then follow the path through validation and Ninja execution.
                 </p>
             </div>
 
@@ -196,7 +196,7 @@
                         </div>
                         <h3 class="font-bold text-charcoal text-lg mb-2 group-hover:text-indigo transition-colors">Getting Started</h3>
                         <p class="text-charcoal-mid text-sm leading-relaxed mb-4">
-                            Install Netsuke and build your first "Hello World" project in under 5 minutes.
+                            Install Netsuke, create a small <code>Netsukefile</code>, and build the default targets.
                         </p>
                         <div class="text-indigo text-sm font-medium flex items-center">
                             Start tutorial <span  class="iconify ml-2 text-xs transition-transform group-hover:translate-x-1" data-icon="carbon:arrow-right" aria-hidden="true"></span>
@@ -213,7 +213,7 @@
                         </div>
                         <h3 class="font-bold text-charcoal text-lg mb-2 group-hover:text-vermillion transition-colors">How it Works</h3>
                         <p class="text-charcoal-mid text-sm leading-relaxed mb-4">
-                            Understand the graph model, hermeticity, and the six-stage build pipeline.
+                            Understand the six-stage pipeline: YAML first, template expansion second, Ninja last.
                         </p>
                         <div class="text-vermillion text-sm font-medium flex items-center">
                             Learn the basics <span  class="iconify ml-2 text-xs transition-transform group-hover:translate-x-1" data-icon="carbon:arrow-right" aria-hidden="true"></span>
@@ -234,7 +234,7 @@
                         </h3>
                         <ul class="space-y-2 text-sm">
                             <li><a href="manifest-reference/" class="text-charcoal-mid hover:text-vermillion transition-colors flex items-center"><span class="w-1.5 h-1.5 bg-stone rounded-full mr-2"></span>Netsukefile Syntax</a></li>
-                            <li><a href="templating-and-standard-library/" class="text-charcoal-mid hover:text-vermillion transition-colors flex items-center"><span class="w-1.5 h-1.5 bg-stone rounded-full mr-2"></span>Starlark Dialect</a></li>
+                            <li><a href="templating-and-standard-library/" class="text-charcoal-mid hover:text-vermillion transition-colors flex items-center"><span class="w-1.5 h-1.5 bg-stone rounded-full mr-2"></span>Jinja Templating</a></li>
                             <li><a href="./" class="text-charcoal-mid hover:text-vermillion transition-colors flex items-center"><span class="w-1.5 h-1.5 bg-stone rounded-full mr-2"></span>Glob Patterns</a></li>
                         </ul>
                     </div>
@@ -246,7 +246,7 @@
                         </h3>
                         <ul class="space-y-2 text-sm">
                             <li><a href="rules-and-targets/" class="text-charcoal-mid hover:text-vermillion transition-colors flex items-center"><span class="w-1.5 h-1.5 bg-stone rounded-full mr-2"></span>Defining Rules</a></li>
-                            <li><a href="./" class="text-charcoal-mid hover:text-vermillion transition-colors flex items-center"><span class="w-1.5 h-1.5 bg-stone rounded-full mr-2"></span>Target Visibility</a></li>
+                            <li><a href="rules-and-targets/" class="text-charcoal-mid hover:text-vermillion transition-colors flex items-center"><span class="w-1.5 h-1.5 bg-stone rounded-full mr-2"></span>Actions, Phony, and Defaults</a></li>
                             <li><a href="./" class="text-charcoal-mid hover:text-vermillion transition-colors flex items-center"><span class="w-1.5 h-1.5 bg-stone rounded-full mr-2"></span>Custom Actions</a></li>
                         </ul>
                     </div>
@@ -283,18 +283,16 @@
                             <span>RO</span>
                         </div>
 <pre class="font-mono text-sm leading-relaxed text-stone-light"><code><span class="text-charcoal-light"># Compile a simple C program</span>
-<span class="text-indigo-light">cc_binary</span>(
-    name = <span class="text-matcha">"hello_world"</span>,
-    srcs = [<span class="text-matcha">"main.c"</span>],
-    deps = [<span class="text-matcha">":print_lib"</span>],
-)
+<span class="text-indigo-light">netsuke_version</span>: <span class="text-matcha">"1.0.0"</span>
 
-<span class="text-charcoal-light"># A library target</span>
-<span class="text-indigo-light">cc_library</span>(
-    name = <span class="text-matcha">"print_lib"</span>,
-    srcs = [<span class="text-matcha">"print.c"</span>],
-    hdrs = [<span class="text-matcha">"print.h"</span>],
-)</code></pre>
+<span class="text-indigo-light">rules</span>:
+  - <span class="text-amber">name</span>: <span class="text-matcha">"compile"</span>
+    <span class="text-amber">command</span>: <span class="text-matcha">"gcc -c {{ ins }} -o {{ outs }}"</span>
+
+<span class="text-indigo-light">targets</span>:
+  - <span class="text-amber">name</span>: <span class="text-matcha">"hello_world"</span>
+    <span class="text-amber">command</span>: <span class="text-matcha">"gcc {{ ins }} -o {{ outs }}"</span>
+    <span class="text-amber">sources</span>: [<span class="text-matcha">"main.o"</span>, <span class="text-matcha">"print.o"</span>]</code></pre>
                     </div>
                 </div>
             </section>
@@ -331,7 +329,7 @@
                             </div>
                             <div>
                                 <h4 class="text-charcoal font-bold mb-1 group-hover:text-matcha transition-colors">Hermetic Builds with Docker</h4>
-                                <p class="text-sm text-charcoal-mid">Ensure 100% reproducibility by running Netsuke actions inside container sandboxes.</p>
+                                <p class="text-sm text-charcoal-mid">Understand how Netsuke keeps structure explicit, renders strings late, and produces reproducible Ninja plans.</p>
                             </div>
                             <div class="ml-auto pl-4 self-center hidden sm:block">
                                 <span  class="iconify text-stone-light text-sm group-hover:text-matcha transition-colors" data-icon="carbon:chevron-right" aria-hidden="true"></span>

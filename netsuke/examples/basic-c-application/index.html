@@ -184,12 +184,12 @@
                             Beginner
                         </span>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-matcha/10 text-matcha font-mono border border-matcha/20">
-                            <span  class="iconify mr-1.5" data-icon="carbon:checkmark" aria-hidden="true"></span> Verified v2.4
+                            <span  class="iconify mr-1.5" data-icon="carbon:checkmark" aria-hidden="true"></span> Reviewed syntax
                         </span>
                     </div>
                     <h1 class="font-serif text-4xl lg:text-5xl font-bold text-charcoal mb-6">Basic C Application</h1>
                     <p class="text-xl text-charcoal-mid font-light leading-relaxed">
-                        A foundational example demonstrating how to compile a C binary linked against a static library. Learn the core syntax for defining targets, dependencies, and visibility rules.
+                        A foundational example demonstrating how to compile two C sources and link them into one executable. The point is the manifest language, not a rule loader.
                     </p>
                 </div>
                 <div class="flex flex-col gap-3 w-full lg:w-auto shrink-0">
@@ -243,6 +243,7 @@
                             <div class="text-sm border-l-2 border-indigo pl-4 py-1">
                                 <p class="text-indigo font-medium mb-1">Key Concept</p>
                                 <p class="text-charcoal-light">Netsuke files are typically placed at the root of the package they define.</p>
+                                <p class="text-charcoal-light">Keep the graph obvious: sources are file paths, build steps are rules or inline commands, and defaults name the artefacts to build.</p>
                             </div>
                         </div>
                     </div>
@@ -263,23 +264,25 @@
                             <div class="absolute top-4 right-4 flex space-x-2">
                                 <button class="text-stone-light hover:text-white transition-colors" title="Copy"><span  class="iconify" data-icon="carbon:copy" aria-hidden="true"></span></button>
                             </div>
-                            <pre><code class="language-python"><span class="text-stone-light/50 italic"># Load standard C rules from the standard library</span>
-<span class="text-amber">load</span>(<span class="text-matcha">"@std/c"</span>, <span class="text-matcha">"cc_binary"</span>, <span class="text-matcha">"cc_library"</span>) <span class="relative inline-block ml-2"><span class="annotation-marker w-5 h-5 rounded-full bg-vermillion text-white text-xs font-bold flex items-center justify-center absolute -top-1 -left-1 shadow-sm">1</span></span>
+                            <pre><code class="language-yaml"><span class="text-stone-light/50 italic"># Global manifest version</span>
+<span class="text-indigo">netsuke_version</span>: <span class="text-matcha">"1.0.0"</span> <span class="relative inline-block ml-2"><span class="annotation-marker w-5 h-5 rounded-full bg-vermillion text-white text-xs font-bold flex items-center justify-center absolute -top-1 -left-1 shadow-sm">1</span></span>
 
-<span class="text-stone-light/50 italic mt-4 block"># Define a static library target for utilities</span>
-<span class="text-indigo">cc_library</span>(
-    name = <span class="text-matcha">"utils"</span>, <span class="relative inline-block ml-2"><span class="annotation-marker w-5 h-5 rounded-full bg-vermillion text-white text-xs font-bold flex items-center justify-center absolute -top-1 -left-1 shadow-sm">2</span></span>
-    srcs = [<span class="text-matcha">"utils.c"</span>],
-    hdrs = [<span class="text-matcha">"utils.h"</span>],
-    visibility = [<span class="text-matcha">"//visibility:public"</span>],
-)
+<span class="text-stone-light/50 italic mt-4 block"># Reusable compile step</span>
+<span class="text-indigo">rules</span>:
+  - <span class="text-amber">name</span>: <span class="text-matcha">"compile"</span> <span class="relative inline-block ml-2"><span class="annotation-marker w-5 h-5 rounded-full bg-vermillion text-white text-xs font-bold flex items-center justify-center absolute -top-1 -left-1 shadow-sm">2</span></span>
+    <span class="text-amber">command</span>: <span class="text-matcha">"gcc -c {{ ins }} -o {{ outs }}"</span>
 
-<span class="text-stone-light/50 italic mt-4 block"># Define the main executable binary</span>
-<span class="text-indigo">cc_binary</span>(
-    name = <span class="text-matcha">"app"</span>,
-    srcs = [<span class="text-matcha">"main.c"</span>],
-    deps = [<span class="text-matcha">":utils"</span>], <span class="relative inline-block ml-2"><span class="annotation-marker w-5 h-5 rounded-full bg-vermillion text-white text-xs font-bold flex items-center justify-center absolute -top-1 -left-1 shadow-sm">3</span></span>
-)</code></pre>
+<span class="text-stone-light/50 italic mt-4 block"># Targets either reuse a rule or define an inline command</span>
+<span class="text-indigo">targets</span>:
+  - <span class="text-amber">name</span>: <span class="text-matcha">"main.o"</span>
+    <span class="text-amber">rule</span>: <span class="text-matcha">"compile"</span>
+    <span class="text-amber">sources</span>: <span class="text-matcha">"main.c"</span>
+
+  - <span class="text-amber">name</span>: <span class="text-matcha">"app"</span>
+    <span class="text-amber">command</span>: <span class="text-matcha">"gcc {{ ins }} -o {{ outs }}"</span>
+    <span class="text-amber">sources</span>: [<span class="text-matcha">"main.o"</span>, <span class="text-matcha">"utils.o"</span>] <span class="relative inline-block ml-2"><span class="annotation-marker w-5 h-5 rounded-full bg-vermillion text-white text-xs font-bold flex items-center justify-center absolute -top-1 -left-1 shadow-sm">3</span></span>
+
+<span class="text-indigo">defaults</span>: [<span class="text-matcha">"app"</span>]</code></pre>
                         </div>
                     </div>
 
@@ -288,22 +291,22 @@
                         <div class="flex items-start p-4 rounded-lg bg-boxwood-pale border border-stone">
                             <div class="shrink-0 w-6 h-6 rounded-full bg-vermillion text-white text-sm font-bold flex items-center justify-center mt-0.5">1</div>
                             <div class="ml-4">
-                                <h4 class="font-bold text-charcoal text-sm mb-1">Loading Rules</h4>
-                                <p class="text-sm text-charcoal-mid">Netsuke doesn't have built-in knowledge of C. We explicitly load the C ruleset from the standard library (<code class="font-mono text-xs">@std</code>). This keeps the core lightweight.</p>
+                                <h4 class="font-bold text-charcoal text-sm mb-1">Schema version</h4>
+                                <p class="text-sm text-charcoal-mid">Every manifest starts with <code class="font-mono text-xs">netsuke_version</code>. The reviewed docs treat it as the contract for the file format.</p>
                             </div>
                         </div>
                         <div class="flex items-start p-4 rounded-lg bg-boxwood-pale border border-stone">
                             <div class="shrink-0 w-6 h-6 rounded-full bg-vermillion text-white text-sm font-bold flex items-center justify-center mt-0.5">2</div>
                             <div class="ml-4">
-                                <h4 class="font-bold text-charcoal text-sm mb-1">Defining Targets</h4>
-                                <p class="text-sm text-charcoal-mid">Targets must have a unique <code class="font-mono text-xs">name</code> within the package. This name is used to reference the artifact in other parts of the build graph.</p>
+                                <h4 class="font-bold text-charcoal text-sm mb-1">Reusable rules</h4>
+                                <p class="text-sm text-charcoal-mid">A rule holds the shared command template. Targets point at that rule instead of duplicating the command line.</p>
                             </div>
                         </div>
                         <div class="flex items-start p-4 rounded-lg bg-boxwood-pale border border-stone">
                             <div class="shrink-0 w-6 h-6 rounded-full bg-vermillion text-white text-sm font-bold flex items-center justify-center mt-0.5">3</div>
                             <div class="ml-4">
-                                <h4 class="font-bold text-charcoal text-sm mb-1">Dependency Linking</h4>
-                                <p class="text-sm text-charcoal-mid">The <code class="font-mono text-xs">:utils</code> syntax refers to a target in the same file. Netsuke handles header paths and linking order automatically based on this graph.</p>
+                                <h4 class="font-bold text-charcoal text-sm mb-1">Explicit graph edges</h4>
+                                <p class="text-sm text-charcoal-mid">The executable target lists the object files it needs in <code class="font-mono text-xs">sources</code>. Netsuke turns that static graph into Ninja build statements.</p>
                             </div>
                         </div>
                     </div>
@@ -327,10 +330,10 @@
                         </div>
                         <div class="p-6 font-mono text-sm overflow-x-auto">
                             <div class="text-boxwood-pale mb-2">
-                                <span class="text-matcha">➜</span> <span class="text-indigo-light">~/basic-c</span> <span class="text-boxwood">netsuke build //:app</span>
+                                <span class="text-matcha">➜</span> <span class="text-indigo-light">~/basic-c</span> <span class="text-boxwood">netsuke build app</span>
                             </div>
                             <div class="text-stone-light/80 mb-1">
-                                <span class="text-charcoal-light">0.0s</span> <span class="text-indigo font-bold">INFO</span>  Analysis complete. Found 2 targets.
+                                <span class="text-charcoal-light">0.0s</span> <span class="text-indigo font-bold">INFO</span>  Parsed Netsukefile and expanded target graph.
                             </div>
                             <div class="text-stone-light/80 mb-1">
                                 <span class="text-charcoal-light">0.1s</span> <span class="text-indigo font-bold">INFO</span>  [1/3] Compiling utils.c
@@ -342,11 +345,11 @@
                                 <span class="text-charcoal-light">0.3s</span> <span class="text-indigo font-bold">INFO</span>  [3/3] Linking app
                             </div>
                             <div class="text-stone-light font-bold mb-6">
-                                <span class="text-matcha font-bold">SUCCESS</span> Built target //:app in 0.35s
+                                <span class="text-matcha font-bold">SUCCESS</span> Built target app in 0.35s
                             </div>
 
                             <div class="text-boxwood-pale mb-2">
-                                <span class="text-matcha">➜</span> <span class="text-indigo-light">~/basic-c</span> <span class="text-boxwood">./bazel-bin/app</span>
+                                <span class="text-matcha">➜</span> <span class="text-indigo-light">~/basic-c</span> <span class="text-boxwood">./app</span>
                             </div>
                             <div class="text-stone-light">
                                 Hello from Netsuke C Example!
@@ -358,7 +361,7 @@
                         <div class="flex-1 p-4 bg-white border border-stone rounded-lg shadow-sm">
                             <h4 class="font-bold text-charcoal mb-2 text-sm">Build Artifacts</h4>
                             <p class="text-sm text-charcoal-mid">
-                                Binaries are placed in <code class="bg-boxwood-pale px-1 rounded border border-stone text-xs">./bazel-bin/</code> by default to keep your source directory clean.
+                                This example writes the executable to <code class="bg-boxwood-pale px-1 rounded border border-stone text-xs">./app</code>. The important part is that the output path is explicit in the manifest.
                             </p>
                         </div>
                         <div class="flex-1 p-4 bg-white border border-stone rounded-lg shadow-sm">
@@ -383,7 +386,7 @@
                             <!-- Main App Node -->
                             <div class="flex flex-col items-center">
                                 <div class="w-32 h-12 bg-indigo text-white rounded-md shadow-lg flex items-center justify-center font-mono text-sm border-2 border-white">
-                                    //:app
+                                    app
                                 </div>
                                 <div class="h-8 w-0.5 bg-stone-light"></div>
                                 <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-stone-light"></div>
@@ -391,7 +394,7 @@
 
                             <!-- Utils Node -->
                             <div class="w-32 h-12 bg-white text-charcoal rounded-md shadow-sm border border-stone flex items-center justify-center font-mono text-sm">
-                                //:utils
+                                utils.o
                             </div>
                         </div>
 
@@ -429,8 +432,8 @@
                                 <a href="../../docs/rules-and-targets/" class="flex items-start group">
                                     <span  class="iconify text-stone mt-1 mr-2 group-hover:text-indigo transition-colors" data-icon="carbon:book" aria-hidden="true"></span>
                                     <div>
-                                        <span class="block text-sm font-medium text-charcoal group-hover:text-indigo transition-colors">C/C++ Rules</span>
-                                        <span class="text-xs text-charcoal-light">Reference for cc_binary</span>
+                                        <span class="block text-sm font-medium text-charcoal group-hover:text-indigo transition-colors">Rules & Targets</span>
+                                        <span class="text-xs text-charcoal-light">Reference for rule and target fields</span>
                                     </div>
                                 </a>
                             </li>
@@ -438,8 +441,8 @@
                                 <a href="../../docs/rules-and-targets/" class="flex items-start group">
                                     <span  class="iconify text-stone mt-1 mr-2 group-hover:text-indigo transition-colors" data-icon="carbon:book" aria-hidden="true"></span>
                                     <div>
-                                        <span class="block text-sm font-medium text-charcoal group-hover:text-indigo transition-colors">Target Visibility</span>
-                                        <span class="text-xs text-charcoal-light">Understanding public/private</span>
+                                        <span class="block text-sm font-medium text-charcoal group-hover:text-indigo transition-colors">Manifest Reference</span>
+                                        <span class="text-xs text-charcoal-light">Top-level keys and field types</span>
                                     </div>
                                 </a>
                             </li>

@@ -191,7 +191,7 @@
                 </div>
                 <h1 class="font-serif text-4xl lg:text-5xl font-bold text-charcoal mb-6">Manifest Format</h1>
                 <p class="text-xl text-charcoal-mid font-light leading-relaxed max-w-3xl">
-                    The <code class="font-mono text-vermillion bg-vermillion/5 px-1.5 py-0.5 rounded text-lg">Netsukefile</code> is the heart of your build configuration. It uses a declarative, Python-like syntax (Starlark) to define targets, dependencies, and rules.
+                    The <code class="font-mono text-vermillion bg-vermillion/5 px-1.5 py-0.5 rounded text-lg">Netsukefile</code> is the heart of your build configuration. It is a YAML document with explicit top-level keys and controlled Jinja expansion inside values.
                 </p>
             </div>
 
@@ -203,7 +203,7 @@
                 </h2>
 
                 <p class="text-charcoal-mid mb-6 max-w-3xl">
-                    Every <code class="font-mono text-sm">Netsukefile</code> consists of three primary sections: package declaration, load statements, and build rules. Netsuke evaluates these files from top to bottom.
+                    Every <code class="font-mono text-sm">Netsukefile</code> is a YAML mapping. The common top-level sections are <code>netsuke_version</code>, <code>vars</code>, <code>macros</code>, <code>rules</code>, <code>targets</code>, <code>actions</code>, and <code>defaults</code>.
                 </p>
 
                 <div class="bg-charcoal rounded-xl border border-charcoal-mid shadow-lg overflow-hidden relative">
@@ -211,20 +211,20 @@
                     <div class="absolute right-6 top-16 hidden lg:block">
                         <div class="flex items-center mb-10">
                             <div class="w-24 h-px bg-stone-light/30 mr-2"></div>
-                            <span class="text-stone-light text-xs font-mono">Package Metadata</span>
+                            <span class="text-stone-light text-xs font-mono">Manifest metadata</span>
                         </div>
                         <div class="flex items-center mb-16">
                             <div class="w-24 h-px bg-stone-light/30 mr-2"></div>
-                            <span class="text-stone-light text-xs font-mono">Import Rules</span>
+                            <span class="text-stone-light text-xs font-mono">Reusable rules</span>
                         </div>
                         <div class="flex items-center">
                             <div class="w-24 h-px bg-stone-light/30 mr-2"></div>
-                            <span class="text-stone-light text-xs font-mono">Target Defs</span>
+                            <span class="text-stone-light text-xs font-mono">Targets and defaults</span>
                         </div>
                     </div>
 
                     <div class="bg-charcoal-mid/30 px-4 py-2 flex items-center justify-between border-b border-white/10">
-                        <span class="text-xs font-mono text-stone-light">/src/core/Netsukefile</span>
+                        <span class="text-xs font-mono text-stone-light">Netsukefile</span>
                         <div class="flex space-x-1.5">
                             <div class="w-2.5 h-2.5 rounded-full bg-vermillion"></div>
                             <div class="w-2.5 h-2.5 rounded-full bg-amber"></div>
@@ -232,31 +232,25 @@
                     </div>
 
                     <div class="p-6 font-mono text-sm overflow-x-auto">
-<pre><code><span class="token comment"># 1. Package Declaration (Optional but recommended)</span>
-<span class="token function">package</span>(
-    default_visibility = [<span class="token string">"//visibility:public"</span>],
-    license = <span class="token string">"MIT"</span>
-)
+<pre><code><span class="token comment"># 1. Schema version</span>
+<span class="token property">netsuke_version</span>: <span class="token string">"1.0.0"</span>
 
-<span class="token comment"># 2. Load Statements</span>
-<span class="token keyword">load</span>(<span class="token string">"@rules_rust//rust:defs.bzl"</span>, <span class="token string">"rust_library"</span>, <span class="token string">"rust_test"</span>)
+<span class="token comment"># 2. Variables and reusable rules</span>
+<span class="token property">vars</span>:
+  <span class="token property">cc</span>: <span class="token string">"gcc"</span>
 
-<span class="token comment"># 3. Build Rules</span>
-<span class="token function">rust_library</span>(
-    name = <span class="token string">"core_utils"</span>,
-    srcs = <span class="token function">glob</span>([<span class="token string">"src/**/*.rs"</span>]),
-    deps = [
-        <span class="token string">"//lib/json:parser"</span>,    <span class="token comment"># Absolute path</span>
-        <span class="token string">":internal_helpers"</span>     <span class="token comment"># Relative path</span>
-    ],
-    edition = <span class="token string">"2021"</span>,
-)
+<span class="token property">rules</span>:
+  - <span class="token property">name</span>: <span class="token string">"compile"</span>
+    <span class="token property">command</span>: <span class="token string">"{{ cc }} -c {{ ins }} -o {{ outs }}"</span>
 
-<span class="token function">genrule</span>(
-    name = <span class="token string">"version_info"</span>,
-    outs = [<span class="token string">"version.rs"</span>],
-    cmd = <span class="token string">"echo 'pub const VERSION: &str = \"1.0.0\";' > $OUT"</span>,
-)</code></pre>
+<span class="token comment"># 3. Build targets and defaults</span>
+<span class="token property">targets</span>:
+  - <span class="token property">name</span>: <span class="token string">"main.o"</span>
+    <span class="token property">rule</span>: <span class="token string">"compile"</span>
+    <span class="token property">sources</span>: <span class="token string">"src/main.c"</span>
+
+<span class="token property">defaults</span>:
+  - <span class="token string">"main.o"</span></code></pre>
                     </div>
                 </div>
             </section>
@@ -268,7 +262,7 @@
                     <span  class="iconify text-sm text-stone opacity-0 group-hover:opacity-100 ml-3 transition-opacity" data-icon="carbon:link" aria-hidden="true"></span>
                 </h2>
                 <p class="text-charcoal-mid mb-6 max-w-3xl">
-                    Most build rules in Netsuke share a common set of attributes. These define the target's identity, visibility, and basic tagging.
+                    These fields show up frequently across rules, targets, and actions. They define identity, reuse, and execution behaviour.
                 </p>
 
                 <div class="bg-white rounded-lg border border-stone shadow-sm overflow-hidden">
@@ -282,32 +276,32 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-stone-light">
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">name</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">netsuke_version</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">String</td>
                                 <td class="px-6 py-4 text-sm text-charcoal-mid">
                                     <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-vermillion/10 text-vermillion mb-1">Required</span><br>
-                                    A unique identifier for the target within the package. Used in labels like <code class="bg-stone-light/30 px-1 rounded">:name</code>.
+                                    Declares which manifest schema version the file follows.
                                 </td>
                             </tr>
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">visibility</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">List[Label]</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">rules[].name</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">String</td>
                                 <td class="px-6 py-4 text-sm text-charcoal-mid">
-                                    Controls which packages can depend on this target. Defaults to <code class="bg-stone-light/30 px-1 rounded">//visibility:private</code>.
+                                    Names a reusable command or script template that targets can reference.
                                 </td>
                             </tr>
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">tags</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">List[String]</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">targets[].sources</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">String or List</td>
                                 <td class="px-6 py-4 text-sm text-charcoal-mid">
-                                    Keywords used to filter targets during build execution (e.g., <code class="bg-stone-light/30 px-1 rounded">["manual", "integration"]</code>).
+                                    Lists the input files or previously generated outputs required by a target.
                                 </td>
                             </tr>
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">testonly</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">defaults</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">Boolean</td>
                                 <td class="px-6 py-4 text-sm text-charcoal-mid">
-                                    If true, this target can only be depended on by other <code class="bg-stone-light/30 px-1 rounded">testonly</code> targets or test rules.
+                                    Lists the target names built when <code class="bg-stone-light/30 px-1 rounded">netsuke</code> runs without explicit targets.
                                 </td>
                             </tr>
                         </tbody>
@@ -315,11 +309,11 @@
                 </div>
             </section>
 
-            <!-- Genrule Deep Dive -->
-            <section id="genrule" class="mb-16">
+            <!-- Inline command deep dive -->
+            <section id="inline-commands" class="mb-16">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="font-serif text-2xl font-bold text-charcoal group cursor-pointer flex items-center">
-                        The <code class="font-mono text-indigo bg-indigo/5 px-2 py-1 rounded mx-2 text-xl">genrule</code> Function
+                        Inline commands and scripts
                         <span  class="iconify text-sm text-stone opacity-0 group-hover:opacity-100 ml-3 transition-opacity" data-icon="carbon:link" aria-hidden="true"></span>
                     </h2>
                     <a href="./" class="text-sm font-medium text-indigo hover:text-indigo-light flex items-center">
@@ -328,7 +322,7 @@
                 </div>
 
                 <p class="text-charcoal-mid mb-6 max-w-3xl">
-                    <code class="font-mono text-sm">genrule</code> is the most versatile rule in Netsuke. It allows you to run arbitrary shell commands to generate files. It is the "glue" that lets you integrate any tool into the build graph.
+                    Targets may define <code class="font-mono text-sm">command</code> or <code class="font-mono text-sm">script</code> inline instead of referencing a named rule. This is useful for one-off steps that are too small to deserve a shared rule.
                 </p>
 
                 <div class="grid lg:grid-cols-2 gap-8 mb-8">
@@ -336,23 +330,20 @@
                     <div>
                         <h4 class="font-serif font-bold text-charcoal mb-4">Basic Usage</h4>
                         <div class="bg-charcoal rounded-lg border border-charcoal-mid shadow-lg p-5 font-mono text-sm overflow-x-auto text-stone-light">
-<pre><code><span class="token function">genrule</span>(
-    name = <span class="token string">"concat_files"</span>,
-    srcs = [
-        <span class="token string">"header.txt"</span>,
-        <span class="token string">"body.txt"</span>,
-        <span class="token string">"footer.txt"</span>
-    ],
-    outs = [<span class="token string">"page.html"</span>],
-    cmd = <span class="token string">"cat $(SRCS) > $@"</span>,
-)</code></pre>
+<pre><code><span class="token property">targets</span>:
+  - <span class="token property">name</span>: <span class="token string">"page.html"</span>
+    <span class="token property">sources</span>:
+      - <span class="token string">"header.txt"</span>
+      - <span class="token string">"body.txt"</span>
+      - <span class="token string">"footer.txt"</span>
+    <span class="token property">command</span>: <span class="token string">"cat {{ ins }} &gt; {{ outs }}"</span></code></pre>
                         </div>
                         <div class="mt-4 p-4 bg-boxwood-pale border border-stone rounded-lg">
-                            <h5 class="text-sm font-bold text-charcoal mb-2">Variable Substitution</h5>
+                            <h5 class="text-sm font-bold text-charcoal mb-2">Common placeholders</h5>
                             <ul class="text-sm text-charcoal-mid space-y-2">
-                                <li class="flex items-start"><code class="font-mono text-indigo w-16 shrink-0">$(SRCS)</code> <span>Space-separated list of input files</span></li>
-                                <li class="flex items-start"><code class="font-mono text-indigo w-16 shrink-0">$@</code> <span>The output file path (if single output)</span></li>
-                                <li class="flex items-start"><code class="font-mono text-indigo w-16 shrink-0">$(location)</code> <span>Resolves path to a label</span></li>
+                                <li class="flex items-start"><code class="font-mono text-indigo w-16 shrink-0">{{ ins }}</code> <span>Space-separated list of quoted input paths</span></li>
+                                <li class="flex items-start"><code class="font-mono text-indigo w-16 shrink-0">{{ outs }}</code> <span>Space-separated list of quoted output paths</span></li>
+                                <li class="flex items-start"><code class="font-mono text-indigo w-16 shrink-0">vars</code> <span>Global and target-local values exposed to Jinja rendering</span></li>
                             </ul>
                         </div>
                     </div>
@@ -464,13 +455,13 @@
 
                     <a href="../templating-and-standard-library/" class="block p-6 bg-boxwood-pale rounded-xl border border-stone shadow-sm hover:shadow-paper hover:border-vermillion transition-all group">
                         <h3 class="font-bold text-charcoal mb-2 group-hover:text-vermillion transition-colors">Templating</h3>
-                        <p class="text-sm text-charcoal-mid mb-4">Understand the Starlark dialect used for logic within manifests.</p>
+                        <p class="text-sm text-charcoal-mid mb-4">Understand how MiniJinja, <code>foreach</code>, and helper functions shape values inside manifests.</p>
                         <span class="text-vermillion text-xs font-mono font-medium">Read more &rarr;</span>
                     </a>
 
                     <a href="../cli-security-and-configuration/#configuration" class="block p-6 bg-boxwood-pale rounded-xl border border-stone shadow-sm hover:shadow-paper hover:border-matcha transition-all group">
                         <h3 class="font-bold text-charcoal mb-2 group-hover:text-matcha transition-colors">Configuration</h3>
-                        <p class="text-sm text-charcoal-mid mb-4">Setting up workspace-level configuration and .netsukerc.</p>
+                        <p class="text-sm text-charcoal-mid mb-4">Layer CLI flags, environment variables, and config files without hiding what the build does.</p>
                         <span class="text-matcha text-xs font-mono font-medium">Read more &rarr;</span>
                     </a>
                 </div>

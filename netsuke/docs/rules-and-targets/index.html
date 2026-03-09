@@ -205,7 +205,7 @@
                     <div class="inline-flex items-center px-3 py-1 rounded-full bg-boxwood text-charcoal-mid text-xs font-semibold uppercase tracking-wider border border-stone">
                         Core Concepts
                     </div>
-                    <span class="text-charcoal-mid text-xs font-mono bg-white px-2 py-1 rounded border border-stone">v2.4.0</span>
+                    <span class="text-charcoal-mid text-xs font-mono bg-white px-2 py-1 rounded border border-stone">Current schema</span>
                 </div>
                 <h1 class="font-serif text-4xl lg:text-5xl font-bold text-charcoal mb-6">Rules & Targets</h1>
                 <p class="text-xl text-charcoal-mid font-light leading-relaxed max-w-3xl">
@@ -219,7 +219,7 @@
                 <div class="grid lg:grid-cols-2 gap-8 mb-8">
                     <div class="prose text-charcoal-mid">
                         <p class="mb-4">
-                            Netsuke constructs a Directed Acyclic Graph (DAG) where nodes are targets and edges are dependencies. When you run <code class="bg-stone-light/30 px-1 rounded text-sm text-indigo">netsuke build //app:main</code>, the system:
+                            Netsuke constructs a Directed Acyclic Graph (DAG) where nodes are targets and edges are dependencies. When you run <code class="bg-stone-light/30 px-1 rounded text-sm text-indigo">netsuke build app</code>, the system:
                         </p>
                         <ol class="list-decimal pl-5 space-y-2 mb-6 marker:text-indigo marker:font-bold">
                             <li>Parses the manifest for the requested target.</li>
@@ -230,8 +230,8 @@
                         <div class="p-4 bg-boxwood-pale border border-stone rounded-lg flex items-start space-x-3">
                             <span  class="iconify text-amber mt-1" data-icon="carbon:idea" aria-hidden="true"></span>
                             <div class="text-sm">
-                                <span class="font-bold text-charcoal block mb-1">Hermeticity is paramount</span>
-                                Rules execute in a sandbox with only declared inputs available. This ensures that if it builds on your machine, it builds on CI.
+                                <span class="font-bold text-charcoal block mb-1">Static graph first</span>
+                                Rules and targets are resolved before execution begins. That is what lets Netsuke hand a concrete plan to Ninja.
                             </div>
                         </div>
                     </div>
@@ -243,18 +243,18 @@
                          <div class="relative z-10 w-full max-w-xs h-64">
                             <!-- Nodes -->
                             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-10 bg-indigo text-white rounded flex items-center justify-center text-xs font-mono shadow-md border border-indigo-light z-20">
-                                //app:main
+                                app
                             </div>
 
                             <div class="absolute top-24 left-8 w-28 h-10 bg-white text-charcoal rounded flex items-center justify-center text-xs font-mono shadow-sm border border-stone z-20">
-                                //lib:utils
+                                main.o
                             </div>
                             <div class="absolute top-24 right-8 w-28 h-10 bg-white text-charcoal rounded flex items-center justify-center text-xs font-mono shadow-sm border border-stone z-20">
-                                //ui:components
+                                utils.o
                             </div>
 
                             <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-28 h-10 bg-white text-charcoal rounded flex items-center justify-center text-xs font-mono shadow-sm border border-stone z-20">
-                                //core:base
+                                compile
                             </div>
 
                             <!-- Edges (SVG Lines) -->
@@ -278,51 +278,35 @@
             <!-- Defining Rules Section -->
             <section id="defining-rules" class="mb-16">
                 <div class="flex items-center justify-between mb-6">
-                    <h2 class="font-serif text-2xl font-bold text-charcoal">Defining Custom Rules</h2>
-                    <span class="text-xs font-mono text-indigo bg-indigo/10 px-2 py-1 rounded">Advanced</span>
+                    <h2 class="font-serif text-2xl font-bold text-charcoal">Defining reusable rules</h2>
+                    <span class="text-xs font-mono text-indigo bg-indigo/10 px-2 py-1 rounded">Core</span>
                 </div>
 
                 <p class="text-charcoal-mid mb-6 max-w-3xl">
-                    While Netsuke comes with a standard library of rules (like <code class="text-sm bg-stone-light/40 px-1 rounded">rust_library</code>), the real power lies in defining your own. A rule definition specifies the inputs (attributes) and the implementation function.
+                    A Netsuke rule is a reusable command or script template. Targets can reference the rule by name, add their own inputs, and keep duplicated shell out of the manifest.
                 </p>
 
                 <div class="bg-charcoal rounded-xl border border-charcoal-mid shadow-lg overflow-hidden mb-8">
                     <div class="bg-charcoal-mid/30 px-4 py-2 flex items-center justify-between border-b border-white/10">
-                        <span class="text-xs font-mono text-stone-light">/defs/my_rules.bzl</span>
+                        <span class="text-xs font-mono text-stone-light">Netsukefile</span>
                         <div class="flex space-x-1.5">
                             <div class="w-2.5 h-2.5 rounded-full bg-vermillion"></div>
                             <div class="w-2.5 h-2.5 rounded-full bg-amber"></div>
                         </div>
                     </div>
                     <div class="p-6 font-mono text-sm overflow-x-auto text-stone-light">
-<pre><code><span class="token keyword">def</span> <span class="token function">_impl</span>(ctx):
-    <span class="token comment"># 1. Declare output file</span>
-    out = ctx.actions.declare_file(ctx.label.name + <span class="token string">".min.js"</span>)
+<pre><code><span class="token property">rules</span>:
+  - <span class="token property">name</span>: <span class="token string">"compile"</span>
+    <span class="token property">command</span>: <span class="token string">"gcc -c {{ ins }} -o {{ outs }}"</span>
+    <span class="token property">description</span>: <span class="token string">"Compiling {{ outs }}"</span>
 
-    <span class="token comment"># 2. Define the action</span>
-    ctx.actions.run(
-        outputs = [out],
-        inputs = ctx.files.srcs,
-        executable = ctx.executable.tool,
-        arguments = [f.path for f in ctx.files.srcs] + [<span class="token string">"-o"</span>, out.path],
-        mnemonic = <span class="token string">"MinifyJS"</span>,
-    )
+  - <span class="token property">name</span>: <span class="token string">"link"</span>
+    <span class="token property">command</span>: <span class="token string">"gcc {{ ins }} -o {{ outs }}"</span>
 
-    <span class="token comment"># 3. Return providers</span>
-    return [DefaultInfo(files = depset([out]))]
-
-<span class="token comment"># 4. Define the rule interface</span>
-minify_js = <span class="token function">rule</span>(
-    implementation = _impl,
-    attrs = {
-        <span class="token string">"srcs"</span>: attr.label_list(allow_files = [<span class="token string">".js"</span>]),
-        <span class="token string">"tool"</span>: attr.label(
-            executable = True,
-            cfg = <span class="token string">"exec"</span>,
-            default = Label(<span class="token string">"//tools:minifier"</span>)
-        ),
-    },
-)</code></pre>
+<span class="token property">targets</span>:
+  - <span class="token property">name</span>: <span class="token string">"app"</span>
+    <span class="token property">rule</span>: <span class="token string">"link"</span>
+    <span class="token property">sources</span>: [<span class="token string">"main.o"</span>, <span class="token string">"utils.o"</span>]</code></pre>
                     </div>
                 </div>
 
@@ -331,62 +315,62 @@ minify_js = <span class="token function">rule</span>(
                         <div class="step-connector">
                             <div class="w-8 h-8 rounded-full bg-indigo text-white flex items-center justify-center font-bold text-sm mb-3 relative z-10">1</div>
                         </div>
-                        <h4 class="font-bold text-charcoal mb-2">Implementation</h4>
-                        <p class="text-sm text-charcoal-mid">The <code class="font-mono text-xs">_impl</code> function contains the logic. It registers actions but doesn't run them immediately.</p>
+                        <h4 class="font-bold text-charcoal mb-2">Rule name</h4>
+                        <p class="text-sm text-charcoal-mid">Targets refer to a rule by <code class="font-mono text-xs">name</code>. Keep names short and literal.</p>
                     </div>
                     <div class="bg-white p-5 rounded-lg border border-stone shadow-sm step-item relative">
                         <div class="step-connector">
                             <div class="w-8 h-8 rounded-full bg-indigo text-white flex items-center justify-center font-bold text-sm mb-3 relative z-10">2</div>
                         </div>
-                        <h4 class="font-bold text-charcoal mb-2">Attributes</h4>
-                        <p class="text-sm text-charcoal-mid">The <code class="font-mono text-xs">attrs</code> dictionary defines the schema. Inputs are strongly typed (e.g., <code class="font-mono text-xs">label_list</code>, <code class="font-mono text-xs">string</code>).</p>
+                        <h4 class="font-bold text-charcoal mb-2">Recipe field</h4>
+                        <p class="text-sm text-charcoal-mid">A rule carries exactly one recipe: <code class="font-mono text-xs">command</code> or <code class="font-mono text-xs">script</code>.</p>
                     </div>
                     <div class="bg-white p-5 rounded-lg border border-stone shadow-sm step-item relative">
                         <div class="step-connector">
                             <div class="w-8 h-8 rounded-full bg-indigo text-white flex items-center justify-center font-bold text-sm mb-3 relative z-10">3</div>
                         </div>
-                        <h4 class="font-bold text-charcoal mb-2">Providers</h4>
-                        <p class="text-sm text-charcoal-mid">Rules return information to other rules via Providers. <code class="font-mono text-xs">DefaultInfo</code> is the standard return type.</p>
+                        <h4 class="font-bold text-charcoal mb-2">Target wiring</h4>
+                        <p class="text-sm text-charcoal-mid">Targets supply the concrete <code class="font-mono text-xs">sources</code>, outputs, and optional per-target variables.</p>
                     </div>
                 </div>
             </section>
 
             <!-- Target Patterns -->
             <section id="target-patterns" class="mb-16">
-                <h2 class="font-serif text-2xl font-bold text-charcoal mb-6">Target Patterns & Labels</h2>
+                <h2 class="font-serif text-2xl font-bold text-charcoal mb-6">Target fields</h2>
                 <p class="text-charcoal-mid mb-6 max-w-3xl">
-                    Labels uniquely identify a target. They follow the format <code class="bg-stone-light/40 px-1 rounded text-sm">@repo//package:target</code>. Understanding label resolution is critical for managing dependencies.
+                    Netsuke target references are plain names and paths rather than Bazel-style labels. The important distinction is between normal dependencies, order-only dependencies, and phony or always-run targets.
                 </p>
 
                 <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg border border-stone-light mb-8">
                     <table class="min-w-full divide-y divide-stone-light prop-table">
                         <thead class="bg-boxwood-pale">
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-charcoal uppercase tracking-wider">Pattern</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-charcoal uppercase tracking-wider">Field</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-charcoal uppercase tracking-wider">Example</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-charcoal uppercase tracking-wider">Meaning</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-stone-light">
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">Absolute</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">//src/ui:button</td>
-                                <td class="px-6 py-4 text-sm text-charcoal-mid">Target <code class="font-mono text-xs">button</code> in package <code class="font-mono text-xs">src/ui</code> from the root.</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">sources</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">["main.o", "utils.o"]</td>
+                                <td class="px-6 py-4 text-sm text-charcoal-mid">Build inputs whose changes should trigger a rebuild.</td>
                             </tr>
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">Relative</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">:tests</td>
-                                <td class="px-6 py-4 text-sm text-charcoal-mid">Target <code class="font-mono text-xs">tests</code> in the <em>current</em> package.</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">deps</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">["build"]</td>
+                                <td class="px-6 py-4 text-sm text-charcoal-mid">Named dependencies that must be built first and do trigger rebuilds.</td>
                             </tr>
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">Recursive</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">//src/...</td>
-                                <td class="px-6 py-4 text-sm text-charcoal-mid">All targets in <code class="font-mono text-xs">src</code> and all subdirectories.</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">order_only_deps</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">["build-dir"]</td>
+                                <td class="px-6 py-4 text-sm text-charcoal-mid">Dependencies that must run first but do not trigger rebuilds when they change.</td>
                             </tr>
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">All Targets</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">//src/ui:all</td>
-                                <td class="px-6 py-4 text-sm text-charcoal-mid">All rules defined in the <code class="font-mono text-xs">src/ui</code> BUILD file.</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">phony / always</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">true / false</td>
+                                <td class="px-6 py-4 text-sm text-charcoal-mid">Control whether a target is logical only or should run every time.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -401,9 +385,9 @@ minify_js = <span class="token function">rule</span>(
                         <div class="ml-4">
                             <h3 class="text-sm font-bold text-charcoal">CLI Tip: Querying Targets</h3>
                             <div class="mt-2 text-sm text-charcoal-mid">
-                                <p class="mb-2">You can use <code class="font-mono bg-white px-1 py-0.5 rounded border border-stone">netsuke query</code> to inspect the graph without building.</p>
+                                <p class="mb-2">Use <code class="font-mono bg-white px-1 py-0.5 rounded border border-stone">netsuke graph</code> or <code class="font-mono bg-white px-1 py-0.5 rounded border border-stone">netsuke manifest</code> to inspect the plan without running a full build.</p>
                                 <div class="bg-charcoal text-stone-light p-3 rounded font-mono text-xs">
-                                    $ netsuke query "deps(//app:main)" --output graph
+                                    $ netsuke graph app
                                 </div>
                             </div>
                         </div>
@@ -421,12 +405,12 @@ minify_js = <span class="token function">rule</span>(
                         </div>
                         <h3 class="font-bold text-charcoal mb-3">Deterministic Output</h3>
                         <p class="text-sm text-charcoal-mid leading-relaxed mb-4">
-                            Netsuke hashes inputs to determine if a rebuild is necessary. If the input hash matches, the output is fetched from cache.
+                            Netsuke generates the same static plan from the same manifest and environment. Deterministic manifests make rebuild decisions easier to explain and verify.
                         </p>
                         <ul class="text-sm text-charcoal-mid space-y-2">
                             <li class="flex items-center"><span  class="iconify text-matcha mr-2 text-xs" data-icon="carbon:checkmark" aria-hidden="true"></span> Consistent across machines</li>
                             <li class="flex items-center"><span  class="iconify text-matcha mr-2 text-xs" data-icon="carbon:checkmark" aria-hidden="true"></span> Bit-for-bit identical builds</li>
-                            <li class="flex items-center"><span  class="iconify text-matcha mr-2 text-xs" data-icon="carbon:checkmark" aria-hidden="true"></span> Remote caching enabled</li>
+                            <li class="flex items-center"><span  class="iconify text-matcha mr-2 text-xs" data-icon="carbon:checkmark" aria-hidden="true"></span> Byte-for-byte stable <code>build.ninja</code> output</li>
                         </ul>
                     </div>
 
@@ -434,9 +418,9 @@ minify_js = <span class="token function">rule</span>(
                         <div class="w-10 h-10 rounded-full bg-amber/10 flex items-center justify-center text-amber mb-4">
                             <span  class="iconify" data-icon="carbon:security" aria-hidden="true"></span>
                         </div>
-                        <h3 class="font-bold text-charcoal mb-3">Security & Sandboxing</h3>
+                        <h3 class="font-bold text-charcoal mb-3">Validation boundaries</h3>
                         <p class="text-sm text-charcoal-mid leading-relaxed mb-4">
-                            Actions run in restricted environments. They cannot access the internet or undeclared files, preventing supply chain attacks during build.
+                            The reviewed docs emphasize validation, deterministic plan generation, and explicit shell escaping. Treat those as the documented safety story.
                         </p>
                         <a href="../cli-security-and-configuration/#security" class="text-indigo text-sm font-medium hover:underline">Read Security Model &rarr;</a>
                     </div>

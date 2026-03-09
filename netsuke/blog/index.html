@@ -145,22 +145,22 @@
                     <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
                         <div class="max-w-2xl">
                             <div class="flex items-center space-x-3 text-sm mb-4">
-                                <span class="px-2.5 py-0.5 rounded-full bg-matcha/10 text-matcha font-mono border border-matcha/20 font-medium">v2.4.0</span>
-                                <span class="text-charcoal-light">March 15, 2024</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-matcha/10 text-matcha font-mono border border-matcha/20 font-medium">Design note</span>
+                                <span class="text-charcoal-light">Reviewed against current docs</span>
                             </div>
 
                             <h2 class="font-serif text-3xl lg:text-4xl font-bold text-charcoal mb-4 group-hover:text-indigo transition-colors">
-                                <a href="./">Netsuke v2.4: Faster Incremental Builds & Remote Caching</a>
+                                <a href="./">Why YAML First Matters in Netsuke</a>
                             </h2>
 
                             <p class="text-charcoal-mid text-lg mb-6 leading-relaxed">
-                                We've completely rewritten the dependency graph analysis engine. This release brings up to 40% faster incremental builds for large monorepos and introduces a new experimental remote caching protocol compatible with existing storage backends.
+                                Netsuke validates the manifest as YAML before it renders templates. That sounds conservative because it is. The reward is a build graph that can still be read by a human.
                             </p>
 
                             <div class="flex flex-wrap gap-2 mb-8">
-                                <span class="inline-flex items-center px-2 py-1 bg-boxwood-pale text-charcoal-mid text-xs rounded border border-stone">Performance</span>
-                                <span class="inline-flex items-center px-2 py-1 bg-boxwood-pale text-charcoal-mid text-xs rounded border border-stone">Caching</span>
-                                <span class="inline-flex items-center px-2 py-1 bg-boxwood-pale text-charcoal-mid text-xs rounded border border-stone">Rust</span>
+                                <span class="inline-flex items-center px-2 py-1 bg-boxwood-pale text-charcoal-mid text-xs rounded border border-stone">Design</span>
+                                <span class="inline-flex items-center px-2 py-1 bg-boxwood-pale text-charcoal-mid text-xs rounded border border-stone">YAML</span>
+                                <span class="inline-flex items-center px-2 py-1 bg-boxwood-pale text-charcoal-mid text-xs rounded border border-stone">Jinja</span>
                             </div>
 
                             <div class="flex flex-wrap gap-4">
@@ -168,7 +168,7 @@
                                     Read Announcement
                                 </a>
                                 <a href="../install/" class="inline-flex items-center px-5 py-2.5 bg-white border border-stone text-charcoal rounded-md font-medium shadow-sm hover:bg-boxwood-pale transition-colors">
-                                    <span  class="iconify mr-2 text-charcoal-mid" data-icon="carbon:download" aria-hidden="true"></span> Install v2.4.0
+                                    <span  class="iconify mr-2 text-charcoal-mid" data-icon="carbon:download" aria-hidden="true"></span> Read Install Notes
                                 </a>
                             </div>
                         </div>
@@ -182,12 +182,12 @@
                                 </div>
                                 <div class="space-y-1">
                                     <p><span class="text-matcha">➜</span> <span class="text-indigo-light">~</span> netsuke --version</p>
-                                    <p class="text-boxwood">netsuke 2.4.0 (stable)</p>
-                                    <p class="text-charcoal-light mt-2"># New in configuration:</p>
-                                    <p><span class="text-vermillion">remote_cache</span> = {</p>
-                                    <p class="pl-4">endpoint = <span class="text-matcha">"s3://build-cache"</span>,</p>
-                                    <p class="pl-4">read_only = <span class="text-amber">true</span></p>
-                                    <p>}</p>
+                                    <p class="text-boxwood">netsuke 0.x.y</p>
+                                    <p class="text-charcoal-light mt-2"># First steps:</p>
+                                    <p><span class="text-vermillion">netsuke_version</span>: <span class="text-matcha">"1.0.0"</span></p>
+                                    <p><span class="text-vermillion">targets</span>:</p>
+                                    <p class="pl-4">- <span class="text-amber">name</span>: <span class="text-matcha">"app"</span></p>
+                                    <p class="pl-4">  <span class="text-amber">command</span>: <span class="text-matcha">"gcc {{ ins }} -o {{ outs }}"</span></p>
                                 </div>
                             </div>
                         </div>
@@ -221,10 +221,10 @@
                             <span class="text-charcoal-mid">Feb 28, 2024</span>
                         </div>
                         <h3 class="font-serif text-2xl font-bold text-charcoal mb-3 group-hover:text-indigo transition-colors">
-                            <a href="./" class="hover:text-indigo transition-colors">The Road to Hermetic Builds on macOS</a>
+                            <a href="./" class="hover:text-indigo transition-colors">Reading the Six-Stage Pipeline Backwards</a>
                         </h3>
                         <p class="text-charcoal-mid text-sm mb-4 leading-relaxed">
-                            Ensuring reproducible builds on Darwin systems presents unique challenges due to dynamic linking and system headers. Here is how we solved sandboxing on macOS using lightweight virtualization.
+                            Start at the generated Ninja file, then work back to the manifest. It is the fastest way to understand what Netsuke is really doing on a non-trivial project.
                         </p>
                         <div class="flex items-center justify-between mt-auto">
                             <div class="flex items-center space-x-2">
@@ -240,15 +240,15 @@
                 <article class="post-card bg-white p-8 rounded-xl border border-stone shadow-sm flex flex-col md:flex-row gap-8">
                     <div class="flex-1">
                         <div class="flex items-center space-x-3 text-xs mb-3">
-                            <span class="px-2 py-0.5 rounded-full bg-boxwood/50 text-charcoal-mid font-mono border border-stone font-medium">v2.3.0</span>
+                            <span class="px-2 py-0.5 rounded-full bg-boxwood/50 text-charcoal-mid font-mono border border-stone font-medium">Language note</span>
                             <span class="text-stone-light">•</span>
                             <span class="text-charcoal-mid">Jan 15, 2024</span>
                         </div>
                         <h3 class="font-serif text-2xl font-bold text-charcoal mb-3">
-                            <a href="./" class="hover:text-indigo transition-colors">Netsuke v2.3: Starlark Debugger & Watch Mode</a>
+                            <a href="./" class="hover:text-indigo transition-colors">Macros, `foreach`, and the Smallest Useful Abstractions</a>
                         </h3>
                         <p class="text-charcoal-mid text-sm mb-4 leading-relaxed">
-                            This release focuses on developer experience. We've added a fully functional debugger for your build scripts and a highly requested watch mode that intelligently rebuilds only what changed.
+                            The manifest language is not trying to be a general-purpose runtime. This note covers the pieces that keep repetition down without turning the file into a script.
                         </p>
                         <div class="flex items-center justify-between mt-auto">
                             <div class="flex items-center space-x-2">
@@ -275,7 +275,7 @@
                             <a href="./" class="hover:text-indigo transition-colors">2023 Year in Review</a>
                         </h3>
                         <p class="text-charcoal-mid text-sm mb-4 leading-relaxed">
-                            It's been a monumental year for the Netsuke project. From our first public beta to reaching 5k stars on GitHub, we look back at the milestones and community contributions that made it possible.
+                            A short index of the design docs, CLI design, user guide, and example manifests that currently define Netsuke more accurately than any marketing page should.
                         </p>
                         <div class="flex items-center justify-between mt-auto">
                             <div class="flex items-center space-x-2">
@@ -336,10 +336,10 @@
                         <div class="relative group">
                             <div class="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-indigo border-2 border-white ring-1 ring-white"></div>
                             <div class="flex justify-between items-baseline">
-                                <a href="./" class="text-sm font-bold text-charcoal hover:text-indigo transition-colors">v2.4.0</a>
+                                <a href="./" class="text-sm font-bold text-charcoal hover:text-indigo transition-colors">YAML-first design</a>
                                 <span class="text-xs text-charcoal-light">Mar 15</span>
                             </div>
-                            <p class="text-xs text-charcoal-mid mt-0.5">Incremental builds performance boost</p>
+                            <p class="text-xs text-charcoal-mid mt-0.5">Why manifest validation happens before templating</p>
                         </div>
                         <!-- Item -->
                         <div class="relative group">
@@ -354,19 +354,19 @@
                         <div class="relative group">
                             <div class="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-stone border-2 border-white ring-1 ring-white group-hover:bg-charcoal-mid transition-colors"></div>
                             <div class="flex justify-between items-baseline">
-                                <a href="./" class="text-sm font-bold text-charcoal hover:text-indigo transition-colors">v2.3.0</a>
+                                <a href="./" class="text-sm font-bold text-charcoal hover:text-indigo transition-colors">Jinja usage</a>
                                 <span class="text-xs text-charcoal-light">Jan 15</span>
                             </div>
-                            <p class="text-xs text-charcoal-mid mt-0.5">Starlark debugger & watch mode</p>
+                            <p class="text-xs text-charcoal-mid mt-0.5">Macros, filters, and explicit expansion</p>
                         </div>
                         <!-- Item -->
                         <div class="relative group">
                             <div class="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-stone border-2 border-white ring-1 ring-white group-hover:bg-charcoal-mid transition-colors"></div>
                             <div class="flex justify-between items-baseline">
-                                <a href="./" class="text-sm font-bold text-charcoal hover:text-indigo transition-colors">v2.2.0</a>
+                                <a href="./" class="text-sm font-bold text-charcoal hover:text-indigo transition-colors">Example set</a>
                                 <span class="text-xs text-charcoal-light">Nov 20</span>
                             </div>
-                            <p class="text-xs text-charcoal-mid mt-0.5">Remote execution protocol alpha</p>
+                            <p class="text-xs text-charcoal-mid mt-0.5">Small manifests for C, docs, sites, and images</p>
                         </div>
                     </div>
                     <div class="mt-6 pt-4 border-t border-stone-light text-center">

@@ -136,7 +136,7 @@
             </div>
             <h1 class="font-serif text-5xl lg:text-6xl font-bold text-charcoal mb-6">Examples Hub</h1>
             <p class="text-xl text-charcoal-mid font-light leading-relaxed">
-                Explore real-world usage of Netsuke across different languages and domains. From simple C binaries to complex web asset pipelines.
+                Explore small, concrete Netsuke manifests. Each example shows one part of the language clearly enough to steal without regret.
             </p>
         </header>
 
@@ -154,7 +154,7 @@
                     </div>
                     <h2 class="font-serif text-3xl font-bold text-charcoal mb-4">Basic C Application</h2>
                     <p class="text-charcoal-mid mb-8 leading-relaxed">
-                        The "Hello World" of build systems. Learn how to compile C source files, link libraries, and manage header dependencies using Netsuke's built-in C rules. This example demonstrates the core concepts of targets, rules, and artifact caching.
+                        A small C build expressed in plain YAML. Reuse one compile rule, link two object files, and let Netsuke translate the graph for Ninja.
                     </p>
                     <div class="flex flex-wrap gap-4 mt-auto">
                         <a href="basic-c-application/" class="inline-flex items-center px-6 py-3 bg-indigo text-white rounded-md font-medium shadow-sm hover:bg-indigo-light transition-all">
@@ -176,21 +176,20 @@
                             <span>basic-c/</span>
                         </div>
                         <div class="code-preview p-4 text-sm border border-white/10 shadow-2xl rounded-lg">
-<pre><code><span class="text-amber">load</span>(<span class="text-matcha">"@std/c"</span>, <span class="text-matcha">"cc_binary"</span>, <span class="text-matcha">"cc_library"</span>)
+<pre><code><span class="text-indigo">netsuke_version</span>: <span class="text-matcha">"1.0.0"</span>
 
-<span class="text-charcoal-light"># Core utility library</span>
-<span class="text-indigo">cc_library</span>(
-    name = <span class="text-matcha">"utils"</span>,
-    srcs = [<span class="text-matcha">"utils.c"</span>],
-    hdrs = [<span class="text-matcha">"utils.h"</span>],
-)
+<span class="text-indigo">rules</span>:
+  - <span class="text-amber">name</span>: <span class="text-matcha">"compile"</span>
+    <span class="text-amber">command</span>: <span class="text-matcha">"gcc -c {{ ins }} -o {{ outs }}"</span>
 
-<span class="text-charcoal-light"># Main executable target</span>
-<span class="text-indigo">cc_binary</span>(
-    name = <span class="text-matcha">"app"</span>,
-    srcs = [<span class="text-matcha">"main.c"</span>],
-    deps = [<span class="text-matcha">":utils"</span>],
-)</code></pre>
+<span class="text-indigo">targets</span>:
+  - <span class="text-amber">name</span>: <span class="text-matcha">"main.o"</span>
+    <span class="text-amber">rule</span>: <span class="text-matcha">"compile"</span>
+    <span class="text-amber">sources</span>: <span class="text-matcha">"src/main.c"</span>
+
+  - <span class="text-amber">name</span>: <span class="text-matcha">"app"</span>
+    <span class="text-amber">command</span>: <span class="text-matcha">"gcc {{ ins }} -o {{ outs }}"</span>
+    <span class="text-amber">sources</span>: [<span class="text-matcha">"main.o"</span>, <span class="text-matcha">"utils.o"</span>]</code></pre>
                         </div>
                     </div>
                 </div>

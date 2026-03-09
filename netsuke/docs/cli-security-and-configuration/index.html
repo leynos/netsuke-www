@@ -207,11 +207,11 @@
                     <div class="inline-flex items-center px-3 py-1 rounded-full bg-boxwood text-charcoal-mid text-xs font-semibold uppercase tracking-wider border border-stone">
                         CLI & Config
                     </div>
-                    <span class="text-charcoal-mid text-xs font-mono bg-white px-2 py-1 rounded border border-stone">v2.4.0</span>
+                    <span class="text-charcoal-mid text-xs font-mono bg-white px-2 py-1 rounded border border-stone">CLI reference</span>
                 </div>
                 <h1 class="font-serif text-4xl lg:text-5xl font-bold text-charcoal mb-6">Command Line & Configuration</h1>
                 <p class="text-xl text-charcoal-mid font-light leading-relaxed max-w-3xl">
-                    Master the Netsuke CLI to inspect, build, and debug your graph. Configure your workspace with granular security policies to ensure safe and reproducible builds.
+                    Master the Netsuke CLI to build targets, inspect manifests, and control output. Configuration layers belong to the CLI, the environment, and config files rather than hidden defaults.
                 </p>
             </div>
 
@@ -242,13 +242,13 @@
                                         <span class="text-charcoal-light">Show full command lines</span>
                                     </div>
                                     <div class="flex items-start text-xs font-mono">
-                                        <span class="text-indigo w-24 shrink-0">--explain</span>
-                                        <span class="text-charcoal-light">Explain why a target is being rebuilt</span>
+                                        <span class="text-indigo w-24 shrink-0">--file, -f</span>
+                                        <span class="text-charcoal-light">Read a manifest from a custom path</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="bg-boxwood-pale px-6 py-3 border-t border-stone text-xs font-mono text-charcoal-mid">
-                                netsuke build //src/main:app
+                                netsuke build app
                             </div>
                         </div>
 
@@ -258,21 +258,21 @@
                                     <h3 class="font-mono text-lg font-bold text-charcoal">query</h3>
                                     <span class="px-2 py-0.5 rounded text-xs font-mono bg-indigo/10 text-indigo">Analysis</span>
                                 </div>
-                                <p class="text-charcoal-mid text-sm mb-4">Queries the dependency graph. Useful for debugging dependencies and understanding the build structure.</p>
+                                <p class="text-charcoal-mid text-sm mb-4">Graph and manifest inspection commands help explain what Netsuke is about to hand to Ninja.</p>
 
                                 <div class="space-y-2 mb-4">
                                     <div class="flex items-start text-xs font-mono">
-                                        <span class="text-indigo w-24 shrink-0">deps(...)</span>
-                                        <span class="text-charcoal-light">Find all dependencies of a target</span>
+                                        <span class="text-indigo w-24 shrink-0">manifest</span>
+                                        <span class="text-charcoal-light">Render or inspect the manifest without building</span>
                                     </div>
                                     <div class="flex items-start text-xs font-mono">
-                                        <span class="text-indigo w-24 shrink-0">rdeps(...)</span>
-                                        <span class="text-charcoal-light">Find all reverse dependencies</span>
+                                        <span class="text-indigo w-24 shrink-0">graph</span>
+                                        <span class="text-charcoal-light">Visualize the dependency graph</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="bg-boxwood-pale px-6 py-3 border-t border-stone text-xs font-mono text-charcoal-mid">
-                                netsuke query "deps(//src/main:app)"
+                                netsuke manifest --file Netsukefile
                             </div>
                         </div>
 
@@ -301,40 +301,40 @@
                             </div>
                             <div class="terminal-body">
                                 <div>
-                                    <span class="prompt">➜</span> <span class="cmd">netsuke build //src/core:lib --explain</span>
+                                    <span class="prompt">➜</span> <span class="cmd">netsuke build app --verbose</span>
                                 </div>
                                 <div class="mt-2 text-stone-light">
-                                    <span class="text-charcoal-light">INFO:</span> Analyzed target //src/core:lib (12 packages loaded)
+                                    <span class="text-charcoal-light">INFO:</span> Parsed Netsukefile and expanded 3 targets
                                 </div>
                                 <div class="mt-1 text-stone-light">
-                                    <span class="text-charcoal-light">INFO:</span> Found 1 target...
+                                    <span class="text-charcoal-light">INFO:</span> Wrote build.ninja
                                 </div>
                                 <div class="mt-2 text-amber">
-                                    EXPLAIN: Rebuilding //src/core:lib because:
+                                    INFO: Running Ninja for requested target:
                                 </div>
                                 <div class="ml-4 text-stone-light">
-                                    - src/core/utils.rs changed
+                                    - app
                                 </div>
                                 <div class="mt-2 text-stone-light">
-                                    <span class="text-matcha">[1 / 3]</span> Compiling utils.rs...
+                                    <span class="text-matcha">[1 / 3]</span> Compiling utils.c...
                                 </div>
                                 <div class="text-stone-light">
-                                    <span class="text-matcha">[2 / 3]</span> Linking libcore.rlib...
+                                    <span class="text-matcha">[2 / 3]</span> Compiling main.c...
                                 </div>
                                 <div class="text-stone-light">
-                                    <span class="text-matcha">[3 / 3]</span> Post-processing...
+                                    <span class="text-matcha">[3 / 3]</span> Linking app...
                                 </div>
                                 <div class="mt-2 success font-bold">
                                     Build completed successfully in 0.8s
                                 </div>
                                 <br>
                                 <div>
-                                    <span class="prompt">➜</span> <span class="cmd">netsuke query "rdeps(//src/core:lib)"</span>
+                                    <span class="prompt">➜</span> <span class="cmd">netsuke graph app</span>
                                 </div>
                                 <div class="mt-1 output">
-                                    //src/api:server<br>
-                                    //src/cli:tool<br>
-                                    //tests:integration_tests
+                                    app -&gt; main.o<br>
+                                    app -&gt; utils.o<br>
+                                    main.o -&gt; src/main.c
                                 </div>
                                 <br>
                                 <div>
@@ -363,7 +363,7 @@
                     <span  class="iconify text-indigo mr-3 text-lg" data-icon="carbon:settings-adjust" aria-hidden="true"></span> Configuration
                 </h2>
                 <p class="text-charcoal-mid mb-8 max-w-3xl">
-                    Netsuke is configured via a <code class="bg-boxwood-pale px-1.5 py-0.5 rounded border border-stone font-mono text-sm">.netsukeconfig</code> file at the root of your workspace. This TOML file controls global settings, toolchains, and remote execution parameters.
+                    The CLI design document describes layered configuration: command-line flags, environment variables, and config files. Use configuration to choose manifest paths, jobs, locale, and output style rather than to hide core build logic.
                 </p>
 
                 <div class="bg-boxwood-pale border border-stone rounded-xl overflow-hidden mb-8">
@@ -379,13 +379,13 @@
                                 </li>
                                 <li>
                                     <a href="#remote-section" class="flex items-center justify-between group p-2 rounded hover:bg-white transition-colors">
-                                        <span class="font-mono text-indigo font-medium">[remote]</span>
+                                        <span class="font-mono text-indigo font-medium">[ui]</span>
                                         <span  class="iconify text-xs text-stone group-hover:text-indigo" data-icon="carbon:chevron-right" aria-hidden="true"></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#cache-section" class="flex items-center justify-between group p-2 rounded hover:bg-white transition-colors">
-                                        <span class="font-mono text-indigo font-medium">[cache]</span>
+                                        <span class="font-mono text-indigo font-medium">[locale]</span>
                                         <span  class="iconify text-xs text-stone group-hover:text-indigo" data-icon="carbon:chevron-right" aria-hidden="true"></span>
                                     </a>
                                 </li>
@@ -398,20 +398,20 @@
 keep_going = <span class="text-matcha">false</span>
 <span class="text-charcoal-light"># Number of parallel jobs (0 = auto)</span>
 jobs = <span class="text-vermillion">0</span>
-<span class="text-charcoal-light"># Sandbox execution strategy</span>
-sandbox = <span class="text-matcha">"strict"</span>
+<span class="text-charcoal-light"># Optional manifest path override</span>
+file = <span class="text-matcha">"Netsukefile"</span>
 
-<span id="remote-section" class="text-amber">[remote]</span>
-<span class="text-charcoal-light"># Remote execution endpoint (gRPC)</span>
-executor = <span class="text-matcha">"grpc://buildfarm.example.com:8980"</span>
-<span class="text-charcoal-light"># Upload local results to cache</span>
-upload_results = <span class="text-matcha">true</span>
+<span id="remote-section" class="text-amber">[ui]</span>
+<span class="text-charcoal-light"># Reduce animated progress output</span>
+quiet = <span class="text-matcha">false</span>
+<span class="text-charcoal-light"># Disable colour in plain terminals</span>
+color = <span class="text-matcha">"auto"</span>
 
-<span id="cache-section" class="text-amber">[cache]</span>
-<span class="text-charcoal-light"># Local disk cache size limit</span>
-disk_limit_mb = <span class="text-vermillion">5000</span>
-<span class="text-charcoal-light"># Directory for build artifacts</span>
-dir = <span class="text-matcha">".netsuke-out"</span></code></pre>
+<span id="cache-section" class="text-amber">[locale]</span>
+<span class="text-charcoal-light"># Preferred locale for messages</span>
+language = <span class="text-matcha">"en-GB"</span>
+<span class="text-charcoal-light"># Fall back to built-in English resources</span>
+fallback = <span class="text-matcha">"en-US"</span></code></pre>
                             </div>
                         </div>
                     </div>
@@ -430,7 +430,7 @@ dir = <span class="text-matcha">".netsuke-out"</span></code></pre>
                 </div>
 
                 <p class="text-charcoal-mid mb-10 max-w-3xl">
-                    Netsuke is designed with a "hermetic by default" philosophy. Rules cannot access the network or filesystem outside of their declared inputs, preventing supply chain attacks during the build process.
+                    The reviewed docs emphasize safer command construction, clear diagnostics, and explicit manifest structure. This page therefore focuses on validation boundaries Netsuke actually documents rather than inventing a sandbox policy.
                 </p>
 
                 <div class="grid md:grid-cols-3 gap-6 mb-12">
@@ -438,24 +438,24 @@ dir = <span class="text-matcha">".netsuke-out"</span></code></pre>
                         <div class="w-10 h-10 rounded-full bg-boxwood flex items-center justify-center text-charcoal mb-4">
                             <span  class="iconify" data-icon="carbon:box" aria-hidden="true"></span>
                         </div>
-                        <h3 class="font-bold text-charcoal mb-2">Hermetic Sandbox</h3>
-                        <p class="text-sm text-charcoal-mid">Every action runs in an isolated container or sandbox. No access to <code class="bg-stone-light/30 px-1 rounded">/tmp</code>, <code class="bg-stone-light/30 px-1 rounded">/home</code>, or the internet unless explicitly granted.</p>
+                        <h3 class="font-bold text-charcoal mb-2">YAML first</h3>
+                        <p class="text-sm text-charcoal-mid">The manifest must be valid YAML before any template expansion happens. Structural mistakes fail early, before commands are generated.</p>
                     </div>
 
                     <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
                         <div class="w-10 h-10 rounded-full bg-boxwood flex items-center justify-center text-charcoal mb-4">
                             <span  class="iconify" data-icon="carbon:fingerprint-recognition" aria-hidden="true"></span>
                         </div>
-                        <h3 class="font-bold text-charcoal mb-2">Strict Checksumming</h3>
-                        <p class="text-sm text-charcoal-mid">All external dependencies must be pinned with SHA-256 hashes. If a remote resource changes without a hash update, the build fails instantly.</p>
+                        <h3 class="font-bold text-charcoal mb-2">Shell escaping</h3>
+                        <p class="text-sm text-charcoal-mid">Interpolated values in commands and scripts are escaped by default, with explicit opt-outs for raw usage where the author really means it.</p>
                     </div>
 
                     <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
                         <div class="w-10 h-10 rounded-full bg-boxwood flex items-center justify-center text-charcoal mb-4">
                             <span  class="iconify" data-icon="carbon:network-4" aria-hidden="true"></span>
                         </div>
-                        <h3 class="font-bold text-charcoal mb-2">Network Isolation</h3>
-                        <p class="text-sm text-charcoal-mid">Only specific rules (like <code class="bg-stone-light/30 px-1 rounded">http_archive</code>) are allowed network access. Standard build rules (compilers, linters) run completely offline.</p>
+                        <h3 class="font-bold text-charcoal mb-2">Typed diagnostics</h3>
+                        <p class="text-sm text-charcoal-mid">CLI errors are designed to carry context, hints, and localized output rather than dropping raw parser failures on the floor.</p>
                     </div>
                 </div>
 
@@ -481,11 +481,11 @@ dir = <span class="text-matcha">".netsuke-out"</span></code></pre>
                                 <ul class="space-y-3 text-sm text-charcoal-mid">
                                     <li class="flex items-start">
                                         <span  class="iconify text-vermillion mt-1 mr-2 text-xs" data-icon="carbon:close" aria-hidden="true"></span>
-                                        <span><strong>Sandbox violation:</strong> A rule tried to write outside its output directory. Ensure all outputs are declared.</span>
+                                        <span><strong>Rule mismatch:</strong> A target defined more than one of <code>rule</code>, <code>command</code>, or <code>script</code>. Keep the recipe singular.</span>
                                     </li>
                                     <li class="flex items-start">
                                         <span  class="iconify text-vermillion mt-1 mr-2 text-xs" data-icon="carbon:close" aria-hidden="true"></span>
-                                        <span><strong>Cache miss:</strong> Deterministic builds should cache hit. Check for absolute paths or timestamps in your build actions.</span>
+                                        <span><strong>Template failure:</strong> A variable or macro expanded unexpectedly. Check the rendered string fields and the <code>vars</code> precedence.</span>
                                     </li>
                                 </ul>
                             </div>

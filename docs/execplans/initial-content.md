@@ -276,11 +276,14 @@ running them and record the results in `Outcomes & Retrospective`.
 - [x] 2026-03-09 17:25 GMT: Approval received; implementation started and the
   plan status moved to `IN PROGRESS`.
 - [ ] Build the canonical content matrix for page-by-page claims.
-- [ ] Rewrite high-traffic pages in `netsuke/` without layout changes.
-- [ ] Normalize `docs/examples/*` to the reviewed manifest syntax.
-- [ ] Rewrite docs pages in `netsuke/docs/` to match the reviewed docs.
-- [ ] Rewrite examples pages in `netsuke/examples/` to match normalized
-  examples.
+- [x] 2026-03-09 17:35 GMT: Normalized `docs/examples/*` to the reviewed
+  manifest syntax and placeholder style.
+- [x] 2026-03-09 18:05 GMT: Rewrote the high-traffic product-story pages in
+  `netsuke/` without changing layout structure.
+- [x] 2026-03-09 18:05 GMT: Rewrote the core docs pages in `netsuke/docs/` to
+  align with the reviewed YAML-plus-Jinja design.
+- [x] 2026-03-09 18:05 GMT: Rewrote the examples hub and the basic C example
+  page to match the normalized examples.
 - [ ] Run terminology sweep, then run doc gates and capture logs.
 - [ ] Update this ExecPlan with implementation outcomes and retrospective notes.
 
@@ -298,6 +301,10 @@ running them and record the results in `Outcomes & Retrospective`.
 - 2026-03-09 17:00 GMT: The prototype site drift is not limited to tone; it
   includes a different language model, different CLI shape, and fictional
   release/version framing.
+- 2026-03-09 18:05 GMT: The docs hub and examples pages contained additional
+  secondary drift beyond the obvious Starlark references, including Bazel-style
+  labels, custom rule APIs, and sandbox claims embedded in side cards and
+  related-topic summaries.
 
 ## Decision Log
 
@@ -311,6 +318,10 @@ running them and record the results in `Outcomes & Retrospective`.
 - 2026-03-09 17:00 GMT: Chose to keep the plan at `docs/execplans/initial-content.md`
   because the governing `AGENTS.md` requires the branch-name path
   `docs/execplans/${GIT_BRANCH_NAME##*/}.md`.
+- 2026-03-09 18:05 GMT: Chose to replace fictional release content in the blog
+  with evergreen design-note style copy instead of leaving a release-shaped
+  shell. Reason: the reviewed docs provide architecture and usage guidance but
+  do not establish the featured release claims as shipped behaviour.
 
 ## Outcomes & Retrospective
 

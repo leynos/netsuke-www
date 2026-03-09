@@ -123,7 +123,7 @@
             </div>
             <h1 class="font-serif text-5xl lg:text-6xl font-bold text-charcoal mb-6">Guides & Deep Dives</h1>
             <p class="text-xl text-charcoal-mid font-light leading-relaxed">
-                Understand the philosophy behind Netsuke, learn how the build graph works under the hood, and find out how you can contribute to the ecosystem.
+                Understand the compiler model behind Netsuke, learn where the sharp edges are, and use the same language the manifests use.
             </p>
         </header>
 
@@ -138,7 +138,7 @@
                         </div>
                         <h2 class="font-serif text-3xl font-bold text-charcoal mb-4 group-hover:text-indigo transition-colors">How Netsuke Works</h2>
                         <p class="text-charcoal-mid mb-8 leading-relaxed">
-                            Explore the six-stage pipeline that transforms your declarative manifest into a deterministic build graph. Understand how caching, sandboxing, and remote execution fit together.
+                            Explore the six-stage pipeline that turns a YAML manifest into a static Ninja plan. The dynamic work happens up front, so execution stays fast and legible.
                         </p>
 
                         <div class="space-y-4 mb-8">
@@ -146,7 +146,7 @@
                                 <div class="w-6 h-6 rounded-full bg-boxwood flex items-center justify-center text-charcoal text-xs font-bold mt-0.5 mr-3">1</div>
                                 <div>
                                     <h4 class="font-bold text-charcoal text-sm">Manifest Parsing</h4>
-                                    <p class="text-xs text-charcoal-light">Starlark evaluation and rule loading</p>
+                                    <p class="text-xs text-charcoal-light">YAML validation and raw manifest loading</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
@@ -160,7 +160,7 @@
                                 <div class="w-6 h-6 rounded-full bg-boxwood flex items-center justify-center text-charcoal text-xs font-bold mt-0.5 mr-3">3</div>
                                 <div>
                                     <h4 class="font-bold text-charcoal text-sm">Action Execution</h4>
-                                    <p class="text-xs text-charcoal-light">Sandboxed runner invocation via Ninja</p>
+                                    <p class="text-xs text-charcoal-light">Generated Ninja execution with clear diagnostics</p>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +227,7 @@
                         <a href="./" class="guide-card bg-white p-6 rounded-xl border border-stone shadow-sm block h-full">
                             <h3 class="font-serif text-lg font-bold text-charcoal mb-3">Why Netsuke?</h3>
                             <p class="text-sm text-charcoal-mid mb-4 line-clamp-3">
-                                Build systems are often complex and brittle. Learn why we built Netsuke to be safe by default, hermetic, and fast enough for modern monorepos.
+                                Build systems are often opaque and brittle. Learn why Netsuke keeps the structure in YAML and pushes execution down to Ninja.
                             </p>
                             <span class="text-xs font-mono text-indigo font-medium">Read Article &rarr;</span>
                         </a>
@@ -289,7 +289,7 @@
                                     </div>
                                     <div class="ml-4">
                                         <h3 class="text-base font-bold text-charcoal group-hover:text-indigo transition-colors">Writing Rules</h3>
-                                        <p class="text-sm text-charcoal-mid mt-1">Advanced guide on creating custom rulesets using Starlark for the standard library.</p>
+                                        <p class="text-sm text-charcoal-mid mt-1">Advanced guide to reusable rules, macros, and template helpers in YAML manifests.</p>
                                     </div>
                                     <div class="ml-auto pl-4">
                                         <span  class="iconify text-stone text-xs" data-icon="carbon:chevron-right" aria-hidden="true"></span>

@@ -204,72 +204,68 @@
                     <div class="inline-flex items-center px-3 py-1 rounded-full bg-boxwood text-charcoal-mid text-xs font-semibold uppercase tracking-wider border border-stone">
                         Core Concepts
                     </div>
-                    <span class="text-charcoal-mid text-xs font-mono bg-white px-2 py-1 rounded border border-stone">v2.4.0</span>
+                    <span class="text-charcoal-mid text-xs font-mono bg-white px-2 py-1 rounded border border-stone">Jinja helpers</span>
                 </div>
                 <h1 class="font-serif text-4xl lg:text-5xl font-bold text-charcoal mb-6">Templating & Standard Library</h1>
                 <p class="text-xl text-charcoal-mid font-light leading-relaxed max-w-3xl">
-                    Netsuke uses Starlark, a deterministic dialect of Python, for its configuration language. This allows for powerful abstractions while maintaining hermeticity and reproducibility.
+                    Netsuke uses MiniJinja inside YAML values. The structure stays as data; templating fills in strings, expands <code>foreach</code>, and gates entries with <code>when</code>.
                 </p>
             </div>
 
-            <!-- Introduction to Starlark -->
+            <!-- Introduction to templating -->
             <section id="starlark-intro" class="mb-16">
                 <div class="grid lg:grid-cols-2 gap-12 items-start">
                     <div>
-                        <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">Why Starlark?</h2>
+                        <h2 class="font-serif text-2xl font-bold text-charcoal mb-4">Why Jinja inside YAML?</h2>
                         <p class="text-charcoal-mid mb-6 leading-relaxed">
-                            Unlike JSON or YAML, Starlark allows you to define functions, loops, and variables. This capability is crucial for reducing boilerplate in large monorepos where many targets share similar configurations.
+                            Netsuke validates YAML before rendering templates. That keeps the manifest legible, keeps the structure explicit, and still leaves room for loops, macros, and conditional expansion.
                         </p>
                         <ul class="space-y-4 mb-8">
                             <li class="flex items-start">
                                 <div class="w-6 h-6 rounded-full bg-matcha/10 flex items-center justify-center mt-1 mr-3 shrink-0">
                                     <span  class="iconify text-matcha text-xs" data-icon="carbon:checkmark" aria-hidden="true"></span>
                                 </div>
-                                <span class="text-sm text-charcoal-mid"><strong class="text-charcoal">Deterministic:</strong> Execution always yields the same result.</span>
+                                <span class="text-sm text-charcoal-mid"><strong class="text-charcoal">YAML first:</strong> Structure is checked before templating is allowed to render commands.</span>
                             </li>
                             <li class="flex items-start">
                                 <div class="w-6 h-6 rounded-full bg-matcha/10 flex items-center justify-center mt-1 mr-3 shrink-0">
                                     <span  class="iconify text-matcha text-xs" data-icon="carbon:checkmark" aria-hidden="true"></span>
                                 </div>
-                                <span class="text-sm text-charcoal-mid"><strong class="text-charcoal">Hermetic:</strong> No access to file system I/O, network, or date/time.</span>
+                                <span class="text-sm text-charcoal-mid"><strong class="text-charcoal">Controlled expansion:</strong> <code>foreach</code> and <code>when</code> handle structural repetition without turning the file into a programming language.</span>
                             </li>
                             <li class="flex items-start">
                                 <div class="w-6 h-6 rounded-full bg-matcha/10 flex items-center justify-center mt-1 mr-3 shrink-0">
                                     <span  class="iconify text-matcha text-xs" data-icon="carbon:checkmark" aria-hidden="true"></span>
                                 </div>
-                                <span class="text-sm text-charcoal-mid"><strong class="text-charcoal">Parallelizable:</strong> Modules can be loaded in parallel.</span>
+                                <span class="text-sm text-charcoal-mid"><strong class="text-charcoal">Reusable helpers:</strong> Macros, filters, and built-in functions cover common path and environment tasks.</span>
                             </li>
                         </ul>
                         <div class="bg-boxwood-pale p-5 rounded-lg border border-stone text-sm text-charcoal-mid">
                             <p class="font-bold text-charcoal mb-2"><span  class="iconify mr-2 text-indigo" data-icon="carbon:book" aria-hidden="true"></span> Learn More</p>
-                            Starlark is used by Bazel, Buck2, and now Netsuke. If you know Python, you already know 90% of Starlark.
+                            The goal is not to hide the build graph. The goal is to keep repeated YAML short enough to tolerate.
                         </div>
                     </div>
 
                     <!-- Code Example Card -->
                     <div class="bg-charcoal rounded-xl border border-charcoal-mid shadow-lg overflow-hidden">
                         <div class="bg-charcoal-mid/30 px-4 py-2 flex items-center justify-between border-b border-white/10">
-                            <span class="text-xs font-mono text-stone-light">macros.bzl</span>
+                            <span class="text-xs font-mono text-stone-light">Netsukefile</span>
                             <div class="flex space-x-1.5">
                                 <div class="w-2.5 h-2.5 rounded-full bg-vermillion"></div>
                                 <div class="w-2.5 h-2.5 rounded-full bg-amber"></div>
                             </div>
                         </div>
                         <div class="p-6 font-mono text-sm overflow-x-auto text-stone-light code-container">
-                            <div class="code-line"><span class="token keyword">def</span> <span class="token function">microservice</span>(name, deps=[]):</div>
-                            <div class="code-line">    <span class="token comment"># Define the binary target</span></div>
-                            <div class="code-line">    <span class="token function">rust_binary</span>(</div>
-                            <div class="code-line">        name = name,</div>
-                            <div class="code-line">        srcs = [<span class="token string">"src/main.rs"</span>],</div>
-                            <div class="code-line">        deps = deps + [<span class="token string">"//common:logger"</span>],</div>
-                            <div class="code-line">    )</div>
+                            <div class="code-line"><span class="token property">macros</span>:</div>
+                            <div class="code-line">  - <span class="token property">signature</span>: <span class="token string">"obj_name(src)"</span></div>
+                            <div class="code-line">    <span class="token property">body</span>: <span class="token string">|</span></div>
+                            <div class="code-line">      <span class="token string">{{ src | basename | replace('.c', '.o') }}</span></div>
                             <div class="code-line"></div>
-                            <div class="code-line">    <span class="token comment"># Automatically generate a container image</span></div>
-                            <div class="code-line">    <span class="token function">container_image</span>(</div>
-                            <div class="code-line">        name = name + <span class="token string">"_image"</span>,</div>
-                            <div class="code-line">        base = <span class="token string">"@distroless//cc"</span>,</div>
-                            <div class="code-line">        binary = <span class="token string">":"</span> + name,</div>
-                            <div class="code-line">    )</div>
+                            <div class="code-line"><span class="token property">targets</span>:</div>
+                            <div class="code-line">  - <span class="token property">foreach</span>: <span class="token string">glob('src/*.c')</span></div>
+                            <div class="code-line">    <span class="token property">name</span>: <span class="token string">"build/{{ obj_name(item) }}"</span></div>
+                            <div class="code-line">    <span class="token property">rule</span>: <span class="token string">"compile"</span></div>
+                            <div class="code-line">    <span class="token property">sources</span>: <span class="token string">"{{ item }}"</span></div>
                         </div>
                     </div>
                 </div>
@@ -335,24 +331,24 @@
                     <!-- Function Card 4 -->
                     <div class="function-card bg-white p-6 rounded-xl border border-stone transition-all duration-300 group cursor-pointer">
                         <div class="flex justify-between items-start mb-3">
-                            <code class="text-indigo font-bold font-mono text-sm bg-indigo/5 px-2 py-1 rounded">depset</code>
+                            <code class="text-indigo font-bold font-mono text-sm bg-indigo/5 px-2 py-1 rounded">env()</code>
                             <span class="text-xs text-charcoal-light border border-stone px-1.5 rounded">Data</span>
                         </div>
-                        <p class="text-sm text-charcoal-mid mb-4">A specialized data structure for efficient collection of dependencies across the graph.</p>
+                        <p class="text-sm text-charcoal-mid mb-4">Read environment variables into the templating context when the manifest needs host-specific values.</p>
                         <div class="text-xs font-mono text-stone-light bg-charcoal p-3 rounded group-hover:bg-charcoal-mid transition-colors">
-                            depset(direct=None, transitive=None)
+                            env("CC")
                         </div>
                     </div>
 
                     <!-- Function Card 5 -->
                     <div class="function-card bg-white p-6 rounded-xl border border-stone transition-all duration-300 group cursor-pointer">
                         <div class="flex justify-between items-start mb-3">
-                            <code class="text-indigo font-bold font-mono text-sm bg-indigo/5 px-2 py-1 rounded">select</code>
+                            <code class="text-indigo font-bold font-mono text-sm bg-indigo/5 px-2 py-1 rounded">sorted</code>
                             <span class="text-xs text-charcoal-light border border-stone px-1.5 rounded">Logic</span>
                         </div>
-                        <p class="text-sm text-charcoal-mid mb-4">Returns a value based on configuration flags. Essential for cross-platform builds.</p>
+                        <p class="text-sm text-charcoal-mid mb-4">Sort a list deterministically before it becomes part of the final static graph.</p>
                         <div class="text-xs font-mono text-stone-light bg-charcoal p-3 rounded group-hover:bg-charcoal-mid transition-colors">
-                            select({condition: value, ...})
+                            glob('build/*.html') | sorted
                         </div>
                     </div>
 
@@ -400,20 +396,22 @@
 
                         <!-- Content for patterns -->
                         <div class="md:col-span-8 p-8 bg-white">
-                            <h4 class="font-serif text-xl font-bold text-charcoal mb-2">Cross-Compilation with Select</h4>
+                            <h4 class="font-serif text-xl font-bold text-charcoal mb-2">Platform-specific sources with `when`</h4>
                             <p class="text-sm text-charcoal-mid mb-6">
-                                Use the <code class="bg-stone-light/30 px-1 rounded text-xs">select()</code> function to switch dependencies or flags based on the target platform.
+                                Use <code class="bg-stone-light/30 px-1 rounded text-xs">when</code> on repeated entries to include targets only when the current variables match the platform you want.
                             </p>
 
                             <div class="bg-charcoal p-4 rounded-lg font-mono text-xs text-stone-light overflow-x-auto">
-<pre><code><span class="token function">cc_library</span>(
-    name = <span class="token string">"sys_utils"</span>,
-    srcs = <span class="token function">select</span>({
-        <span class="token string">"//configs:windows"</span>: [<span class="token string">"windows_utils.cc"</span>],
-        <span class="token string">"//configs:macos"</span>: [<span class="token string">"macos_utils.cc"</span>],
-        <span class="token string">"//conditions:default"</span>: [<span class="token string">"linux_utils.cc"</span>],
-    }),
-)</code></pre>
+<pre><code><span class="token property">targets</span>:
+  - <span class="token property">when</span>: <span class="token string">target_os == 'linux'</span>
+    <span class="token property">name</span>: <span class="token string">"sys/linux.o"</span>
+    <span class="token property">rule</span>: <span class="token string">"compile"</span>
+    <span class="token property">sources</span>: <span class="token string">"src/linux_utils.c"</span>
+
+  - <span class="token property">when</span>: <span class="token string">target_os == 'macos'</span>
+    <span class="token property">name</span>: <span class="token string">"sys/macos.o"</span>
+    <span class="token property">rule</span>: <span class="token string">"compile"</span>
+    <span class="token property">sources</span>: <span class="token string">"src/macos_utils.c"</span></code></pre>
                             </div>
 
                             <div class="mt-6 flex items-start space-x-3 text-sm text-charcoal-mid bg-stone-light/20 p-4 rounded border border-stone-light">

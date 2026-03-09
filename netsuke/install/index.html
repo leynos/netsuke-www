@@ -141,7 +141,7 @@
             </div>
             <h1 class="font-serif text-5xl lg:text-6xl font-bold text-charcoal mb-6">Install Netsuke</h1>
             <p class="text-xl text-charcoal-mid font-light leading-relaxed mb-8">
-                Get up and running in seconds. Netsuke is a single binary with no external dependencies, available for macOS, Linux, and Windows.
+                Install the CLI, make sure <code>ninja</code> is available, and start with a small <code>Netsukefile</code>. Netsuke works best when the first build is boring.
             </p>
             <div class="flex justify-center space-x-6 text-sm text-charcoal-mid">
                 <span class="flex items-center"><span  class="iconify mr-2 text-lg" data-icon="carbon:apple" aria-hidden="true"></span> macOS</span>
@@ -171,8 +171,8 @@
 
                 <div class="p-8 lg:p-10">
                     <div class="mb-8">
-                        <h3 class="font-serif text-2xl font-bold text-charcoal mb-2">Quick Install Script</h3>
-                        <p class="text-charcoal-mid text-sm">The easiest way to install Netsuke. This script detects your OS and architecture, downloads the latest release, and places it in your path.</p>
+                        <h3 class="font-serif text-2xl font-bold text-charcoal mb-2">Install with Cargo</h3>
+                        <p class="text-charcoal-mid text-sm">The reviewed docs describe Cargo builds and release artefacts. Use Cargo when in doubt, then verify that <code>ninja</code> is installed separately.</p>
                     </div>
 
                     <div class="bg-charcoal rounded-lg p-6 relative group code-block-wrapper">
@@ -182,25 +182,25 @@
                             </button>
                         </div>
                         <code class="font-mono text-sm text-stone-light break-all">
-                            <span class="text-vermillion">curl</span> --proto <span class="text-matcha">'=https'</span> --tlsv1.2 -sSf https://sh.netsuke.build | sh
+                            <span class="text-vermillion">cargo</span> install netsuke
                         </code>
                     </div>
 
                     <div class="mt-8 grid md:grid-cols-2 gap-6">
                         <div class="bg-boxwood-pale p-4 rounded-lg border border-stone">
                             <h4 class="font-bold text-sm text-charcoal mb-2 flex items-center">
-                                <span  class="iconify mr-2 text-amber" data-icon="carbon:chemistry" aria-hidden="true"></span> Homebrew
+                                <span  class="iconify mr-2 text-amber" data-icon="carbon:chemistry" aria-hidden="true"></span> Build from source
                             </h4>
                             <div class="bg-white p-3 rounded border border-stone font-mono text-xs text-charcoal-mid">
-                                brew install netsuke
+                                cargo build --release
                             </div>
                         </div>
                         <div class="bg-boxwood-pale p-4 rounded-lg border border-stone">
                             <h4 class="font-bold text-sm text-charcoal mb-2 flex items-center">
-                                <span  class="iconify mr-2 text-indigo" data-icon="carbon:cube" aria-hidden="true"></span> Nix
+                                <span  class="iconify mr-2 text-indigo" data-icon="carbon:cube" aria-hidden="true"></span> Manual verification
                             </h4>
                             <div class="bg-white p-3 rounded border border-stone font-mono text-xs text-charcoal-mid">
-                                nix-env -iA nixpkgs.netsuke
+                                netsuke --version
                             </div>
                         </div>
                     </div>
@@ -231,23 +231,22 @@
                                 <span class="text-matcha mr-3">➜</span>
                                 <span>netsuke --version</span>
                             </div>
-                            <div class="text-boxwood mt-1">netsuke 2.4.0 (stable)</div>
+                            <div class="text-boxwood mt-1">netsuke 0.x.y</div>
                         </div>
                     </div>
 
                     <!-- Step 2 -->
                     <div class="relative pl-10 border-l-2 border-stone-light">
                         <div class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-white border-2 border-stone text-charcoal font-bold flex items-center justify-center font-serif text-lg shadow-sm">2</div>
-                        <h3 class="text-xl font-bold text-charcoal mb-4">Initialize a Project</h3>
-                        <p class="text-charcoal-mid mb-4">Navigate to your project directory and generate a starter <code>Netsukefile</code>. This will inspect your directory structure and suggest basic rules.</p>
+                        <h3 class="text-xl font-bold text-charcoal mb-4">Create a Manifest</h3>
+                        <p class="text-charcoal-mid mb-4">Create a <code>Netsukefile</code> in the project root. Start with one rule, one target, and one default.</p>
                         <div class="bg-charcoal rounded-lg p-4 font-mono text-sm text-stone-light shadow-inner border border-charcoal-mid">
-                            <div class="flex">
-                                <span class="text-matcha mr-3">➜</span>
-                                <span>netsuke init</span>
-                            </div>
-                            <div class="text-stone-light opacity-70 mt-1">Scanning directory...</div>
-                            <div class="text-matcha mt-1">✓ Created Netsukefile</div>
-                            <div class="text-matcha">✓ Created .netsuke/config.toml</div>
+                            <div><span class="text-indigo">netsuke_version</span>: <span class="text-boxwood">"1.0.0"</span></div>
+                            <div><span class="text-indigo">targets</span>:</div>
+                            <div class="pl-4">- <span class="text-indigo">name</span>: <span class="text-boxwood">"hello.txt"</span></div>
+                            <div class="pl-4">  <span class="text-indigo">command</span>: <span class="text-boxwood">"printf 'hello\\n' &gt; {{ outs }}"</span></div>
+                            <div class="pl-4">  <span class="text-indigo">sources</span>: <span class="text-boxwood">[]</span></div>
+                            <div><span class="text-indigo">defaults</span>: [<span class="text-boxwood">"hello.txt"</span>]</div>
                         </div>
                     </div>
 
@@ -255,7 +254,7 @@
                     <div class="relative pl-10 border-l-2 border-stone-light">
                         <div class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-white border-2 border-stone text-charcoal font-bold flex items-center justify-center font-serif text-lg shadow-sm">3</div>
                         <h3 class="text-xl font-bold text-charcoal mb-4">Run Your First Build</h3>
-                        <p class="text-charcoal-mid mb-4">Execute the default target defined in your manifest. Netsuke will visualize the execution graph.</p>
+                        <p class="text-charcoal-mid mb-4">Execute the default target defined in your manifest. Netsuke validates the manifest, expands templates, writes a Ninja plan, and hands execution over.</p>
                         <div class="bg-charcoal rounded-lg p-4 font-mono text-sm text-stone-light shadow-inner border border-charcoal-mid">
                             <div class="flex">
                                 <span class="text-matcha mr-3">➜</span>
@@ -264,12 +263,12 @@
                             <div class="flex mt-2">
                                 <span class="text-charcoal-light w-16">0.1s</span>
                                 <span class="text-indigo font-bold mr-2">INFO</span>
-                                <span>Loading manifest...</span>
+                                <span>Parsing Netsukefile...</span>
                             </div>
                             <div class="flex">
                                 <span class="text-charcoal-light w-16">0.4s</span>
                                 <span class="text-matcha font-bold mr-2">SUCCESS</span>
-                                <span>Build completed in 0.43s</span>
+                                <span>Built default target hello.txt</span>
                             </div>
                         </div>
 
@@ -294,12 +293,12 @@
                                 <p class="text-xs text-charcoal-mid">Ensure <code>~/.cargo/bin</code> or <code>/usr/local/bin</code> is in your PATH environment variable.</p>
                             </div>
                             <div class="p-3 bg-white rounded border border-stone">
-                                <h4 class="font-bold text-sm text-charcoal mb-1">Permission denied?</h4>
-                                <p class="text-xs text-charcoal-mid">Try running the install script with <code>sudo</code> or check directory permissions.</p>
+                                <h4 class="font-bold text-sm text-charcoal mb-1">`ninja` missing?</h4>
+                                <p class="text-xs text-charcoal-mid">Install Ninja separately and make sure it is on your <code>PATH</code>. Netsuke delegates execution to it.</p>
                             </div>
                             <div class="p-3 bg-white rounded border border-stone">
-                                <h4 class="font-bold text-sm text-charcoal mb-1">Apple Silicon?</h4>
-                                <p class="text-xs text-charcoal-mid">Netsuke runs natively on M1/M2 chips. No Rosetta required.</p>
+                                <h4 class="font-bold text-sm text-charcoal mb-1">Manifest errors?</h4>
+                                <p class="text-xs text-charcoal-mid">Start by checking YAML structure first. Netsuke validates YAML before any Jinja rendering happens.</p>
                             </div>
                         </div>
                         <div class="mt-4 pt-4 border-t border-stone-light text-center">

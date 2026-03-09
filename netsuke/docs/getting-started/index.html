@@ -217,7 +217,7 @@
                         <div class="flex items-start p-4 bg-indigo/5 rounded-lg border border-indigo/10">
                             <span  class="iconify text-indigo mt-0.5 mr-3" data-icon="carbon:information-filled" aria-hidden="true"></span>
                             <div class="text-sm text-indigo">
-                                <span class="font-bold">Note:</span> Netsuke relies on <code class="bg-white px-1 py-0.5 rounded text-xs font-mono border border-indigo/20">ninja</code> for the execution phase. The installer will attempt to fetch it if it's missing.
+                                <span class="font-bold">Note:</span> Netsuke relies on <code class="bg-white px-1 py-0.5 rounded text-xs font-mono border border-indigo/20">ninja</code> for the execution phase. Make sure it is installed and available on your <code>PATH</code>.
                             </div>
                         </div>
                     </div>
@@ -231,7 +231,7 @@
                     <span  class="iconify text-sm text-stone opacity-0 group-hover:opacity-100 ml-2 transition-opacity" data-icon="carbon:link" aria-hidden="true"></span>
                 </h2>
                 <p class="text-charcoal-mid mb-6 max-w-3xl">
-                    The fastest way to install Netsuke is via our shell script installer. It detects your OS and architecture and downloads the appropriate binary.
+                    Install Netsuke in the way that fits the machine. The reviewed docs only require the CLI binary and a working Ninja installation.
                 </p>
 
                 <div class="relative group mb-6">
@@ -243,7 +243,7 @@
                     <div class="bg-charcoal rounded-lg p-5 font-mono text-sm overflow-x-auto border border-charcoal-mid shadow-lg">
                         <div class="flex text-stone-light">
                             <span class="text-vermillion mr-2">$</span>
-                            <span class="text-boxwood">curl</span> --proto '=https' --tlsv1.2 -sSf https://sh.netsuke.build/install.sh | sh
+                            <span class="text-boxwood">cargo</span> install netsuke
                         </div>
                     </div>
                 </div>
@@ -279,7 +279,7 @@
                             </div>
                         </div>
                         <p class="text-sm text-charcoal-mid">
-                            This creates a clean workspace. The <code class="font-mono text-xs">Netsukefile</code> is where the magic happens.
+                            This creates a clean workspace. The <code class="font-mono text-xs">Netsukefile</code> is where the build graph is declared.
                         </p>
                     </div>
 
@@ -295,20 +295,17 @@
                                 </div>
                             </div>
                             <div class="p-5 font-mono text-sm text-stone-light overflow-x-auto">
-<pre><code><span class="text-charcoal-light"># Define a rule that generates a file</span>
-<span class="text-indigo-light">genrule</span>(
-    name = <span class="text-matcha">"hello"</span>,
-    outs = [<span class="text-matcha">"hello.txt"</span>],
-    cmd = <span class="text-matcha">"echo 'Hello, Netsuke!' > $OUT"</span>,
-)
+<pre><code><span class="text-indigo-light">netsuke_version</span>: <span class="text-matcha">"1.0.0"</span>
 
-<span class="text-charcoal-light"># A rule that depends on the previous one</span>
-<span class="text-indigo-light">genrule</span>(
-    name = <span class="text-matcha">"shout"</span>,
-    srcs = [<span class="text-matcha">":hello"</span>],
-    outs = [<span class="text-matcha">"shout.txt"</span>],
-    cmd = <span class="text-matcha">"cat $SRCS | tr 'a-z' 'A-Z' > $OUT"</span>,
-)</code></pre>
+<span class="text-indigo-light">targets</span>:
+  - <span class="text-amber">name</span>: <span class="text-matcha">"hello.txt"</span>
+    <span class="text-amber">command</span>: <span class="text-matcha">"printf 'Hello, Netsuke!\\n' &gt; {{ outs }}"</span>
+
+  - <span class="text-amber">name</span>: <span class="text-matcha">"shout.txt"</span>
+    <span class="text-amber">command</span>: <span class="text-matcha">"tr 'a-z' 'A-Z' &lt; {{ ins }} &gt; {{ outs }}"</span>
+    <span class="text-amber">sources</span>: <span class="text-matcha">"hello.txt"</span>
+
+<span class="text-indigo-light">defaults</span>: [<span class="text-matcha">"shout.txt"</span>]</code></pre>
                             </div>
                         </div>
                     </div>
@@ -322,7 +319,7 @@
                     <span  class="iconify text-sm text-stone opacity-0 group-hover:opacity-100 ml-2 transition-opacity" data-icon="carbon:link" aria-hidden="true"></span>
                 </h2>
                 <p class="text-charcoal-mid mb-6 max-w-3xl">
-                    Now invoke the CLI to build your target. Netsuke will parse the graph, determine dependencies, and execute the necessary commands.
+                    Now invoke the CLI to build your target. Netsuke parses YAML first, resolves any templating, generates a Ninja plan, and then executes the required commands.
                 </p>
 
                 <div class="bg-charcoal rounded-xl border border-charcoal-mid shadow-lg overflow-hidden mb-8">
@@ -337,27 +334,27 @@
                     </div>
                     <div class="p-6 font-mono text-sm overflow-x-auto">
                         <div class="text-boxwood-pale mb-4">
-                            <span class="text-matcha">➜</span> <span class="text-indigo-light">~/my-first-build</span> <span class="text-boxwood">netsuke build :shout</span>
+                            <span class="text-matcha">➜</span> <span class="text-indigo-light">~/my-first-build</span> <span class="text-boxwood">netsuke build shout.txt</span>
                         </div>
 
                         <div class="text-stone-light">
-                            <span class="text-charcoal-light">0.02s</span> <span class="text-indigo font-bold">INFO</span>  <span class="text-stone">Loading workspace...</span>
+                            <span class="text-charcoal-light">0.02s</span> <span class="text-indigo font-bold">INFO</span>  <span class="text-stone">Parsing Netsukefile...</span>
                         </div>
                         <div class="text-stone-light">
-                            <span class="text-charcoal-light">0.05s</span> <span class="text-indigo font-bold">INFO</span>  <span class="text-stone">Analysis complete. Found 2 actions.</span>
+                            <span class="text-charcoal-light">0.05s</span> <span class="text-indigo font-bold">INFO</span>  <span class="text-stone">Generated build.ninja for 2 targets.</span>
                         </div>
                         <div class="text-stone-light mt-2">
-                            <span class="text-charcoal-light">[1/2]</span> <span class="text-amber">Running</span> //:hello
+                            <span class="text-charcoal-light">[1/2]</span> <span class="text-amber">Running</span> hello.txt
                         </div>
                         <div class="text-stone-light">
-                            <span class="text-charcoal-light">[2/2]</span> <span class="text-amber">Running</span> //:shout
+                            <span class="text-charcoal-light">[2/2]</span> <span class="text-amber">Running</span> shout.txt
                         </div>
 
                         <div class="text-stone-light mt-4">
                             <span class="text-matcha font-bold">SUCCESS</span> Build completed in 0.12s
                         </div>
                         <div class="text-stone-light mt-4">
-                             <span class="text-matcha">➜</span> <span class="text-indigo-light">~/my-first-build</span> <span class="text-boxwood">cat build/shout.txt</span>
+                             <span class="text-matcha">➜</span> <span class="text-indigo-light">~/my-first-build</span> <span class="text-boxwood">cat shout.txt</span>
                         </div>
                          <div class="text-stone-light">
                             HELLO, NETSUKE!
