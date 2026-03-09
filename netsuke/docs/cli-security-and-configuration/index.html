@@ -153,10 +153,31 @@
         <!-- Sidebar Navigation (Desktop) -->
         <aside id="sidebar" class="hidden lg:block w-64 flex-shrink-0 h-[calc(100vh-4rem)] sticky top-16 overflow-y-auto border-r border-stone-light pr-6 py-8">
             <!-- Search -->
-            <div class="mb-8 relative">
+            <div
+                class="mb-8 relative"
+                data-doc-search-root
+                data-doc-search-index="../../assets/search/docs-search.json"
+            >
                 <span  class="iconify absolute left-3 top-2.5 text-stone text-sm" data-icon="carbon:search" aria-hidden="true"></span>
-                <input type="text" placeholder="Search docs..." class="search-input w-full pl-9 pr-4 py-2 bg-white border border-stone rounded-md text-sm text-charcoal placeholder-stone focus:border-indigo transition-colors shadow-sm">
+                <input
+                    type="text"
+                    placeholder="Search docs..."
+                    class="search-input w-full pl-9 pr-4 py-2 bg-white border border-stone rounded-md text-sm text-charcoal placeholder-stone focus:border-indigo transition-colors shadow-sm"
+                    data-doc-search-input
+                    aria-label="Search the documentation"
+                    role="combobox"
+                    aria-autocomplete="list"
+                    aria-expanded="false"
+                >
                 <div class="absolute right-3 top-2.5 text-xs text-stone font-mono">⌘K</div>
+                <div class="absolute left-0 right-0 top-full z-30 mt-2 hidden" data-doc-search-panel>
+                    <div class="overflow-hidden rounded-xl border border-stone bg-white shadow-paper-lg">
+                        <ul class="max-h-96 overflow-y-auto divide-y divide-stone-light" data-doc-search-results role="listbox"></ul>
+                        <p class="border-t border-stone-light bg-boxwood-pale px-4 py-3 text-xs text-charcoal-light" data-doc-search-meta>
+                            Type at least 2 characters to search the docs.
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <nav class="space-y-8">
@@ -601,6 +622,8 @@ fallback = <span class="text-matcha">"en-US"</span></code></pre>
         </div>
     </footer>
 
+    <script defer src="../../assets/vendor/minisearch.js"></script>
+    <script defer src="../../assets/js/doc-search.js"></script>
     <script>
         window.addEventListener('load', function() {
             try {
