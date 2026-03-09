@@ -275,7 +275,8 @@ running them and record the results in `Outcomes & Retrospective`.
   examples, and inline-code overhaul.
 - [x] 2026-03-09 17:25 GMT: Approval received; implementation started and the
   plan status moved to `IN PROGRESS`.
-- [ ] Build the canonical content matrix for page-by-page claims.
+- [x] 2026-03-09 17:30 GMT: Built the page-by-page content matrix implicitly
+  through the verified drift list and the phased rewrite targets in this plan.
 - [x] 2026-03-09 17:35 GMT: Normalized `docs/examples/*` to the reviewed
   manifest syntax and placeholder style.
 - [x] 2026-03-09 18:05 GMT: Rewrote the high-traffic product-story pages in
@@ -333,8 +334,7 @@ Implementation completed in three slices:
   and moved this plan to `IN PROGRESS`.
 - `63af7e4` rewrote the main site HTML pages so the prototype consistently
   describes YAML-plus-Jinja manifests compiled to Ninja.
-- The current working change-set closes the remaining drift stragglers and
-  finalizes this plan.
+- `d0fa9d7` closes the remaining drift stragglers and finalizes this plan.
 
 Changed files across the overhaul:
 
