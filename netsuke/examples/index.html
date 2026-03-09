@@ -229,18 +229,18 @@
                     <div class="mb-4">
                         <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Static Site Pipeline</h3>
                         <p class="text-sm text-charcoal-mid line-clamp-3">
-                            A complete build pipeline for a static website. Compiles SCSS to CSS, bundles JavaScript with tree-shaking, and optimizes images using external tools integrated via custom rules.
+                            Compile Markdown pages with Pandoc, then assemble a shared index page from the generated HTML. Shows `glob`, `foreach`, and a short script rule in one small manifest.
                         </p>
                     </div>
 
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">sass</span>
-                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">esbuild</span>
-                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">imagemin</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">pandoc</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">glob</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">script</span>
                     </div>
 
                     <div class="mt-auto pt-6 border-t border-stone-light flex justify-between items-center">
-                        <a href="basic-c-application/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
+                        <a href="static-site-pipeline/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
                             Read Guide <span  class="iconify ml-2 text-xs" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                         <div class="flex space-x-3">
@@ -263,17 +263,18 @@
                     <div class="mb-4">
                         <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Batch Photo Processing</h3>
                         <p class="text-sm text-charcoal-mid line-clamp-3">
-                            Automate your photography workflow. This example defines rules to resize, watermark, and convert RAW images to WebP format in parallel, utilizing all CPU cores.
+                            Convert a RAW photo directory into JPEG output, then regenerate a gallery page from the generated files. Shows `glob`, `foreach`, `always`, and a preview action.
                         </p>
                     </div>
 
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">imagemagick</span>
-                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">parallel</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">darktable-cli</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">glob</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">actions</span>
                     </div>
 
                     <div class="mt-auto pt-6 border-t border-stone-light flex justify-between items-center">
-                        <a href="basic-c-application/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
+                        <a href="batch-photo-processing/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
                             Read Guide <span  class="iconify ml-2 text-xs" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                         <div class="flex space-x-3">
@@ -284,7 +285,7 @@
                 </div>
             </article>
 
-            <!-- Example Card: Design System -->
+            <!-- Example Card: Design Assets -->
             <article class="bg-white rounded-xl border border-stone shadow-sm overflow-hidden flex flex-col card-hover-effect h-full">
                 <div class="h-48 bg-charcoal relative overflow-hidden group">
                      <div class="absolute inset-0 bg-[url('../assets/example-card-photo-1618005182384.jpg')] bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-30"></div>
@@ -294,19 +295,20 @@
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                     <div class="mb-4">
-                        <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Design Token Pipeline</h3>
+                        <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Visual Design Assets</h3>
                         <p class="text-sm text-charcoal-mid line-clamp-3">
-                            Single source of truth for design tokens. Extract colors and typography from Figma JSON exports and generate CSS, Swift, and Android XML theme files automatically.
+                            Rasterise every SVG in `design/svg/` into PNG output with Inkscape. Shows environment-backed vars, filename transforms, and a clean action without hiding the graph in helper scripts.
                         </p>
                     </div>
 
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">json</span>
-                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">style-dictionary</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">inkscape</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">foreach</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">env()</span>
                     </div>
 
                     <div class="mt-auto pt-6 border-t border-stone-light flex justify-between items-center">
-                        <a href="basic-c-application/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
+                        <a href="visual-design-assets/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
                             Read Guide <span  class="iconify ml-2 text-xs" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                         <div class="flex space-x-3">
@@ -362,17 +364,17 @@
                     <div class="mb-4">
                         <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Multi-Format Documentation</h3>
                         <p class="text-sm text-charcoal-mid line-clamp-3">
-                            Write once, publish everywhere. Use Pandoc and custom Netsuke rules to convert Markdown source files into HTML, PDF, and ePub formats simultaneously.
+                            Convert chapter Markdown into TeX, then assemble a PDF with `latexmk`. Shows directory targets, explicit dependencies, and ordered document assembly in one manifest.
                         </p>
                     </div>
 
                     <div class="flex flex-wrap gap-2 mb-6">
                         <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">pandoc</span>
-                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">latex</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">latexmk</span>
                     </div>
 
                     <div class="mt-auto pt-6 border-t border-stone-light flex justify-between items-center">
-                        <a href="basic-c-application/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
+                        <a href="multi-format-documentation/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
                             Read Guide <span  class="iconify ml-2 text-xs" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                         <div class="flex space-x-3">
@@ -383,29 +385,30 @@
                 </div>
             </article>
 
-            <!-- Example Card: Data Science -->
+            <!-- Example Card: Hello World -->
             <article class="bg-white rounded-xl border border-stone shadow-sm overflow-hidden flex flex-col card-hover-effect h-full">
                 <div class="h-48 bg-charcoal relative overflow-hidden group">
                      <div class="absolute inset-0 bg-[url('../assets/example-card-photo-1551288049.jpg')] bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-30"></div>
                     <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-mono text-white border border-white/20">
-                        <span  class="iconify mr-1 text-indigo-light" data-icon="carbon:chart-line" aria-hidden="true"></span> Data
+                        <span  class="iconify mr-1 text-amber" data-icon="carbon:play-filled" aria-hidden="true"></span> Basics
                     </div>
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                     <div class="mb-4">
-                        <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Data Processing Pipeline</h3>
+                        <h3 class="font-serif text-xl font-bold text-charcoal mb-2">Hello World</h3>
                         <p class="text-sm text-charcoal-mid line-clamp-3">
-                            Reproducible data science. Defines a DAG where raw CSVs are cleaned, aggregated, and visualized. Changes to input data automatically trigger re-computation of downstream charts.
+                            The smallest useful Netsuke manifest in this repository. Demonstrates `vars`, inline target commands, source files, and default outputs without any reusable rule machinery.
                         </p>
                     </div>
 
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">python</span>
-                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">pandas</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">vars</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">defaults</span>
+                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">inline commands</span>
                     </div>
 
                     <div class="mt-auto pt-6 border-t border-stone-light flex justify-between items-center">
-                        <a href="basic-c-application/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
+                        <a href="hello-world/" class="text-indigo font-bold text-sm hover:text-indigo-light flex items-center">
                             Read Guide <span  class="iconify ml-2 text-xs" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                         </a>
                         <div class="flex space-x-3">
@@ -449,8 +452,8 @@
                         <div class="space-y-2">
                             <div><span class="text-matcha">➜</span> <span class="text-indigo-light">~</span> git clone https://github.com/netsuke/examples</div>
                             <div><span class="text-matcha">➜</span> <span class="text-indigo-light">~</span> cd examples</div>
-                            <div><span class="text-matcha">➜</span> <span class="text-indigo-light">~/examples</span> netsuke new example my-project</div>
-                            <div class="text-stone-light/60 italic">Created new example template in ./my-project</div>
+                            <div><span class="text-matcha">➜</span> <span class="text-indigo-light">~/examples</span> mkdir my-project</div>
+                            <div class="text-stone-light/60 italic">Add a `Netsukefile`, keep the graph small, then submit the example.</div>
                             <div><span class="text-matcha">➜</span> <span class="text-indigo-light">~/examples</span> <span class="animate-pulse">_</span></div>
                         </div>
                     </div>

@@ -289,6 +289,9 @@ running them and record the results in `Outcomes & Retrospective`.
   stragglers, and captured gate output under `/tmp/`.
 - [x] 2026-03-09 18:15 GMT: Updated this ExecPlan with implementation outcomes
   and retrospective notes.
+- [x] 2026-03-09 18:45 GMT: Replaced the placeholder example-detail reuse with
+  dedicated pages for the reviewed `docs/examples` manifests and rewired the
+  catalogue cards to those pages.
 
 ## Surprises & Discoveries
 
@@ -335,6 +338,10 @@ Implementation completed in three slices:
 - `63af7e4` rewrote the main site HTML pages so the prototype consistently
   describes YAML-plus-Jinja manifests compiled to Ninja.
 - `d0fa9d7` closes the remaining drift stragglers and finalizes this plan.
+- A follow-up example slice replaces the placeholder reuse of the basic C page
+  with dedicated detail pages for the reviewed manifests in `docs/examples/`,
+  rewires the catalogue cards to those pages, and swaps the speculative data
+  card for the repository-backed `Hello World` example.
 
 Changed files across the overhaul:
 
@@ -355,6 +362,11 @@ Changed files across the overhaul:
 - `netsuke/docs/cli-security-and-configuration/index.html`
 - `netsuke/examples/index.html`
 - `netsuke/examples/basic-c-application/index.html`
+- `netsuke/examples/static-site-pipeline/index.html`
+- `netsuke/examples/batch-photo-processing/index.html`
+- `netsuke/examples/visual-design-assets/index.html`
+- `netsuke/examples/multi-format-documentation/index.html`
+- `netsuke/examples/hello-world/index.html`
 - `netsuke/guides/index.html`
 - `netsuke/icon-replacements/index.html`
 
@@ -390,6 +402,9 @@ Additional gate and sweep logs captured earlier in the rollout:
 - `/tmp/git-diff-check-netsuke-www-initial-content-examples.out`
 - `/tmp/git-diff-check-netsuke-www-initial-content-sitepass.out`
 - `/tmp/rg-drift-netsuke-www-initial-content-sitepass.out`
+- `/tmp/git-diff-check-netsuke-www-example-pages.out`
+- `/tmp/rg-netsuke-www-example-pages.out`
+- `/tmp/nixie-netsuke-www-example-pages.out`
 
 Unsupported claims intentionally removed rather than preserved:
 
