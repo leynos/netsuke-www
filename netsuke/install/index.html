@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install Netsuke - Build System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: {
+                            DEFAULT: '#2E2A25',
+                            mid: '#5C554D',
+                            light: '#8A8279',
+                        },
+                        indigo: {
+                            DEFAULT: '#2B4162',
+                            light: '#3A5A7C',
+                        },
+                        vermillion: {
+                            DEFAULT: '#C23B22',
+                            dim: '#9E3020',
+                        },
+                        boxwood: {
+                            DEFAULT: '#E8D5B5',
+                            light: '#F5EDE0',
+                            pale: '#FAF6F0',
+                        },
+                        stone: {
+                            DEFAULT: '#D1C7B8',
+                            light: '#E5DDD0',
+                        },
+                        matcha: '#4A7C59',
+                        amber: '#C48B2C',
+                    },
+                    fontFamily: {
+                        sans: ['"Source Sans 3"', 'sans-serif'],
+                        serif: ['"Fraunces"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    boxShadow: {
+                        'paper': '0 4px 6px -1px rgba(46, 42, 37, 0.1), 0 2px 4px -1px rgba(46, 42, 37, 0.06)',
+                        'paper-lg': '0 10px 15px -3px rgba(46, 42, 37, 0.1), 0 4px 6px -2px rgba(46, 42, 37, 0.05)',
+                        'paper-xl': '0 20px 25px -5px rgba(46, 42, 37, 0.1), 0 10px 10px -5px rgba(46, 42, 37, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #FAF6F0; }
+        ::-webkit-scrollbar-thumb { background: #D1C7B8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8A8279; }
+
+        .texture-paper {
+            background-color: #FAF6F0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+
+        .glass-panel {
+            background: rgba(250, 246, 240, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(209, 199, 184, 0.6);
+        }
+
+        .install-option-card:hover {
+            border-color: #2B4162;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(46, 42, 37, 0.1), 0 4px 6px -2px rgba(46, 42, 37, 0.05);
+        }
+
+        .tab-btn.active {
+            background-color: #E8D5B5;
+            color: #2E2A25;
+            border-color: #D1C7B8;
+        }
+
+        .code-block-wrapper {
+            position: relative;
+        }
+        .code-block-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="texture-paper text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 glass-panel transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3 cursor-pointer">
+                    <div class="w-8 h-8 rounded-full bg-vermillion flex items-center justify-center text-white font-serif font-bold text-lg shadow-sm">N</div>
+                    <span class="font-serif font-bold text-xl tracking-tight text-charcoal">Netsuke</span>
+                </div>
+
+                <div class="hidden lg:flex space-x-8">
+                    <a href="../" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Home</a>
+                    <a href="../docs/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Docs</a>
+                    <a href="../examples/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Examples</a>
+                    <a href="../guides/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Guides</a>
+                    <a href="../design/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Design</a>
+                    <a href="../blog/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Blog</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="../examples/" class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors">
+                        <i class="fa-brands fa-github mr-2"></i> GitHub
+                    </a>
+                    <a href="./" class="inline-flex items-center px-4 py-1.5 bg-vermillion text-white rounded-md text-sm font-medium shadow-sm hover:bg-vermillion-dim transition-colors ring-2 ring-vermillion ring-offset-2 ring-offset-[#FAF6F0]">
+                        Install
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-grow pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+
+        <!-- Hero Section -->
+        <header id="install-hero" class="mb-16 text-center max-w-3xl mx-auto">
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-boxwood text-charcoal-mid text-xs font-semibold uppercase tracking-wider border border-stone mb-6">
+                <i class="fa-solid fa-download mr-2 text-indigo"></i> Get Started
+            </div>
+            <h1 class="font-serif text-5xl lg:text-6xl font-bold text-charcoal mb-6">Install Netsuke</h1>
+            <p class="text-xl text-charcoal-mid font-light leading-relaxed mb-8">
+                Get up and running in seconds. Netsuke is a single binary with no external dependencies, available for macOS, Linux, and Windows.
+            </p>
+            <div class="flex justify-center space-x-6 text-sm text-charcoal-mid">
+                <span class="flex items-center"><i class="fa-brands fa-apple mr-2 text-lg"></i> macOS</span>
+                <span class="flex items-center"><i class="fa-brands fa-linux mr-2 text-lg"></i> Linux</span>
+                <span class="flex items-center"><i class="fa-brands fa-windows mr-2 text-lg"></i> Windows</span>
+            </div>
+        </header>
+
+        <!-- Main Installation Widget -->
+        <section id="install-widget" class="max-w-4xl mx-auto mb-20">
+            <div class="bg-white rounded-2xl border border-stone shadow-paper-lg overflow-hidden">
+                <!-- OS Tabs -->
+                <div class="flex border-b border-stone bg-boxwood-pale/50 overflow-x-auto">
+                    <button class="tab-btn active px-6 py-4 text-sm font-bold text-charcoal border-r border-stone hover:bg-boxwood-pale transition-colors flex items-center whitespace-nowrap">
+                        <i class="fa-brands fa-apple mr-2"></i> macOS / Linux
+                    </button>
+                    <button class="tab-btn px-6 py-4 text-sm font-medium text-charcoal-mid border-r border-stone hover:bg-boxwood-pale transition-colors flex items-center whitespace-nowrap">
+                        <i class="fa-brands fa-windows mr-2"></i> Windows
+                    </button>
+                    <button class="tab-btn px-6 py-4 text-sm font-medium text-charcoal-mid border-r border-stone hover:bg-boxwood-pale transition-colors flex items-center whitespace-nowrap">
+                        <i class="fa-brands fa-rust mr-2"></i> Cargo
+                    </button>
+                    <button class="tab-btn px-6 py-4 text-sm font-medium text-charcoal-mid hover:bg-boxwood-pale transition-colors flex items-center whitespace-nowrap">
+                        <i class="fa-solid fa-box-open mr-2"></i> Manual
+                    </button>
+                </div>
+
+                <div class="p-8 lg:p-10">
+                    <div class="mb-8">
+                        <h3 class="font-serif text-2xl font-bold text-charcoal mb-2">Quick Install Script</h3>
+                        <p class="text-charcoal-mid text-sm">The easiest way to install Netsuke. This script detects your OS and architecture, downloads the latest release, and places it in your path.</p>
+                    </div>
+
+                    <div class="bg-charcoal rounded-lg p-6 relative group code-block-wrapper">
+                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="text-xs text-white bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded border border-white/20 transition-colors">
+                                <i class="fa-regular fa-copy mr-1"></i> Copy
+                            </button>
+                        </div>
+                        <code class="font-mono text-sm text-stone-light break-all">
+                            <span class="text-vermillion">curl</span> --proto <span class="text-matcha">'=https'</span> --tlsv1.2 -sSf https://sh.netsuke.build | sh
+                        </code>
+                    </div>
+
+                    <div class="mt-8 grid md:grid-cols-2 gap-6">
+                        <div class="bg-boxwood-pale p-4 rounded-lg border border-stone">
+                            <h4 class="font-bold text-sm text-charcoal mb-2 flex items-center">
+                                <i class="fa-brands fa-brew mr-2 text-amber"></i> Homebrew
+                            </h4>
+                            <div class="bg-white p-3 rounded border border-stone font-mono text-xs text-charcoal-mid">
+                                brew install netsuke
+                            </div>
+                        </div>
+                        <div class="bg-boxwood-pale p-4 rounded-lg border border-stone">
+                            <h4 class="font-bold text-sm text-charcoal mb-2 flex items-center">
+                                <i class="fa-solid fa-cube mr-2 text-indigo"></i> Nix
+                            </h4>
+                            <div class="bg-white p-3 rounded border border-stone font-mono text-xs text-charcoal-mid">
+                                nix-env -iA nixpkgs.netsuke
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-stone-light flex items-start gap-3">
+                        <i class="fa-solid fa-circle-info text-indigo mt-0.5"></i>
+                        <p class="text-xs text-charcoal-mid">
+                            <strong>Note:</strong> You may need to restart your terminal after installation for the <code>netsuke</code> command to be recognized.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Steps Section -->
+        <section id="verification-steps" class="max-w-5xl mx-auto mb-24">
+            <div class="grid lg:grid-cols-12 gap-12">
+                <!-- Content -->
+                <div class="lg:col-span-8 space-y-12">
+
+                    <!-- Step 1 -->
+                    <div class="relative pl-10 border-l-2 border-stone-light">
+                        <div class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-white border-2 border-stone text-charcoal font-bold flex items-center justify-center font-serif text-lg shadow-sm">1</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-4">Verify Installation</h3>
+                        <p class="text-charcoal-mid mb-4">Run the version command to ensure Netsuke is correctly installed and accessible in your path.</p>
+                        <div class="bg-charcoal rounded-lg p-4 font-mono text-sm text-stone-light shadow-inner border border-charcoal-mid">
+                            <div class="flex">
+                                <span class="text-matcha mr-3">➜</span>
+                                <span>netsuke --version</span>
+                            </div>
+                            <div class="text-boxwood mt-1">netsuke 2.4.0 (stable)</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative pl-10 border-l-2 border-stone-light">
+                        <div class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-white border-2 border-stone text-charcoal font-bold flex items-center justify-center font-serif text-lg shadow-sm">2</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-4">Initialize a Project</h3>
+                        <p class="text-charcoal-mid mb-4">Navigate to your project directory and generate a starter <code>Netsukefile</code>. This will inspect your directory structure and suggest basic rules.</p>
+                        <div class="bg-charcoal rounded-lg p-4 font-mono text-sm text-stone-light shadow-inner border border-charcoal-mid">
+                            <div class="flex">
+                                <span class="text-matcha mr-3">➜</span>
+                                <span>netsuke init</span>
+                            </div>
+                            <div class="text-stone-light opacity-70 mt-1">Scanning directory...</div>
+                            <div class="text-matcha mt-1">✓ Created Netsukefile</div>
+                            <div class="text-matcha">✓ Created .netsuke/config.toml</div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative pl-10 border-l-2 border-stone-light">
+                        <div class="absolute -left-[21px] top-0 w-10 h-10 rounded-full bg-white border-2 border-stone text-charcoal font-bold flex items-center justify-center font-serif text-lg shadow-sm">3</div>
+                        <h3 class="text-xl font-bold text-charcoal mb-4">Run Your First Build</h3>
+                        <p class="text-charcoal-mid mb-4">Execute the default target defined in your manifest. Netsuke will visualize the execution graph.</p>
+                        <div class="bg-charcoal rounded-lg p-4 font-mono text-sm text-stone-light shadow-inner border border-charcoal-mid">
+                            <div class="flex">
+                                <span class="text-matcha mr-3">➜</span>
+                                <span>netsuke build</span>
+                            </div>
+                            <div class="flex mt-2">
+                                <span class="text-charcoal-light w-16">0.1s</span>
+                                <span class="text-indigo font-bold mr-2">INFO</span>
+                                <span>Loading manifest...</span>
+                            </div>
+                            <div class="flex">
+                                <span class="text-charcoal-light w-16">0.4s</span>
+                                <span class="text-matcha font-bold mr-2">SUCCESS</span>
+                                <span>Build completed in 0.43s</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex gap-4">
+                            <a href="../docs/getting-started/" class="inline-flex items-center px-5 py-2.5 bg-indigo text-white rounded-md font-medium shadow-sm hover:bg-indigo-light transition-colors">
+                                Read Getting Started Guide <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Troubleshooting Sidebar -->
+                <div class="lg:col-span-4 space-y-8">
+                    <div class="bg-boxwood-pale p-6 rounded-xl border border-stone">
+                        <h3 class="font-serif text-lg font-bold text-charcoal mb-4 flex items-center">
+                            <i class="fa-solid fa-wrench text-amber mr-2 text-sm"></i> Troubleshooting
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="p-3 bg-white rounded border border-stone">
+                                <h4 class="font-bold text-sm text-charcoal mb-1">Command not found?</h4>
+                                <p class="text-xs text-charcoal-mid">Ensure <code>~/.cargo/bin</code> or <code>/usr/local/bin</code> is in your PATH environment variable.</p>
+                            </div>
+                            <div class="p-3 bg-white rounded border border-stone">
+                                <h4 class="font-bold text-sm text-charcoal mb-1">Permission denied?</h4>
+                                <p class="text-xs text-charcoal-mid">Try running the install script with <code>sudo</code> or check directory permissions.</p>
+                            </div>
+                            <div class="p-3 bg-white rounded border border-stone">
+                                <h4 class="font-bold text-sm text-charcoal mb-1">Apple Silicon?</h4>
+                                <p class="text-xs text-charcoal-mid">Netsuke runs natively on M1/M2 chips. No Rosetta required.</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-stone-light text-center">
+                            <a href="../contributing/" class="text-xs font-bold text-indigo hover:text-vermillion transition-colors">Visit GitHub Issues &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
+                         <h3 class="font-serif text-lg font-bold text-charcoal mb-4">
+                            Manual Download
+                        </h3>
+                        <p class="text-xs text-charcoal-mid mb-4">Prefer not to use a script? Download the binary directly.</p>
+
+                        <div class="space-y-2">
+                             <a href="./" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
+                                <span class="text-sm font-medium text-charcoal"><i class="fa-brands fa-apple mr-2 text-charcoal-light"></i> macOS (Universal)</span>
+                                <i class="fa-solid fa-download text-indigo opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                             </a>
+                             <a href="./" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
+                                <span class="text-sm font-medium text-charcoal"><i class="fa-brands fa-linux mr-2 text-charcoal-light"></i> Linux (x86_64)</span>
+                                <i class="fa-solid fa-download text-indigo opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                             </a>
+                             <a href="./" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
+                                <span class="text-sm font-medium text-charcoal"><i class="fa-brands fa-windows mr-2 text-charcoal-light"></i> Windows (x64)</span>
+                                <i class="fa-solid fa-download text-indigo opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                             </a>
+                        </div>
+                        <div class="mt-4 text-center">
+                             <a href="../blog/" class="text-xs text-charcoal-light hover:text-charcoal underline">View all releases</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats / Adoption -->
+        <section class="py-16 bg-white border-y border-stone-light mb-12">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="grid md:grid-cols-2 gap-12 items-center">
+                     <div>
+                         <h2 class="font-serif text-3xl font-bold text-charcoal mb-4">Growing fast</h2>
+                         <p class="text-charcoal-mid mb-6">
+                             Netsuke is being adopted by teams who need reliability without the complexity of Bazel.
+                         </p>
+                         <div class="grid grid-cols-3 gap-6">
+                             <div>
+                                 <div class="text-3xl font-bold text-indigo font-serif">12k+</div>
+                                 <div class="text-xs text-charcoal-mid font-medium uppercase tracking-wide mt-1">Downloads</div>
+                             </div>
+                             <div>
+                                 <div class="text-3xl font-bold text-vermillion font-serif">5.2k</div>
+                                 <div class="text-xs text-charcoal-mid font-medium uppercase tracking-wide mt-1">Stars</div>
+                             </div>
+                             <div>
+                                 <div class="text-3xl font-bold text-matcha font-serif">180+</div>
+                                 <div class="text-xs text-charcoal-mid font-medium uppercase tracking-wide mt-1">Contributors</div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="h-[300px] w-full" id="downloadsChart"></div>
+                 </div>
+             </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="max-w-3xl mx-auto">
+            <h2 class="font-serif text-3xl font-bold text-charcoal mb-8 text-center">Common Questions</h2>
+
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
+                    <h3 class="font-bold text-charcoal text-lg mb-2">Can I install a specific version?</h3>
+                    <p class="text-charcoal-mid leading-relaxed">
+                        Yes. You can pass a version tag to the install script or use Cargo to install a specific version: <code>cargo install netsuke --version 2.3.0</code>.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
+                    <h3 class="font-bold text-charcoal text-lg mb-2">How do I update Netsuke?</h3>
+                    <p class="text-charcoal-mid leading-relaxed">
+                        Simply run the install script again. It will detect the existing installation and replace the binary with the latest version.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
+                    <h3 class="font-bold text-charcoal text-lg mb-2">Does it work with CI/CD?</h3>
+                    <p class="text-charcoal-mid leading-relaxed">
+                        Absolutely. We provide a GitHub Action <code>netsuke/setup-netsuke@v1</code> and Docker images for GitLab CI and others. Check the <a href="./" class="text-indigo hover:underline">CI Guide</a>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-charcoal pt-16 pb-8 text-stone-light border-t border-charcoal-light mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand Column -->
+                <div class="col-span-1 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-vermillion flex items-center justify-center text-white font-serif font-bold text-lg">N</div>
+                        <span class="font-serif font-bold text-xl tracking-tight text-white">Netsuke</span>
+                    </div>
+                    <p class="text-sm text-charcoal-light leading-relaxed mb-6">
+                        Netsuke is free, open-source, and written in Rust. It aims to bring the power of large-scale build systems to projects of any size.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="../examples/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-github"></i></a>
+                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-boxwood mb-6">Documentation</h4>
+                    <ul class="space-y-3 text-sm text-stone">
+                        <li><a href="../docs/getting-started/" class="hover:text-white transition-colors">Getting Started</a></li>
+                        <li><a href="../docs/manifest-reference/" class="hover:text-white transition-colors">Manifest Reference</a></li>
+                        <li><a href="../docs/rules-and-targets/" class="hover:text-white transition-colors">Rules & Targets</a></li>
+                        <li><a href="../docs/cli-security-and-configuration/#cli" class="hover:text-white transition-colors">CLI Commands</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-boxwood mb-6">Resources</h4>
+                    <ul class="space-y-3 text-sm text-stone">
+                        <li><a href="../examples/" class="hover:text-white transition-colors">Examples Hub</a></li>
+                        <li><a href="../design/" class="hover:text-white transition-colors">Design System</a></li>
+                        <li><a href="../blog/" class="hover:text-white transition-colors">Blog & Releases</a></li>
+                        <li><a href="../contributing/" class="hover:text-white transition-colors">Contributing</a></li>
+                    </ul>
+                </div>
+
+                <!-- CTA Column -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-boxwood mb-6">Ready to build?</h4>
+                    <div class="space-y-4">
+                        <a href="./" class="block w-full py-2 px-4 bg-vermillion text-white text-center rounded text-sm font-bold hover:bg-vermillion-dim transition-colors">
+                            Install Netsuke
+                        </a>
+                        <a href="../docs/" class="block w-full py-2 px-4 bg-transparent border border-stone/30 text-stone text-center rounded text-sm font-bold hover:bg-white/5 transition-colors">
+                            Read the docs
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-charcoal-mid pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-charcoal-light">
+                <p class="mb-4 md:mb-0">
+                    &copy; 2024 Netsuke Project. Distributed under the MIT License.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="../privacy-policy/" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="../terms-of-use/" class="hover:text-white transition-colors">Terms of Use</a>
+                    <a href="../code-of-conduct/" class="hover:text-white transition-colors">Code of Conduct</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Interactive Tabs Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active', 'font-bold', 'text-charcoal', 'bg-white'));
+                    tabs.forEach(t => t.classList.add('font-medium', 'text-charcoal-mid'));
+
+                    tab.classList.remove('font-medium', 'text-charcoal-mid');
+                    tab.classList.add('active', 'font-bold', 'text-charcoal');
+                    // In a real app, this would switch content. For this UI demo, we just toggle styles.
+                });
+            });
+
+            // Chart
+            try {
+                const trace1 = {
+                    x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    y: [1200, 1900, 3500, 5100, 8200, 12500],
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    line: { shape: 'spline', color: '#2B4162', width: 3 },
+                    marker: { size: 6, color: '#C23B22' },
+                    name: 'Downloads'
+                };
+
+                const layout = {
+                    title: { text: 'Monthly Downloads', font: { family: 'Fraunces', size: 16, color: '#2E2A25' } },
+                    margin: { t: 40, r: 20, b: 40, l: 40 },
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    font: { family: 'Source Sans 3', color: '#5C554D' },
+                    xaxis: { showgrid: false },
+                    yaxis: { gridcolor: '#E5DDD0' }
+                };
+
+                Plotly.newPlot('downloadsChart', [trace1], layout, {responsive: true, displayModeBar: false});
+            } catch(e) {
+                console.error("Chart error:", e);
+            }
+        });
+    </script>
+</body>
+</html>

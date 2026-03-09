@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules & Targets Reference - Netsuke Build System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: {
+                            DEFAULT: '#2E2A25',
+                            mid: '#5C554D',
+                            light: '#8A8279',
+                        },
+                        indigo: {
+                            DEFAULT: '#2B4162',
+                            light: '#3A5A7C',
+                        },
+                        vermillion: {
+                            DEFAULT: '#C23B22',
+                            dim: '#9E3020',
+                        },
+                        boxwood: {
+                            DEFAULT: '#E8D5B5',
+                            light: '#F5EDE0',
+                            pale: '#FAF6F0',
+                        },
+                        stone: {
+                            DEFAULT: '#D1C7B8',
+                            light: '#E5DDD0',
+                        },
+                        matcha: '#4A7C59',
+                        amber: '#C48B2C',
+                    },
+                    fontFamily: {
+                        sans: ['"Source Sans 3"', 'sans-serif'],
+                        serif: ['"Fraunces"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    boxShadow: {
+                        'paper': '0 4px 6px -1px rgba(46, 42, 37, 0.1), 0 2px 4px -1px rgba(46, 42, 37, 0.06)',
+                        'paper-lg': '0 10px 15px -3px rgba(46, 42, 37, 0.1), 0 4px 6px -2px rgba(46, 42, 37, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #FAF6F0; }
+        ::-webkit-scrollbar-thumb { background: #D1C7B8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8A8279; }
+
+        .texture-paper {
+            background-color: #FAF6F0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+
+        .glass-panel {
+            background: rgba(250, 246, 240, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(209, 199, 184, 0.6);
+        }
+
+        .sidebar-link.active {
+            color: #C23B22;
+            background-color: #F5EDE0;
+            border-right: 3px solid #C23B22;
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(43, 65, 98, 0.2);
+            border-color: #2B4162;
+        }
+
+        /* Syntax Highlighting Base */
+        .token.comment { color: #8A8279; font-style: italic; }
+        .token.string { color: #4A7C59; }
+        .token.keyword { color: #C23B22; font-weight: bold; }
+        .token.function { color: #2B4162; }
+        .token.operator { color: #C48B2C; }
+        .token.number { color: #C48B2C; }
+        .token.property { color: #2E2A25; }
+        .token.type { color: #C48B2C; }
+
+        /* Custom Table Styling */
+        .prop-table tr:last-child td { border-bottom: none; }
+        .prop-table th { font-family: 'Fraunces', serif; }
+
+        /* Step connector line */
+        .step-connector::after {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            bottom: -1rem;
+            left: 1rem;
+            width: 2px;
+            background-color: #E5DDD0;
+            z-index: 0;
+        }
+        .step-item:last-child .step-connector::after {
+            display: none;
+        }
+    </style>
+</head>
+<body class="texture-paper text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 glass-panel transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3 cursor-pointer">
+                    <!-- Logo mark inspired by Netsuke craftsmanship -->
+                    <div class="w-8 h-8 rounded-full bg-vermillion flex items-center justify-center text-white font-serif font-bold text-lg shadow-sm">N</div>
+                    <span class="font-serif font-bold text-xl tracking-tight text-charcoal">Netsuke</span>
+                </div>
+
+                <!-- Desktop Nav -->
+                <div class="hidden lg:flex space-x-8">
+                    <a href="../../" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Home</a>
+                    <a href="../" class="text-charcoal font-semibold border-b-2 border-vermillion transition-colors text-sm py-1">Docs</a>
+                    <a href="../../examples/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Examples</a>
+                    <a href="../../guides/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Guides</a>
+                    <a href="../../design/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Design</a>
+                    <a href="../../blog/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Blog</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="../../examples/" class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors">
+                        <i class="fa-brands fa-github mr-2"></i> GitHub
+                    </a>
+                    <a href="../../install/" class="inline-flex items-center px-4 py-1.5 bg-indigo text-white rounded-md text-sm font-medium shadow-sm hover:bg-indigo-light transition-colors">
+                        Install
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area with Sidebar -->
+    <div class="pt-16 flex-grow flex max-w-7xl mx-auto w-full">
+
+        <!-- Sidebar Navigation (Desktop) -->
+        <aside id="sidebar" class="hidden lg:block w-64 flex-shrink-0 h-[calc(100vh-4rem)] sticky top-16 overflow-y-auto border-r border-stone-light pr-6 py-8">
+            <!-- Search -->
+            <div class="mb-8 relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-stone text-sm"></i>
+                <input type="text" placeholder="Search docs..." class="search-input w-full pl-9 pr-4 py-2 bg-white border border-stone rounded-md text-sm text-charcoal placeholder-stone focus:border-indigo transition-colors shadow-sm">
+                <div class="absolute right-3 top-2.5 text-xs text-stone font-mono">⌘K</div>
+            </div>
+
+            <nav class="space-y-8">
+                <div>
+                    <h3 class="font-serif font-bold text-charcoal text-sm mb-3 px-2">Introduction</h3>
+                    <ul class="space-y-1">
+                        <li><a href="../" class="sidebar-link block px-2 py-1.5 text-sm text-charcoal-mid hover:text-vermillion hover:bg-boxwood-light rounded-r-md transition-colors">Documentation Hub</a></li>
+                        <li><a href="../getting-started/" class="sidebar-link block px-2 py-1.5 text-sm text-charcoal-mid hover:text-vermillion hover:bg-boxwood-light rounded-r-md transition-colors">Getting Started</a></li>
+                        <li><a href="./" class="sidebar-link block px-2 py-1.5 text-sm text-charcoal-mid hover:text-vermillion hover:bg-boxwood-light rounded-r-md transition-colors">Installation</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-serif font-bold text-charcoal text-sm mb-3 px-2">Core Concepts</h3>
+                    <ul class="space-y-1">
+                        <li><a href="../manifest-reference/" class="sidebar-link block px-2 py-1.5 text-sm text-charcoal-mid hover:text-vermillion hover:bg-boxwood-light rounded-r-md transition-colors">Manifest Reference</a></li>
+                        <li><a href="./" class="sidebar-link active block px-2 py-1.5 text-sm font-medium rounded-r-md transition-colors">Rules & Targets</a></li>
+                        <li><a href="../templating-and-standard-library/" class="sidebar-link block px-2 py-1.5 text-sm text-charcoal-mid hover:text-vermillion hover:bg-boxwood-light rounded-r-md transition-colors">Templating</a></li>
+                        <li><a href="../templating-and-standard-library/" class="sidebar-link block px-2 py-1.5 text-sm text-charcoal-mid hover:text-vermillion hover:bg-boxwood-light rounded-r-md transition-colors">Standard Library</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-serif font-bold text-charcoal text-sm mb-3 px-2">Reference</h3>
+                    <ul class="space-y-1">
+                        <li><a href="../cli-security-and-configuration/#cli" class="sidebar-link block px-2 py-1.5 text-sm text-charcoal-mid hover:text-vermillion hover:bg-boxwood-light rounded-r-md transition-colors">CLI Commands</a></li>
+                        <li><a href="../cli-security-and-configuration/#configuration" class="sidebar-link block px-2 py-1.5 text-sm text-charcoal-mid hover:text-vermillion hover:bg-boxwood-light rounded-r-md transition-colors">Configuration</a></li>
+                        <li><a href="../cli-security-and-configuration/#security" class="sidebar-link block px-2 py-1.5 text-sm text-charcoal-mid hover:text-vermillion hover:bg-boxwood-light rounded-r-md transition-colors">Security Model</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main-content" class="flex-1 min-w-0 py-12 px-4 sm:px-6 lg:px-12">
+
+            <!-- Breadcrumbs -->
+            <nav class="flex items-center text-sm text-charcoal-light mb-8 font-mono">
+                <a href="../" class="hover:text-vermillion transition-colors">Docs</a>
+                <span class="mx-2 text-stone">/</span>
+                <span class="text-charcoal font-medium">Rules & Targets</span>
+            </nav>
+
+            <!-- Page Header -->
+            <div class="mb-12 border-b border-stone-light pb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-boxwood text-charcoal-mid text-xs font-semibold uppercase tracking-wider border border-stone">
+                        Core Concepts
+                    </div>
+                    <span class="text-charcoal-mid text-xs font-mono bg-white px-2 py-1 rounded border border-stone">v2.4.0</span>
+                </div>
+                <h1 class="font-serif text-4xl lg:text-5xl font-bold text-charcoal mb-6">Rules & Targets</h1>
+                <p class="text-xl text-charcoal-mid font-light leading-relaxed max-w-3xl">
+                    In Netsuke, a <strong>Rule</strong> defines <em>how</em> something is built, while a <strong>Target</strong> defines <em>what</em> is built. Understanding the relationship between these two concepts is key to mastering the build graph.
+                </p>
+            </div>
+
+            <!-- Conceptual Overview -->
+            <section id="concepts" class="mb-16">
+                <h2 class="font-serif text-2xl font-bold text-charcoal mb-6">The Build Graph</h2>
+                <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                    <div class="prose text-charcoal-mid">
+                        <p class="mb-4">
+                            Netsuke constructs a Directed Acyclic Graph (DAG) where nodes are targets and edges are dependencies. When you run <code class="bg-stone-light/30 px-1 rounded text-sm text-indigo">netsuke build //app:main</code>, the system:
+                        </p>
+                        <ol class="list-decimal pl-5 space-y-2 mb-6 marker:text-indigo marker:font-bold">
+                            <li>Parses the manifest for the requested target.</li>
+                            <li>Identifies all transitive dependencies.</li>
+                            <li>Constructs the action graph (commands to run).</li>
+                            <li>Executes actions in parallel, topologically sorted.</li>
+                        </ol>
+                        <div class="p-4 bg-boxwood-pale border border-stone rounded-lg flex items-start space-x-3">
+                            <i class="fa-solid fa-lightbulb text-amber mt-1"></i>
+                            <div class="text-sm">
+                                <span class="font-bold text-charcoal block mb-1">Hermeticity is paramount</span>
+                                Rules execute in a sandbox with only declared inputs available. This ensures that if it builds on your machine, it builds on CI.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Graph Visualization Placeholder -->
+                    <div class="bg-white rounded-xl border border-stone shadow-sm p-6 flex flex-col items-center justify-center relative overflow-hidden">
+                         <div class="absolute inset-0 opacity-[0.03] bg-[url('../../assets/graphy.png')]"></div>
+                         <!-- Simple CSS Graph Representation -->
+                         <div class="relative z-10 w-full max-w-xs h-64">
+                            <!-- Nodes -->
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-10 bg-indigo text-white rounded flex items-center justify-center text-xs font-mono shadow-md border border-indigo-light z-20">
+                                //app:main
+                            </div>
+
+                            <div class="absolute top-24 left-8 w-28 h-10 bg-white text-charcoal rounded flex items-center justify-center text-xs font-mono shadow-sm border border-stone z-20">
+                                //lib:utils
+                            </div>
+                            <div class="absolute top-24 right-8 w-28 h-10 bg-white text-charcoal rounded flex items-center justify-center text-xs font-mono shadow-sm border border-stone z-20">
+                                //ui:components
+                            </div>
+
+                            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-28 h-10 bg-white text-charcoal rounded flex items-center justify-center text-xs font-mono shadow-sm border border-stone z-20">
+                                //core:base
+                            </div>
+
+                            <!-- Edges (SVG Lines) -->
+                            <svg class="absolute inset-0 w-full h-full pointer-events-none z-10" style="overflow: visible;">
+                                <defs>
+                                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#D1C7B8" />
+                                    </marker>
+                                </defs>
+                                <line x1="50%" y1="40" x2="30%" y2="96" stroke="#D1C7B8" stroke-width="2" marker-end="url(#arrowhead)" />
+                                <line x1="50%" y1="40" x2="70%" y2="96" stroke="#D1C7B8" stroke-width="2" marker-end="url(#arrowhead)" />
+                                <line x1="30%" y1="136" x2="50%" y2="216" stroke="#D1C7B8" stroke-width="2" marker-end="url(#arrowhead)" />
+                                <line x1="70%" y1="136" x2="50%" y2="216" stroke="#D1C7B8" stroke-width="2" marker-end="url(#arrowhead)" />
+                            </svg>
+                         </div>
+                         <div class="mt-4 text-xs text-charcoal-mid font-mono">Dependency Graph Visualization</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Defining Rules Section -->
+            <section id="defining-rules" class="mb-16">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="font-serif text-2xl font-bold text-charcoal">Defining Custom Rules</h2>
+                    <span class="text-xs font-mono text-indigo bg-indigo/10 px-2 py-1 rounded">Advanced</span>
+                </div>
+
+                <p class="text-charcoal-mid mb-6 max-w-3xl">
+                    While Netsuke comes with a standard library of rules (like <code class="text-sm bg-stone-light/40 px-1 rounded">rust_library</code>), the real power lies in defining your own. A rule definition specifies the inputs (attributes) and the implementation function.
+                </p>
+
+                <div class="bg-charcoal rounded-xl border border-charcoal-mid shadow-lg overflow-hidden mb-8">
+                    <div class="bg-charcoal-mid/30 px-4 py-2 flex items-center justify-between border-b border-white/10">
+                        <span class="text-xs font-mono text-stone-light">/defs/my_rules.bzl</span>
+                        <div class="flex space-x-1.5">
+                            <div class="w-2.5 h-2.5 rounded-full bg-vermillion"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-amber"></div>
+                        </div>
+                    </div>
+                    <div class="p-6 font-mono text-sm overflow-x-auto text-stone-light">
+<pre><code><span class="token keyword">def</span> <span class="token function">_impl</span>(ctx):
+    <span class="token comment"># 1. Declare output file</span>
+    out = ctx.actions.declare_file(ctx.label.name + <span class="token string">".min.js"</span>)
+
+    <span class="token comment"># 2. Define the action</span>
+    ctx.actions.run(
+        outputs = [out],
+        inputs = ctx.files.srcs,
+        executable = ctx.executable.tool,
+        arguments = [f.path for f in ctx.files.srcs] + [<span class="token string">"-o"</span>, out.path],
+        mnemonic = <span class="token string">"MinifyJS"</span>,
+    )
+
+    <span class="token comment"># 3. Return providers</span>
+    return [DefaultInfo(files = depset([out]))]
+
+<span class="token comment"># 4. Define the rule interface</span>
+minify_js = <span class="token function">rule</span>(
+    implementation = _impl,
+    attrs = {
+        <span class="token string">"srcs"</span>: attr.label_list(allow_files = [<span class="token string">".js"</span>]),
+        <span class="token string">"tool"</span>: attr.label(
+            executable = True,
+            cfg = <span class="token string">"exec"</span>,
+            default = Label(<span class="token string">"//tools:minifier"</span>)
+        ),
+    },
+)</code></pre>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-5 rounded-lg border border-stone shadow-sm step-item relative">
+                        <div class="step-connector">
+                            <div class="w-8 h-8 rounded-full bg-indigo text-white flex items-center justify-center font-bold text-sm mb-3 relative z-10">1</div>
+                        </div>
+                        <h4 class="font-bold text-charcoal mb-2">Implementation</h4>
+                        <p class="text-sm text-charcoal-mid">The <code class="font-mono text-xs">_impl</code> function contains the logic. It registers actions but doesn't run them immediately.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border border-stone shadow-sm step-item relative">
+                        <div class="step-connector">
+                            <div class="w-8 h-8 rounded-full bg-indigo text-white flex items-center justify-center font-bold text-sm mb-3 relative z-10">2</div>
+                        </div>
+                        <h4 class="font-bold text-charcoal mb-2">Attributes</h4>
+                        <p class="text-sm text-charcoal-mid">The <code class="font-mono text-xs">attrs</code> dictionary defines the schema. Inputs are strongly typed (e.g., <code class="font-mono text-xs">label_list</code>, <code class="font-mono text-xs">string</code>).</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg border border-stone shadow-sm step-item relative">
+                        <div class="step-connector">
+                            <div class="w-8 h-8 rounded-full bg-indigo text-white flex items-center justify-center font-bold text-sm mb-3 relative z-10">3</div>
+                        </div>
+                        <h4 class="font-bold text-charcoal mb-2">Providers</h4>
+                        <p class="text-sm text-charcoal-mid">Rules return information to other rules via Providers. <code class="font-mono text-xs">DefaultInfo</code> is the standard return type.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Target Patterns -->
+            <section id="target-patterns" class="mb-16">
+                <h2 class="font-serif text-2xl font-bold text-charcoal mb-6">Target Patterns & Labels</h2>
+                <p class="text-charcoal-mid mb-6 max-w-3xl">
+                    Labels uniquely identify a target. They follow the format <code class="bg-stone-light/40 px-1 rounded text-sm">@repo//package:target</code>. Understanding label resolution is critical for managing dependencies.
+                </p>
+
+                <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg border border-stone-light mb-8">
+                    <table class="min-w-full divide-y divide-stone-light prop-table">
+                        <thead class="bg-boxwood-pale">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-charcoal uppercase tracking-wider">Pattern</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-charcoal uppercase tracking-wider">Example</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-charcoal uppercase tracking-wider">Meaning</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-stone-light">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">Absolute</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">//src/ui:button</td>
+                                <td class="px-6 py-4 text-sm text-charcoal-mid">Target <code class="font-mono text-xs">button</code> in package <code class="font-mono text-xs">src/ui</code> from the root.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">Relative</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">:tests</td>
+                                <td class="px-6 py-4 text-sm text-charcoal-mid">Target <code class="font-mono text-xs">tests</code> in the <em>current</em> package.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">Recursive</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">//src/...</td>
+                                <td class="px-6 py-4 text-sm text-charcoal-mid">All targets in <code class="font-mono text-xs">src</code> and all subdirectories.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-mono font-medium text-indigo">All Targets</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-xs font-mono text-charcoal-mid">//src/ui:all</td>
+                                <td class="px-6 py-4 text-sm text-charcoal-mid">All rules defined in the <code class="font-mono text-xs">src/ui</code> BUILD file.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Callout for CLI Usage -->
+                <div class="bg-boxwood-pale border-l-4 border-indigo p-6 rounded-r-lg">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fa-solid fa-terminal text-indigo mt-1"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-sm font-bold text-charcoal">CLI Tip: Querying Targets</h3>
+                            <div class="mt-2 text-sm text-charcoal-mid">
+                                <p class="mb-2">You can use <code class="font-mono bg-white px-1 py-0.5 rounded border border-stone">netsuke query</code> to inspect the graph without building.</p>
+                                <div class="bg-charcoal text-stone-light p-3 rounded font-mono text-xs">
+                                    $ netsuke query "deps(//app:main)" --output graph
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Outputs & Determinism -->
+            <section id="determinism" class="mb-16">
+                <h2 class="font-serif text-2xl font-bold text-charcoal mb-6">Outputs & Determinism</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
+                        <div class="w-10 h-10 rounded-full bg-vermillion/10 flex items-center justify-center text-vermillion mb-4">
+                            <i class="fa-solid fa-fingerprint"></i>
+                        </div>
+                        <h3 class="font-bold text-charcoal mb-3">Deterministic Output</h3>
+                        <p class="text-sm text-charcoal-mid leading-relaxed mb-4">
+                            Netsuke hashes inputs to determine if a rebuild is necessary. If the input hash matches, the output is fetched from cache.
+                        </p>
+                        <ul class="text-sm text-charcoal-mid space-y-2">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-matcha mr-2 text-xs"></i> Consistent across machines</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-matcha mr-2 text-xs"></i> Bit-for-bit identical builds</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-matcha mr-2 text-xs"></i> Remote caching enabled</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
+                        <div class="w-10 h-10 rounded-full bg-amber/10 flex items-center justify-center text-amber mb-4">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="font-bold text-charcoal mb-3">Security & Sandboxing</h3>
+                        <p class="text-sm text-charcoal-mid leading-relaxed mb-4">
+                            Actions run in restricted environments. They cannot access the internet or undeclared files, preventing supply chain attacks during build.
+                        </p>
+                        <a href="../cli-security-and-configuration/#security" class="text-indigo text-sm font-medium hover:underline">Read Security Model &rarr;</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance Chart -->
+            <section id="performance" class="mb-20 pt-8 border-t border-stone-light">
+                <h2 class="font-serif text-2xl font-bold text-charcoal mb-6">Performance Impact</h2>
+                <p class="text-charcoal-mid mb-8 max-w-3xl">
+                    Using granular targets and proper rule definitions significantly improves build times. Here's a comparison of clean vs. incremental builds with optimized rules.
+                </p>
+
+                <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
+                    <div id="buildPerfChart" class="h-[350px] w-full"></div>
+                </div>
+            </section>
+
+            <!-- Help Footer -->
+            <div class="mt-10 pt-10 border-t border-stone-light">
+                <div class="flex justify-between items-center">
+                    <a href="../manifest-reference/" class="group flex items-center text-charcoal-mid hover:text-charcoal transition-colors">
+                        <div class="w-8 h-8 rounded-full border border-stone flex items-center justify-center mr-3 group-hover:border-indigo group-hover:text-indigo transition-colors">
+                            <i class="fa-solid fa-arrow-left text-xs"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-xs text-charcoal-light uppercase tracking-wide">Previous</div>
+                            <div class="font-medium text-sm">Manifest Reference</div>
+                        </div>
+                    </a>
+
+                    <a href="../templating-and-standard-library/" class="group flex items-center text-charcoal-mid hover:text-charcoal transition-colors">
+                        <div class="text-right">
+                            <div class="text-xs text-charcoal-light uppercase tracking-wide">Next</div>
+                            <div class="font-medium text-sm">Templating</div>
+                        </div>
+                        <div class="w-8 h-8 rounded-full border border-stone flex items-center justify-center ml-3 group-hover:border-indigo group-hover:text-indigo transition-colors">
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-charcoal pt-16 pb-8 text-stone-light border-t border-charcoal-light mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand Column -->
+                <div class="col-span-1 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-vermillion flex items-center justify-center text-white font-serif font-bold text-lg">N</div>
+                        <span class="font-serif font-bold text-xl tracking-tight text-white">Netsuke</span>
+                    </div>
+                    <p class="text-sm text-charcoal-light leading-relaxed mb-6">
+                        Netsuke is free, open-source, and written in Rust. It aims to bring the power of large-scale build systems to projects of any size.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="../../examples/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-github"></i></a>
+                        <a href="../../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="../../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-boxwood mb-6">Documentation</h4>
+                    <ul class="space-y-3 text-sm text-stone">
+                        <li><a href="../getting-started/" class="hover:text-white transition-colors">Getting Started</a></li>
+                        <li><a href="../manifest-reference/" class="hover:text-white transition-colors">Manifest Reference</a></li>
+                        <li><a href="./" class="hover:text-white transition-colors">Rules & Targets</a></li>
+                        <li><a href="../cli-security-and-configuration/#cli" class="hover:text-white transition-colors">CLI Commands</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-boxwood mb-6">Resources</h4>
+                    <ul class="space-y-3 text-sm text-stone">
+                        <li><a href="../../examples/" class="hover:text-white transition-colors">Examples Hub</a></li>
+                        <li><a href="../../design/" class="hover:text-white transition-colors">Design System</a></li>
+                        <li><a href="../../blog/" class="hover:text-white transition-colors">Blog & Releases</a></li>
+                        <li><a href="../../contributing/" class="hover:text-white transition-colors">Contributing</a></li>
+                    </ul>
+                </div>
+
+                <!-- CTA Column -->
+                <div>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-boxwood mb-6">Ready to build?</h4>
+                    <div class="space-y-4">
+                        <a href="../../install/" class="block w-full py-2 px-4 bg-vermillion text-white text-center rounded text-sm font-bold hover:bg-vermillion-dim transition-colors">
+                            Install Netsuke
+                        </a>
+                        <a href="../" class="block w-full py-2 px-4 bg-transparent border border-stone/30 text-stone text-center rounded text-sm font-bold hover:bg-white/5 transition-colors">
+                            Read the docs
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-charcoal-mid pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-charcoal-light">
+                <p class="mb-4 md:mb-0">
+                    &copy; 2024 Netsuke Project. Distributed under the MIT License.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="../../privacy-policy/" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="../../terms-of-use/" class="hover:text-white transition-colors">Terms of Use</a>
+                    <a href="../../code-of-conduct/" class="hover:text-white transition-colors">Code of Conduct</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('load', function() {
+            try {
+                // Bar Chart for Build Performance
+                const trace1 = {
+                    x: ['Clean Build', 'Incremental (No Change)', 'Incremental (Small Change)'],
+                    y: [45, 0.5, 2.1],
+                    name: 'Netsuke (Optimized)',
+                    type: 'bar',
+                    marker: { color: '#2B4162' } // Indigo
+                };
+
+                const trace2 = {
+                    x: ['Clean Build', 'Incremental (No Change)', 'Incremental (Small Change)'],
+                    y: [120, 15, 45],
+                    name: 'Traditional Make',
+                    type: 'bar',
+                    marker: { color: '#D1C7B8' } // Stone
+                };
+
+                const data = [trace1, trace2];
+
+                const layout = {
+                    title: { text: 'Build Time Comparison (Seconds)', font: { family: 'Fraunces', size: 16, color: '#2E2A25' } },
+                    margin: { t: 50, r: 20, b: 40, l: 50 },
+                    plot_bgcolor: '#FFFFFF',
+                    paper_bgcolor: '#FFFFFF',
+                    font: { family: 'Source Sans 3', color: '#5C554D' },
+                    xaxis: { gridcolor: '#F5EDE0' },
+                    yaxis: { gridcolor: '#F5EDE0', title: 'Time (s)' },
+                    showlegend: true,
+                    legend: { orientation: 'h', y: -0.2 }
+                };
+
+                Plotly.newPlot('buildPerfChart', data, layout, {responsive: true, displayModeBar: false});
+
+            } catch(e) {
+                console.error("Chart generation failed:", e);
+            }
+        });
+    </script>
+</body>
+</html>
