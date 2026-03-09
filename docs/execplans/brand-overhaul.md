@@ -40,6 +40,10 @@ every HTML file.
 - Keep page routes and overall content architecture stable. A brand overhaul
   may restyle or rewrite sections, but it must not require inventing a new site
   map.
+- Preserve the current homepage hero-banner format. The full-bleed banner
+  layout, dark overlay, and hero-first structure may be refined to better fit
+  the Himotoshi system, but this plan must not replace the homepage with the
+  lighter split-layout hero used in the design-system showcase.
 - Preserve accessibility semantics while overhauling visual treatment. Heading
   order, button/link intent, alt text, focus visibility, and sufficient
   contrast remain mandatory.
@@ -132,7 +136,8 @@ fragmented:
   universal.
 - The homepage introduces a full-bleed photographic hero with a dark overlay,
   while the design system hero is a lighter editorial split layout with token
-  callouts and framed imagery.
+  callouts and framed imagery. Per user direction, the implementation should
+  keep the homepage banner format and harmonise it rather than replacing it.
 
 Playwright review of the live homepage confirmed additional drift that matters
 to the overhaul:
@@ -159,7 +164,8 @@ language, not its dummy destinations.
 
 1. The homepage hero uses a dark photographic billboard and white text, while
    the design system and most hub pages rely on light surfaces, framed cards,
-   and charcoal text on paper tones.
+   and charcoal text on paper tones. This is now treated as a deliberate
+   homepage exception that should be brought closer to Himotoshi, not removed.
 2. CTA families are inconsistent. The site mixes indigo solid buttons,
    vermillion solid buttons, translucent white buttons, bordered ghost buttons,
    and plain text links without a stable mapping to action priority.
@@ -274,9 +280,10 @@ blog hub using the shared primitives.
 
 Expected outcomes by page type:
 
-- Homepage: align the hero, CTA stack, section rhythm, and comparison table to
-  the Himotoshi language. If the photographic hero stays, it must be an
-  explicit, documented exception rather than accidental drift.
+- Homepage: keep the existing hero-banner format, but align its typography,
+  CTA hierarchy, overlay treatment, supporting metadata, and transition into
+  the next sections with the Himotoshi language so it feels like a deliberate
+  front door rather than a separate campaign page.
 - Install: restyle the tabbed install widget, quick links, and FAQ surfaces so
   they read as part of the same component family as the homepage and docs.
 - Docs hub: normalise sidebar links, search surfaces, callouts, topic cards,
@@ -379,6 +386,9 @@ The overhaul is complete only when all of the following are true:
   CTAs pointing to `examples/`, which must be corrected during the overhaul.
 - [x] 2026-03-09T23:36:00+00:00: Drafted the execution plan with phased
   implementation and Playwright/`css-view` validation requirements.
+- [x] 2026-03-09T23:39:00+00:00: Updated the plan to preserve the existing
+  homepage hero-banner format while minimising its inconsistencies with the
+  Himotoshi system.
 - [ ] Await user approval before implementation.
 - [ ] Add the implementation-phase brand matrix once execution begins.
 - [ ] Record route-by-route validation evidence and any deviations accepted as
@@ -409,6 +419,10 @@ The overhaul is complete only when all of the following are true:
 - 2026-03-09: Interpret “extract to a shared Tailwind CSS file” in a buildless
   way unless the user approves tooling expansion. The current repo guidance
   explicitly says not to invest in build automation for this prototype.
+- 2026-03-09: Preserve the existing homepage hero-banner format as a project
+  constraint. Harmonise that banner with Himotoshi tokens and component logic
+  instead of replacing it with the showcase hero pattern from the design
+  system file.
 - 2026-03-09: Include link semantics in the brand overhaul. A brand refresh
   that leaves misleading `GitHub` actions in place is incomplete.
 - 2026-03-09: Require both Playwright and `css-view` evidence before calling
