@@ -306,7 +306,7 @@ Expected outcomes by page type:
   front door rather than a separate campaign page.
 - Install: restyle the tabbed install widget, quick links, and FAQ surfaces so
   they read as part of the same component family as the homepage and docs.
-- Docs hub: normalise sidebar links, search surfaces, callouts, topic cards,
+- Docs hub: normalize sidebar links, search surfaces, callouts, topic cards,
   and footer treatment.
 - Examples hub: unify feature cards, filter chips, repository/open-source CTA
   patterns, and metadata badges.
@@ -378,7 +378,7 @@ the exact working queries.
 
 The overhaul is complete only when all of the following are true:
 
-1. The live preview routes under `netsuke/` share one recognisable Himotoshi
+1. The live preview routes under `netsuke/` share one recognizable Himotoshi
    brand language rather than mixing unrelated visual directions.
 2. The repeated inline Tailwind theme definition is replaced by one shared
    source.
@@ -407,7 +407,7 @@ The overhaul is complete only when all of the following are true:
 - [x] 2026-03-09T23:36:00+00:00: Drafted the execution plan with phased
   implementation and Playwright/`css-view` validation requirements.
 - [x] 2026-03-09T23:39:00+00:00: Updated the plan to preserve the existing
-  homepage hero-banner format while minimising its inconsistencies with the
+  homepage hero-banner format while minimizing its inconsistencies with the
   Himotoshi system.
 - [x] 2026-03-09T23:56:00+00:00: Marked the plan `IN PROGRESS`, added the
   implementation-phase brand matrix, and extracted shared theme assets into
@@ -417,7 +417,7 @@ The overhaul is complete only when all of the following are true:
   homepage, examples hub, guides hub, blog hub, install page, docs hub, and
   the leaf docs/examples pages so they now consume the extracted theme and
   semantic component classes.
-- [x] 2026-03-10T00:05:00+00:00: Harmonised the homepage banner without
+- [x] 2026-03-10T00:05:00+00:00: Harmonized the homepage banner without
   changing its structure by adding the shared hero panel, aligning CTA
   hierarchy to the Himotoshi button families, and reworking the overlay and
   proof-pill treatment to match the shared token system.
@@ -470,7 +470,7 @@ The overhaul is complete only when all of the following are true:
   way unless the user approves tooling expansion. The current repo guidance
   explicitly says not to invest in build automation for this prototype.
 - 2026-03-09: Preserve the existing homepage hero-banner format as a project
-  constraint. Harmonise that banner with Himotoshi tokens and component logic
+  constraint. Harmonize that banner with Himotoshi tokens and component logic
   instead of replacing it with the showcase hero pattern from the design
   system file.
 - 2026-03-09: Introduce the shared brand layer through static assets instead
