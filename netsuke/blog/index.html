@@ -22,10 +22,10 @@
         }
     </style>
 </head>
-<body class="texture-paper text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
+<body class="shell-surface texture-paper text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 glass-panel transition-all duration-300">
+    <nav id="navbar" class="fixed top-0 w-full z-50 shell-backdrop glass-panel transition-all duration-300">
         <div class="site-container">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center space-x-3 cursor-pointer">
@@ -162,7 +162,7 @@
                             <span class="text-charcoal-mid">Feb 28, 2024</span>
                         </div>
                         <h3 class="font-serif text-2xl font-bold text-charcoal mb-3 group-hover:text-indigo transition-colors">
-                            <a href="../guides/" class="hover:text-indigo transition-colors">Reading the Six-Stage Pipeline Backwards</a>
+                            <a href="../guides/#featured-guide" class="hover:text-indigo transition-colors">Reading the Six-Stage Pipeline Backwards</a>
                         </h3>
                         <p class="text-charcoal-mid text-sm mb-4 leading-relaxed">
                             Start at the generated Ninja file, then work back to the manifest. It is the fastest way to understand what Netsuke is really doing on a non-trivial project.
@@ -172,7 +172,7 @@
                                 <img src="../assets/blog-author-avatar-2.jpg" alt="Author" class="w-6 h-6 rounded-full border border-stone">
                                 <span class="text-xs text-charcoal-mid font-medium">Alex Chen</span>
                             </div>
-                            <a href="../guides/" class="text-indigo text-xs font-bold hover:underline">Read Article &rarr;</a>
+                            <a href="../guides/#featured-guide" class="text-indigo text-xs font-bold hover:underline">Read Article &rarr;</a>
                         </div>
                     </div>
                 </article>
@@ -198,7 +198,7 @@
                             </div>
                             <div class="flex items-center space-x-4">
                                 <a href="https://github.com/leynos/netsuke/releases" class="text-charcoal-mid text-xs font-medium hover:text-vermillion"><span  class="iconify mr-1" data-icon="carbon:list-checked" aria-hidden="true"></span> Changelog</a>
-                                <a href="https://github.com/leynos/netsuke/releases" class="text-indigo text-xs font-bold hover:underline">Read Release Notes &rarr;</a>
+                                <a href="../docs/templating-and-standard-library/" class="text-indigo text-xs font-bold hover:underline">Read Article &rarr;</a>
                             </div>
                         </div>
                     </div>
@@ -213,35 +213,26 @@
                             <span class="text-charcoal-mid">Dec 10, 2023</span>
                         </div>
                         <h3 class="font-serif text-2xl font-bold text-charcoal mb-3">
-                            <a href="../docs/" class="hover:text-indigo transition-colors">2023 Year in Review</a>
+                            <a href="../docs/" class="hover:text-indigo transition-colors">Documentation Hub</a>
                         </h3>
                         <p class="text-charcoal-mid text-sm mb-4 leading-relaxed">
-                            A short index of the design docs, CLI design, user guide, and example manifests that currently define Netsuke more accurately than any marketing page should.
+                            A short index of the design docs, CLI guidance, and example manifests that currently define Netsuke more accurately than any marketing page should.
                         </p>
                         <div class="flex items-center justify-between mt-auto">
                             <div class="flex items-center space-x-2">
                                 <div class="w-6 h-6 rounded-full bg-vermillion text-white flex items-center justify-center text-xs font-bold">N</div>
                                 <span class="text-xs text-charcoal-mid font-medium">The Netsuke Team</span>
                             </div>
-                            <a href="../docs/" class="text-indigo text-xs font-bold hover:underline">Read Article &rarr;</a>
+                            <a href="../docs/" class="text-indigo text-xs font-bold hover:underline">Open Docs &rarr;</a>
                         </div>
                     </div>
                 </article>
 
                 <!-- Pagination -->
                 <div class="flex justify-center pt-8">
-                    <nav class="flex items-center space-x-2">
-                        <a href="https://github.com/leynos/netsuke/releases" class="w-10 h-10 flex items-center justify-center rounded-md border border-stone text-charcoal-mid hover:bg-boxwood-pale hover:text-charcoal transition-colors disabled:opacity-50">
-                            <span  class="iconify text-xs" data-icon="carbon:chevron-left" aria-hidden="true"></span>
-                        </a>
-                        <a href="https://github.com/leynos/netsuke/releases" class="w-10 h-10 flex items-center justify-center rounded-md bg-indigo text-white font-medium shadow-sm">1</a>
-                        <a href="https://github.com/leynos/netsuke/releases" class="w-10 h-10 flex items-center justify-center rounded-md border border-stone text-charcoal hover:bg-boxwood-pale transition-colors">2</a>
-                        <span class="w-10 h-10 flex items-center justify-center text-charcoal-mid">...</span>
-                        <a href="https://github.com/leynos/netsuke/releases" class="w-10 h-10 flex items-center justify-center rounded-md border border-stone text-charcoal hover:bg-boxwood-pale transition-colors">8</a>
-                        <a href="https://github.com/leynos/netsuke/releases" class="w-10 h-10 flex items-center justify-center rounded-md border border-stone text-charcoal-mid hover:bg-boxwood-pale hover:text-charcoal transition-colors">
-                            <span  class="iconify text-xs" data-icon="carbon:chevron-right" aria-hidden="true"></span>
-                        </a>
-                    </nav>
+                    <a href="https://github.com/leynos/netsuke/releases" class="hm-button hm-button--ghost inline-flex items-center px-5 py-2.5 text-sm">
+                        <span  class="iconify mr-2" data-icon="carbon:launch" aria-hidden="true"></span> Browse Releases
+                    </a>
                 </div>
             </div>
 

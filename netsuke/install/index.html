@@ -13,12 +13,6 @@
     <link rel="stylesheet" href="../assets/css/himotoshi.css">
     <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
     <style>
-.install-option-card:hover {
-            border-color: #2B4162;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(46, 42, 37, 0.1), 0 4px 6px -2px rgba(46, 42, 37, 0.05);
-        }
-
         .tab-btn.active {
             background-color: #E8D5B5;
             color: #2E2A25;
@@ -41,10 +35,10 @@
         }
     </style>
 </head>
-<body class="texture-paper text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
+<body class="shell-surface texture-paper text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 glass-panel transition-all duration-300">
+    <nav id="navbar" class="fixed top-0 w-full z-50 shell-backdrop glass-panel transition-all duration-300">
         <div class="site-container">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center space-x-3 cursor-pointer">
@@ -253,22 +247,10 @@
                         </h3>
                         <p class="text-xs text-charcoal-mid mb-4">Prefer not to use a script? Download the binary directly.</p>
 
-                        <div class="space-y-2">
-                             <a href="https://github.com/leynos/netsuke/releases" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
-                                <span class="text-sm font-medium text-charcoal"><span  class="iconify mr-2 text-charcoal-light" data-icon="carbon:apple" aria-hidden="true"></span> macOS (Universal)</span>
-                                <span  class="iconify text-indigo opacity-0 group-hover:opacity-100 transition-opacity" data-icon="carbon:download" aria-hidden="true"></span>
-                             </a>
-                             <a href="https://github.com/leynos/netsuke/releases" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
-                                <span class="text-sm font-medium text-charcoal"><span  class="iconify mr-2 text-charcoal-light" data-icon="carbon:linux" aria-hidden="true"></span> Linux (x86_64)</span>
-                                <span  class="iconify text-indigo opacity-0 group-hover:opacity-100 transition-opacity" data-icon="carbon:download" aria-hidden="true"></span>
-                             </a>
-                             <a href="https://github.com/leynos/netsuke/releases" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
-                                <span class="text-sm font-medium text-charcoal"><span  class="iconify mr-2 text-charcoal-light" data-icon="carbon:window-base" aria-hidden="true"></span> Windows (x64)</span>
-                                <span  class="iconify text-indigo opacity-0 group-hover:opacity-100 transition-opacity" data-icon="carbon:download" aria-hidden="true"></span>
-                             </a>
-                        </div>
                         <div class="mt-4 text-center">
-                             <a href="https://github.com/leynos/netsuke/releases" class="text-xs text-charcoal-light hover:text-charcoal underline">View all releases</a>
+                             <a href="https://github.com/leynos/netsuke/releases" class="hm-button hm-button--ghost inline-flex items-center px-5 py-2.5 text-sm">
+                                <span  class="iconify mr-2" data-icon="carbon:download" aria-hidden="true"></span> View all releases
+                             </a>
                         </div>
                     </div>
                 </div>

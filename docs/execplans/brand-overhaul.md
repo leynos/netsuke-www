@@ -73,45 +73,45 @@ every HTML file.
 
 ## Risks
 
-    - Risk: The design system file is a showcase, not a production site map,
-      so some of its elements are illustrative rather than directly reusable.
-      Severity: medium
-      Likelihood: high
-      Mitigation: use it as the authority for tokens, typography, surfaces,
-      button families, and editorial mood, not for literal navigation labels
-      or placeholder links.
+- Risk: The design system file is a showcase, not a production site map, so
+  some of its elements are illustrative rather than directly reusable.
+  Severity: medium
+  Likelihood: high
+  Mitigation: use it as the authority for tokens, typography, surfaces,
+  button families, and editorial mood, not for literal navigation labels or
+  placeholder links.
 
-    - Risk: Repeated inline Tailwind config and CSS appear on nearly every page,
-      so partial extraction could leave the site in a half-shared state where
-      one edited page diverges from the rest.
-      Severity: high
-      Likelihood: high
-      Mitigation: move global tokens and shared component classes first, then
-      sweep every page to consume the shared layer before any page-specific
-      polish.
+- Risk: Repeated inline Tailwind config and CSS appear on nearly every page,
+  so partial extraction could leave the site in a half-shared state where one
+  edited page diverges from the rest.
+  Severity: high
+  Likelihood: high
+  Mitigation: move global tokens and shared component classes first, then
+  sweep every page to consume the shared layer before any page-specific
+  polish.
 
-    - Risk: The current site mixes at least two visual directions: the lighter
-      editorial Himotoshi system and a darker marketing-hero treatment.
-      Severity: high
-      Likelihood: high
-      Mitigation: choose one primary art direction per page type and document
-      the exceptions explicitly in this plan before implementation.
+- Risk: The current site mixes at least two visual directions: the lighter
+  editorial Himotoshi system and a darker marketing-hero treatment.
+  Severity: high
+  Likelihood: high
+  Mitigation: choose one primary art direction per page type and document the
+  exceptions explicitly in this plan before implementation.
 
-    - Risk: Some current calls to action labelled as GitHub do not point to a
-      GitHub destination at all.
-      Severity: medium
-      Likelihood: high
-      Mitigation: treat CTA semantics as part of the brand overhaul, not as
-      incidental copy cleanup.
+- Risk: Some current calls to action labelled as GitHub do not point to a
+  GitHub destination at all.
+  Severity: medium
+  Likelihood: high
+  Mitigation: treat CTA semantics as part of the brand overhaul, not as
+  incidental copy cleanup.
 
-    - Risk: A truly shared Tailwind component file normally wants `@apply` or
-      a compile step, which conflicts with the prototype constraint against
-      build-pipeline work.
-      Severity: high
-      Likelihood: high
-      Mitigation: keep the shared layer buildless by using one shared Tailwind
-      config script plus one shared static CSS file of semantic classes. If the
-      user specifically wants compiled Tailwind source, escalate for approval.
+- Risk: A truly shared Tailwind component file normally wants `@apply` or a
+  compile step, which conflicts with the prototype constraint against
+  build-pipeline work.
+  Severity: high
+  Likelihood: high
+  Mitigation: keep the shared layer buildless by using one shared Tailwind
+  config script plus one shared static CSS file of semantic classes. If the
+  user specifically wants compiled Tailwind source, escalate for approval.
 
 ## Orientation
 
@@ -137,14 +137,14 @@ fragmented:
 - The homepage introduces a full-bleed photographic hero with a dark overlay,
   while the design system hero is a lighter editorial split layout with token
   callouts and framed imagery. Per user direction, the implementation should
-  keep the homepage banner format and harmonise it rather than replacing it.
+  keep the homepage banner format and harmonize it rather than replacing it.
 
 Playwright review of the live homepage confirmed additional drift that matters
 to the overhaul:
 
 - The primary nav only exposes `GitHub` and `Install`, while the underlying
   HTML also contains a hidden desktop nav. Brand hierarchy and navigation
-  emphasis need review together.
+  emphasis need reviewing together.
 - The header CTA labelled `GitHub` points to `examples/`, and the hero CTA
   labelled `View on GitHub` also points to `examples/`. This is both a brand
   credibility problem and a link-semantics problem.
@@ -184,7 +184,7 @@ language, not its dummy destinations.
 
 ### Deviation from the design system already verified
 
-1. The design system emphasises a light editorial hero with boxed imagery and
+1. The design system emphasizes a light editorial hero with boxed imagery and
    token callouts; the homepage currently leads with a cinematic photo splash.
 2. The design system defines explicit button families: primary, accent, and
    ghost. The site uses ad hoc button variants that do not map cleanly to that
@@ -233,7 +233,7 @@ For each page, record:
 - which design-system motifs it already uses well,
 - which motifs it omits,
 - which page-specific treatments should survive, and
-- which treatments should be normalised or removed.
+- which treatments should be normalized or removed.
 
 The output of this phase is a short brand matrix added back into this
 ExecPlan before implementation starts. It should name the approved global shell
@@ -247,7 +247,7 @@ Implementation-phase brand matrix, established 2026-03-09:
 - Hub pages (`docs/`, `examples/`, `guides/`, `blog/`, `install/`): use light
   paper surfaces, warm bordered cards, and a consistent glass-panel shell so
   they read as the canonical Himotoshi application.
-- Leaf docs and example pages: prioritise consistent shell, typography, code
+- Leaf docs and example pages: prioritize consistent shell, typography, code
   surfaces, badges, and footer/nav treatment over bespoke landing-page drama.
 - Legal and placeholder pages: keep them simple, but ensure they inherit the
   same font, paper texture, and token palette rather than falling back to
@@ -269,7 +269,7 @@ stylesheet for semantic brand classes. A practical target shape is:
 
 This is the key design decision of the plan. The shared CSS file should carry
 the extracted global classes and semantic components, while the shared
-Tailwind-config script should centralise token definitions that are currently
+Tailwind-config script should centralize token definitions that are currently
 redeclared on every page. This keeps the prototype static and buildless while
 still eliminating the duplicated theme layer.
 
@@ -338,11 +338,11 @@ truncation.
 Suggested command sequence:
 
     set -o pipefail
-    npm run build | tee /tmp/build-netsuke-www-$(git branch --show).out
+    npm run build | tee /tmp/build-netsuke-www-$(git branch --show-current).out
 
     set -o pipefail
     markdownlint-cli2 docs/execplans/brand-overhaul.md | \
-      tee /tmp/markdownlint-netsuke-www-$(git branch --show).out
+      tee /tmp/markdownlint-netsuke-www-$(git branch --show-current).out
 
 Use Playwright against the running preview on port `2016` to verify:
 
