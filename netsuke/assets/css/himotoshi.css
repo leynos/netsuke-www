@@ -83,6 +83,18 @@ body {
   padding-inline: 1rem;
 }
 
+.sidebar-link.active {
+  color: #c23b22;
+  background-color: #f5ede0;
+  border-right: 3px solid #c23b22;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(43, 65, 98, 0.2);
+  border-color: #2b4162;
+}
+
 @media (min-width: 640px) {
   .site-container {
     padding-inline: 1.5rem;

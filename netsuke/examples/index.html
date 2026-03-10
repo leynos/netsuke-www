@@ -26,14 +26,6 @@
             border-color: #2B4162;
         }
 
-        .card-hover-effect {
-            transition: all 0.3s ease;
-        }
-        .card-hover-effect:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(46, 42, 37, 0.1), 0 10px 10px -5px rgba(46, 42, 37, 0.04);
-            border-color: #2B4162;
-        }
     </style>
 </head>
 <body class="shell-surface texture-paper text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
@@ -261,7 +253,7 @@
             </article>
 
             <!-- Example Card: Basic C -->
-            <article class="bg-white rounded-xl border border-stone shadow-sm overflow-hidden flex flex-col card-hover-effect h-full">
+            <article class="hm-card hm-card--interactive overflow-hidden flex flex-col">
                 <div class="h-48 bg-charcoal relative overflow-hidden group">
                      <div class="absolute inset-0 bg-[url('../assets/example-card-photo-1518770660439.jpg')] bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-30"></div>
                     <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-mono text-white border border-white/20">
@@ -277,8 +269,8 @@
                     </div>
 
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">gcc</span>
-                        <span class="px-2 py-0.5 bg-boxwood-pale border border-stone rounded text-xs text-charcoal-mid font-mono">ninja</span>
+                        <span class="hm-chip">gcc</span>
+                        <span class="hm-chip">ninja</span>
                     </div>
 
                     <div class="mt-auto pt-6 border-t border-stone-light flex justify-between items-center">
@@ -294,7 +286,7 @@
             </article>
 
             <!-- Example Card: Writing -->
-            <article class="bg-white rounded-xl border border-stone shadow-sm overflow-hidden flex flex-col card-hover-effect h-full">
+            <article class="hm-card hm-card--interactive overflow-hidden flex flex-col">
                 <div class="h-48 bg-charcoal relative overflow-hidden group">
                      <div class="absolute inset-0 bg-[url('../assets/example-card-photo-1455390582262.jpg')] bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-30"></div>
                     <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-mono text-white border border-white/20">
@@ -327,7 +319,7 @@
             </article>
 
             <!-- Example Card: Hello World -->
-            <article class="bg-white rounded-xl border border-stone shadow-sm overflow-hidden flex flex-col card-hover-effect h-full">
+            <article class="hm-card hm-card--interactive overflow-hidden flex flex-col">
                 <div class="h-48 bg-charcoal relative overflow-hidden group">
                      <div class="absolute inset-0 bg-[url('../assets/example-card-photo-1551288049.jpg')] bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-30"></div>
                     <div class="absolute top-4 right-4 bg-black/60 backdrop-blur px-2 py-1 rounded text-xs font-mono text-white border border-white/20">
@@ -420,8 +412,6 @@
                     <div class="flex space-x-4">
                         <a href="https://github.com/leynos/netsuke" class="hm-footer-icon" aria-label="Netsuke on GitHub"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
                         <a href="https://bsky.app/profile/df12.studio" class="hm-footer-icon" aria-label="df12 on Bluesky"><span  class="iconify" data-icon="carbon:logo-bluesky" aria-hidden="true"></span></a>
-
-
                     </div>
                 </div>
 
