@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="flex items-center space-x-4">
-                    <a href="../examples/" class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors">
+                    <a href="https://github.com/leynos/netsuke-www" class="hm-button hm-button--ghost hidden sm:inline-flex items-center px-4 py-1.5 text-sm">
                         <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
                     </a>
                     <a href="./" class="inline-flex items-center px-4 py-1.5 bg-vermillion text-white rounded-md text-sm font-medium shadow-sm hover:bg-vermillion-dim transition-colors ring-2 ring-vermillion ring-offset-2 ring-offset-[#FAF6F0]">
@@ -93,7 +93,7 @@
 
         <!-- Main Installation Widget -->
         <section id="install-widget" class="max-w-4xl mx-auto mb-20">
-            <div class="bg-white rounded-2xl border border-stone shadow-paper-lg overflow-hidden">
+            <div class="hm-card overflow-hidden">
                 <!-- OS Tabs -->
                 <div class="flex border-b border-stone bg-boxwood-pale/50 overflow-x-auto">
                     <button class="tab-btn active px-6 py-4 text-sm font-bold text-charcoal border-r border-stone hover:bg-boxwood-pale transition-colors flex items-center whitespace-nowrap">
@@ -214,7 +214,7 @@
                         </div>
 
                         <div class="mt-6 flex gap-4">
-                            <a href="../docs/getting-started/" class="inline-flex items-center px-5 py-2.5 bg-indigo text-white rounded-md font-medium shadow-sm hover:bg-indigo-light transition-colors">
+                            <a href="../docs/getting-started/" class="hm-button hm-button--primary inline-flex items-center px-5 py-2.5">
                                 Read Getting Started Guide <span  class="iconify ml-2" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                             </a>
                         </div>
@@ -243,7 +243,7 @@
                             </div>
                         </div>
                         <div class="mt-4 pt-4 border-t border-stone-light text-center">
-                            <a href="../contributing/" class="text-xs font-bold text-indigo hover:text-vermillion transition-colors">Visit GitHub Issues &rarr;</a>
+                            <a href="https://github.com/leynos/netsuke-www/issues" class="text-xs font-bold text-indigo hover:text-vermillion transition-colors">Visit GitHub Issues &rarr;</a>
                         </div>
                     </div>
 
@@ -254,21 +254,21 @@
                         <p class="text-xs text-charcoal-mid mb-4">Prefer not to use a script? Download the binary directly.</p>
 
                         <div class="space-y-2">
-                             <a href="./" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
+                             <a href="https://github.com/leynos/netsuke-www/releases" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
                                 <span class="text-sm font-medium text-charcoal"><span  class="iconify mr-2 text-charcoal-light" data-icon="carbon:apple" aria-hidden="true"></span> macOS (Universal)</span>
                                 <span  class="iconify text-indigo opacity-0 group-hover:opacity-100 transition-opacity" data-icon="carbon:download" aria-hidden="true"></span>
                              </a>
-                             <a href="./" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
+                             <a href="https://github.com/leynos/netsuke-www/releases" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
                                 <span class="text-sm font-medium text-charcoal"><span  class="iconify mr-2 text-charcoal-light" data-icon="carbon:linux" aria-hidden="true"></span> Linux (x86_64)</span>
                                 <span  class="iconify text-indigo opacity-0 group-hover:opacity-100 transition-opacity" data-icon="carbon:download" aria-hidden="true"></span>
                              </a>
-                             <a href="./" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
+                             <a href="https://github.com/leynos/netsuke-www/releases" class="flex items-center justify-between p-2 rounded hover:bg-boxwood-pale transition-colors border border-transparent hover:border-stone group">
                                 <span class="text-sm font-medium text-charcoal"><span  class="iconify mr-2 text-charcoal-light" data-icon="carbon:window-base" aria-hidden="true"></span> Windows (x64)</span>
                                 <span  class="iconify text-indigo opacity-0 group-hover:opacity-100 transition-opacity" data-icon="carbon:download" aria-hidden="true"></span>
                              </a>
                         </div>
                         <div class="mt-4 text-center">
-                             <a href="../blog/" class="text-xs text-charcoal-light hover:text-charcoal underline">View all releases</a>
+                             <a href="https://github.com/leynos/netsuke-www/releases" class="text-xs text-charcoal-light hover:text-charcoal underline">View all releases</a>
                         </div>
                     </div>
                 </div>
@@ -326,7 +326,7 @@
                 <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
                     <h3 class="font-bold text-charcoal text-lg mb-2">Does it work with CI/CD?</h3>
                     <p class="text-charcoal-mid leading-relaxed">
-                        Absolutely. We provide a GitHub Action <code>netsuke/setup-netsuke@v1</code> and Docker images for GitLab CI and others. Check the <a href="./" class="text-indigo hover:underline">CI Guide</a>.
+                        Absolutely. We provide a GitHub Action <code>netsuke/setup-netsuke@v1</code> and Docker images for GitLab CI and others. Check the <a href="../docs/cli-security-and-configuration/" class="text-indigo hover:underline">CI Guide</a>.
                     </p>
                 </div>
             </div>
@@ -348,9 +348,9 @@
                         Netsuke is free, open-source, and written in Rust. It aims to bring the power of large-scale build systems to projects of any size.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="../examples/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
-                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-x" aria-hidden="true"></span></a>
-                        <a href="../guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-discord" aria-hidden="true"></span></a>
+                        <a href="https://github.com/leynos/netsuke-www" class="hm-footer-icon"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
+
+
                     </div>
                 </div>
 

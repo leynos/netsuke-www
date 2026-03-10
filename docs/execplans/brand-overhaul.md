@@ -5,7 +5,7 @@ This ExecPlan (execution plan) is a living document. The sections
 `Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work
 proceeds.
 
-Status: IN PROGRESS
+Status: COMPLETE
 
 ## Purpose / big picture
 
@@ -413,8 +413,24 @@ The overhaul is complete only when all of the following are true:
   implementation-phase brand matrix, and extracted shared theme assets into
   `netsuke/assets/js/tailwind-config.js` and
   `netsuke/assets/css/himotoshi.css`.
-- [ ] Record route-by-route validation evidence and any deviations accepted as
-  intentional exceptions.
+- [x] 2026-03-10T00:05:00+00:00: Applied the shared brand layer across the
+  homepage, examples hub, guides hub, blog hub, install page, docs hub, and
+  the leaf docs/examples pages so they now consume the extracted theme and
+  semantic component classes.
+- [x] 2026-03-10T00:05:00+00:00: Harmonised the homepage banner without
+  changing its structure by adding the shared hero panel, aligning CTA
+  hierarchy to the Himotoshi button families, and reworking the overlay and
+  proof-pill treatment to match the shared token system.
+- [x] 2026-03-10T00:05:00+00:00: Corrected CTA semantics across the hubs and
+  install flows so `GitHub`, issue, and release actions now point to the
+  prototype repository, issues, or releases instead of unrelated local routes.
+- [x] 2026-03-10T00:06:00+00:00: Re-ran `npm run build`,
+  `markdownlint-cli2 docs/execplans/brand-overhaul.md`, and `git diff --check`
+  after stripping trailing whitespace introduced during the extraction sweep.
+- [x] 2026-03-10T00:06:00+00:00: Validated the rendered result with Playwright
+  on `/netsuke/`, `/netsuke/examples/`, `/netsuke/guides/`, `/netsuke/blog/`,
+  and `/netsuke/install/`, and spot-checked computed styles with `css-view`
+  for the shared hero panel, card, and button primitives.
 
 ## Surprises & Discoveries
 
@@ -433,6 +449,14 @@ The overhaul is complete only when all of the following are true:
   `assets/search/docs-search.json`, so source-preview checks against the raw
   `netsuke/` tree can still show a missing-search-index console error until the
   built `dist/` output is served.
+- The static build command in this repository completes successfully but emits
+  no additional summary lines beyond invoking `node scripts/build-site.mjs`, so
+  command success has to be taken from the exit status and the refreshed output
+  tree rather than from a verbose build log.
+- `css-view` queries against the recursive tree need selectors that match the
+  shared semantic classes directly. Queries that tried to infer button text too
+  early were less reliable than selecting `.hm-button`, `.hm-card`, and
+  `.hm-hero-panel` first and then inspecting the computed diff payload.
 
 ## Decision Log
 
@@ -457,12 +481,47 @@ The overhaul is complete only when all of the following are true:
 - 2026-03-09: Require both Playwright and `css-view` evidence before calling
   the implementation complete, because source-level cleanup alone does not
   prove rendered consistency.
+- 2026-03-10: Keep the homepage as the one deliberate dark-treatment exception,
+  but move it onto shared Himotoshi primitives so it reads as part of the same
+  site instead of a disconnected campaign page.
+- 2026-03-10: Prefer removing or relabelling misleading placeholder social and
+  CTA links over preserving them for symmetry. A smaller but accurate footer is
+  better than a visually balanced set of false destinations.
 
 ## Outcomes & Retrospective
 
-Execution has not started yet. This draft captures the current site drift, the
-shared-style extraction strategy that fits the repository constraints, and the
-validation standard required before implementation can be considered complete.
-Update this section after implementation with the actual routes changed, the
-shared files introduced, validation evidence, and any intentional exceptions to
-the design system.
+Implementation completed without adding a build pipeline. The site now uses the
+shared theme script in `netsuke/assets/js/tailwind-config.js` and the shared
+semantic stylesheet in `netsuke/assets/css/himotoshi.css` instead of repeating
+the same Tailwind config and shell classes inline across each page.
+
+The homepage kept its hero-banner structure as directed, but its overlay,
+button hierarchy, feature cards, and metadata pills now sit on the same
+Himotoshi component language as the lighter hub pages. The examples, guides,
+blog, install, docs, and leaf pages now share the same container, card, chip,
+button, and footer/nav treatments, which materially reduces the visual drift
+that existed before the overhaul.
+
+CTA semantics were cleaned up as part of the same pass. GitHub-labelled
+actions now point to the repository, issue actions point to GitHub Issues, and
+release/changelog actions point to GitHub Releases. Placeholder social icons
+that did not have a truthful destination were removed rather than left as
+false affordances.
+
+Validation evidence for completion:
+
+- `npm run build` completed successfully on branch `brand-overhaul`.
+- `markdownlint-cli2 docs/execplans/brand-overhaul.md` passed.
+- `git diff --check` passed after whitespace cleanup.
+- Playwright verified the key routes under the live preview on port `2016` and
+  confirmed the updated CTA targets on the homepage, examples hub, guides hub,
+  blog hub, and install page.
+- `css-view` confirmed the computed shared primitives, including the homepage
+  `.hm-hero-panel` blur/shadow treatment, the extracted `.hm-card` surfaces on
+  the examples hub, and the extracted `.hm-button` styling on install-page
+  actions.
+
+Intentional exception retained: the homepage remains darker than the rest of
+the site because the full-bleed banner format was preserved by design. The
+difference is now bounded and deliberate instead of reading like a separate
+brand.

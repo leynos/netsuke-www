@@ -73,10 +73,10 @@
                 </div>
 
                 <div class="flex items-center space-x-4">
-                    <a href="examples/" class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors">
+                    <a href="https://github.com/leynos/netsuke-www" class="hm-button hm-button--ghost hidden sm:inline-flex items-center px-4 py-1.5 text-sm">
                         <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
                     </a>
-                    <a href="install/" class="inline-flex items-center px-4 py-1.5 bg-indigo text-white rounded-md text-sm font-medium shadow-sm hover:bg-indigo-light transition-colors">
+                    <a href="install/" class="hm-button hm-button--primary inline-flex items-center px-4 py-1.5 text-sm">
                         Install
                     </a>
                 </div>
@@ -85,23 +85,23 @@
     </nav>
 
     <!-- Hero Section -->
-    <header id="hero" class="relative w-full h-[800px] flex items-center overflow-hidden">
+    <header id="hero" class="relative w-full min-h-[800px] flex items-center overflow-hidden py-16">
         <!-- Background Image -->
         <div class="absolute inset-0 z-0">
              <img class="w-full h-full object-cover" src="assets/hero-carved-cat.png" alt="wooden carved cat figurine netsuke style, vibrant red floral japanese fabric background, warm lighting, macro photography, extremely detailed wood texture" />
              <!-- Gradient Overlay for readability -->
-             <div class="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/60 to-transparent"></div>
+             <div class="absolute inset-0 bg-[linear-gradient(115deg,rgba(46,42,37,0.9)_0%,rgba(46,42,37,0.7)_36%,rgba(46,42,37,0.28)_64%,rgba(245,237,224,0.08)_100%)]"></div>
         </div>
 
         <div class="site-container relative z-10 w-full">
-            <div class="max-w-2xl space-y-8">
-                <div class="inline-flex items-center px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-white text-xs font-semibold uppercase tracking-wider border border-white/20">
+            <div class="hm-hero-panel max-w-2xl space-y-8">
+                <div class="hm-kicker hm-kicker--hero">
                     <span class="w-2 h-2 rounded-full bg-matcha mr-2 animate-pulse"></span> v0.8.2 Stable Release
                 </div>
 
                 <h1 class="font-serif text-5xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight drop-shadow-lg">
                     Build systems,<br>
-                    not <span class="text-vermillion italic bg-white/10 px-2 rounded-lg">build scripts</span>.
+                    not <span class="text-vermillion italic bg-white/12 px-2 rounded-lg">build scripts</span>.
                 </h1>
 
                 <p class="text-xl text-stone-light max-w-lg leading-relaxed font-light drop-shadow-md">
@@ -109,19 +109,19 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                    <a href="docs/getting-started/" class="inline-flex justify-center items-center px-8 py-4 bg-vermillion text-white rounded-md font-medium shadow-lg hover:shadow-vermillion/40 hover:bg-vermillion-dim transition-all transform hover:-translate-y-0.5 text-lg">
+                    <a href="docs/getting-started/" class="hm-button hm-button--primary inline-flex justify-center items-center px-8 py-4 text-lg shadow-lg">
                         Get started
                         <span  class="iconify ml-2 text-sm" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                     </a>
-                    <a href="examples/" class="inline-flex justify-center items-center px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-md font-medium hover:bg-white/20 transition-colors text-lg">
+                    <a href="https://github.com/leynos/netsuke-www/tree/main/docs/examples" class="hm-button hm-button--hero-ghost inline-flex justify-center items-center px-8 py-4 text-lg">
                         <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> View on GitHub
                     </a>
                 </div>
 
-                <div class="pt-6 flex items-center space-x-6 text-sm text-stone-light font-mono">
-                    <span class="flex items-center"><span  class="iconify text-matcha mr-2" data-icon="carbon:checkmark" aria-hidden="true"></span> Rust-powered</span>
-                    <span class="flex items-center"><span  class="iconify text-matcha mr-2" data-icon="carbon:checkmark" aria-hidden="true"></span> Ninja backend</span>
-                    <span class="flex items-center"><span  class="iconify text-matcha mr-2" data-icon="carbon:checkmark" aria-hidden="true"></span> Zero-config C/C++</span>
+                <div class="hm-proof-list pt-2">
+                    <span class="hm-proof-pill"><span  class="iconify text-matcha" data-icon="carbon:checkmark" aria-hidden="true"></span> Rust-powered</span>
+                    <span class="hm-proof-pill"><span  class="iconify text-matcha" data-icon="carbon:checkmark" aria-hidden="true"></span> Ninja backend</span>
+                    <span class="hm-proof-pill"><span  class="iconify text-matcha" data-icon="carbon:checkmark" aria-hidden="true"></span> Zero-config C/C++</span>
                 </div>
             </div>
         </div>
@@ -137,7 +137,7 @@
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Card 1 -->
-                <div class="p-8 bg-boxwood-pale rounded-xl border border-stone transition-all hover:shadow-paper hover:-translate-y-1">
+                <div class="hm-feature-card p-8">
                     <div class="w-12 h-12 rounded-lg bg-indigo text-white flex items-center justify-center mb-6 text-xl">
                         <span  class="iconify" data-icon="carbon:rule" aria-hidden="true"></span>
                     </div>
@@ -148,7 +148,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="p-8 bg-boxwood-pale rounded-xl border border-stone transition-all hover:shadow-paper hover:-translate-y-1">
+                <div class="hm-feature-card p-8">
                     <div class="w-12 h-12 rounded-lg bg-vermillion text-white flex items-center justify-center mb-6 text-xl">
                         <span  class="iconify" data-icon="carbon:flash" aria-hidden="true"></span>
                     </div>
@@ -159,7 +159,7 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="p-8 bg-boxwood-pale rounded-xl border border-stone transition-all hover:shadow-paper hover:-translate-y-1">
+                <div class="hm-feature-card p-8">
                     <div class="w-12 h-12 rounded-lg bg-matcha text-white flex items-center justify-center mb-6 text-xl">
                         <span  class="iconify" data-icon="carbon:security" aria-hidden="true"></span>
                     </div>
@@ -170,7 +170,7 @@
                 </div>
 
                 <!-- Card 4 -->
-                <div class="p-8 bg-boxwood-pale rounded-xl border border-stone transition-all hover:shadow-paper hover:-translate-y-1">
+                <div class="hm-feature-card p-8">
                     <div class="w-12 h-12 rounded-lg bg-amber text-white flex items-center justify-center mb-6 text-xl">
                         <span  class="iconify" data-icon="carbon:network-4" aria-hidden="true"></span>
                     </div>
@@ -457,9 +457,7 @@
                         Netsuke is free, open-source, and written in Rust. It aims to bring the power of large-scale build systems to projects of any size.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="examples/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
-                        <a href="guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-x" aria-hidden="true"></span></a>
-                        <a href="guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-discord" aria-hidden="true"></span></a>
+                        <a href="https://github.com/leynos/netsuke-www" class="hm-footer-icon"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
                     </div>
                 </div>
 
