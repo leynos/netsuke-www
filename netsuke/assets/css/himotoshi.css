@@ -150,6 +150,21 @@ body {
   }
 }
 
+@media (max-width: 1024px) {
+  .hm-hero-panel {
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    backdrop-filter: none;
+  }
+
+  #hero > .absolute {
+    filter: brightness(0.7);
+  }
+}
+
 .hm-kicker--hero {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.2);
