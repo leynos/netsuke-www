@@ -73,8 +73,8 @@ async function collectIds(filePath) {
   const html = await readFile(filePath, "utf8");
   const ids = new Set();
 
-  for (const match of html.matchAll(/\sid="([^"]+)"/g)) {
-    ids.add(match[1]);
+  for (const match of html.matchAll(/\sid=(["'])([^"']+)\1/g)) {
+    ids.add(match[2]);
   }
 
   return ids;
@@ -85,10 +85,10 @@ async function lintHtmlFile(filePath) {
   const relativeFilePath = toRelative(filePath);
 
   for (const attribute of LOCAL_LINK_ATTRIBUTES) {
-    const pattern = new RegExp(`\\s${attribute}="([^"]+)"`, "g");
+    const pattern = new RegExp(`\\s${attribute}=(["'])([^"']+)\\1`, "g");
 
     for (const match of html.matchAll(pattern)) {
-      const value = match[1];
+      const value = match[2];
 
       if (shouldSkipReference(value)) {
         continue;
