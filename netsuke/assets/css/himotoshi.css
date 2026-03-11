@@ -420,7 +420,7 @@ body {
 
 .hm-footer-icon {
   align-items: center;
-  background: rgba(92, 85, 77, 0.95);
+  background: color-mix(in srgb, var(--netsuke-charcoal) 95%, white);
   border-radius: 0.5rem;
   display: inline-flex;
   height: 2rem;
