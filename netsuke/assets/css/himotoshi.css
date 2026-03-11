@@ -4,6 +4,7 @@
   --netsuke-charcoal-light: #8a8279;
   --netsuke-indigo: #2b4162;
   --netsuke-indigo-light: #3a5a7c;
+  --netsuke-focus-ring: rgb(43 65 98 / 0.2);
   --netsuke-vermillion: #c23b22;
   --netsuke-vermillion-dim: #9e3020;
   --netsuke-boxwood: #e8d5b5;
@@ -83,15 +84,15 @@ body {
 }
 
 .sidebar-link.active {
-  color: #c23b22;
-  background-color: #f5ede0;
-  border-right: 3px solid #c23b22;
+  background-color: var(--netsuke-boxwood-light);
+  border-right: 3px solid var(--netsuke-vermillion);
+  color: var(--netsuke-vermillion);
 }
 
 .search-input:focus {
+  border-color: var(--netsuke-indigo);
+  box-shadow: 0 0 0 2px var(--netsuke-focus-ring);
   outline: none;
-  box-shadow: 0 0 0 2px rgba(43, 65, 98, 0.2);
-  border-color: #2b4162;
 }
 
 @media (min-width: 640px) {
@@ -160,7 +161,7 @@ body {
     backdrop-filter: none;
   }
 
-  #hero > .absolute {
+  .hm-hero-overlay {
     filter: brightness(0.7);
   }
 }
