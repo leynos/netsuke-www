@@ -235,6 +235,43 @@ body {
   text-transform: uppercase;
 }
 
+.hm-example-code-block {
+  background: var(--netsuke-charcoal);
+  border-radius: 0.75rem;
+  color: var(--netsuke-boxwood);
+  font-family: "JetBrains Mono", monospace;
+  overflow: hidden;
+}
+
+.hm-file-tree-item {
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.hm-file-tree-item::before {
+  background: var(--netsuke-stone);
+  bottom: 0;
+  content: "";
+  left: 6px;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+
+.hm-file-tree-item:last-child::before {
+  height: 14px;
+}
+
+.hm-file-tree-item::after {
+  background: var(--netsuke-stone);
+  content: "";
+  height: 1px;
+  left: 6px;
+  position: absolute;
+  top: 14px;
+  width: 12px;
+}
+
 .hm-chip {
   align-items: center;
   background: var(--netsuke-boxwood-pale);

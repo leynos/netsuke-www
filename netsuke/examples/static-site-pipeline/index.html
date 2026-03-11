@@ -11,41 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/himotoshi.css">
-    <style>
-.code-block {
-            font-family: 'JetBrains Mono', monospace;
-            background-color: #2E2A25;
-            color: #E8D5B5;
-            border-radius: 0.75rem;
-            overflow: hidden;
-        }
-
-        .file-tree-item {
-            position: relative;
-            padding-left: 1.5rem;
-        }
-        .file-tree-item::before {
-            content: '';
-            position: absolute;
-            left: 6px;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background-color: #D1C7B8;
-        }
-        .file-tree-item:last-child::before {
-            height: 14px;
-        }
-        .file-tree-item::after {
-            content: '';
-            position: absolute;
-            left: 6px;
-            top: 14px;
-            width: 12px;
-            height: 1px;
-            background-color: #D1C7B8;
-        }
-    </style>
 </head>
 <body class="shell-surface text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
     <nav id="navbar" class="fixed top-0 w-full z-50 shell-backdrop transition-all duration-300">
@@ -76,7 +41,7 @@
         </div>
     </nav>
 
-    <main id="main-content" class="flex-grow pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+    <main id="main-content" class="flex-grow pt-24 pb-20 site-container w-full">
         <nav class="flex mb-8 text-sm text-charcoal-mid" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
@@ -113,10 +78,10 @@
                     </p>
                 </div>
                 <div class="flex flex-col gap-3 w-full lg:w-auto shrink-0">
-                    <a href="../" class="inline-flex items-center justify-center px-6 py-3 bg-indigo text-white rounded-md font-medium shadow-sm hover:bg-indigo-light transition-all w-full lg:w-auto">
+                    <a href="../" class="hm-button hm-button--primary inline-flex items-center justify-center px-6 py-3 w-full lg:w-auto">
                         <span class="iconify mr-2" data-icon="carbon:arrow-left" aria-hidden="true"></span> Back to Examples
                     </a>
-                    <a href="../../docs/rules-and-targets/" class="inline-flex items-center justify-center px-6 py-3 bg-white border border-charcoal/20 text-charcoal rounded-md font-medium hover:bg-stone-light transition-colors w-full lg:w-auto">
+                    <a href="../../docs/rules-and-targets/" class="hm-button hm-button--ghost inline-flex items-center justify-center px-6 py-3 w-full lg:w-auto">
                         <span class="iconify mr-2" data-icon="carbon:book" aria-hidden="true"></span> Rules &amp; Targets
                     </a>
                 </div>
@@ -135,11 +100,11 @@
                                 <span class="iconify text-indigo mr-2" data-icon="carbon:folder" aria-hidden="true"></span>
                                 <span class="font-bold">site-example/</span>
                             </div>
-                            <div class="file-tree-item"><span class="iconify text-indigo mr-2" data-icon="carbon:folder" aria-hidden="true"></span><span>pages/</span></div>
-                            <div class="file-tree-item"><span class="iconify text-stone mr-2" data-icon="carbon:document" aria-hidden="true"></span><span>index.md</span></div>
-                            <div class="file-tree-item"><span class="iconify text-stone mr-2" data-icon="carbon:document" aria-hidden="true"></span><span>about.md</span></div>
-                            <div class="file-tree-item"><span class="iconify text-indigo mr-2" data-icon="carbon:folder" aria-hidden="true"></span><span>site/</span></div>
-                            <div class="file-tree-item"><span class="iconify text-vermillion mr-2" data-icon="carbon:cube" aria-hidden="true"></span><span class="font-bold text-charcoal">Netsukefile</span></div>
+                            <div class="hm-file-tree-item"><span class="iconify text-indigo mr-2" data-icon="carbon:folder" aria-hidden="true"></span><span>pages/</span></div>
+                            <div class="hm-file-tree-item"><span class="iconify text-stone mr-2" data-icon="carbon:document" aria-hidden="true"></span><span>index.md</span></div>
+                            <div class="hm-file-tree-item"><span class="iconify text-stone mr-2" data-icon="carbon:document" aria-hidden="true"></span><span>about.md</span></div>
+                            <div class="hm-file-tree-item"><span class="iconify text-indigo mr-2" data-icon="carbon:folder" aria-hidden="true"></span><span>site/</span></div>
+                            <div class="hm-file-tree-item"><span class="iconify text-vermillion mr-2" data-icon="carbon:cube" aria-hidden="true"></span><span class="font-bold text-charcoal">Netsukefile</span></div>
                         </div>
                         <div class="flex flex-col justify-center space-y-4">
                             <p class="text-charcoal-mid">
@@ -160,7 +125,7 @@
                         </h2>
                         <span class="text-xs font-mono text-stone bg-charcoal px-2 py-1 rounded">docs/examples/website.yml</span>
                     </div>
-                    <div class="code-block p-6 text-sm shadow-paper-lg">
+                    <div class="hm-example-code-block p-6 text-sm shadow-paper-lg">
 <pre><code class="language-yaml">netsuke_version: "1.0.0"
 
 vars:
