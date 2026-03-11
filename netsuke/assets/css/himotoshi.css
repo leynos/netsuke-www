@@ -3,6 +3,7 @@
   --netsuke-charcoal-mid: #5c554d;
   --netsuke-charcoal-light: #8a8279;
   --netsuke-indigo: #2b4162;
+  --netsuke-indigo-border: rgb(43 65 98 / 0.3);
   --netsuke-indigo-light: #3a5a7c;
   --netsuke-focus-ring: rgb(43 65 98 / 0.2);
   --netsuke-vermillion: #c23b22;
@@ -60,9 +61,14 @@ body {
 }
 
 .shell-backdrop {
-  background: rgba(250, 246, 240, 0.86);
+  background: color-mix(
+    in srgb,
+    var(--netsuke-boxwood-pale) 86%,
+    transparent
+  );
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(209, 199, 184, 0.45);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--netsuke-stone) 45%, transparent);
 }
 
 .policy-page {
@@ -122,7 +128,7 @@ body {
 }
 
 .hm-card--interactive:hover {
-  border-color: rgba(43, 65, 98, 0.32);
+  border-color: var(--netsuke-indigo-border);
   box-shadow: var(--netsuke-paper-shadow-lg);
   transform: translateY(-3px);
 }
@@ -203,7 +209,7 @@ body {
 }
 
 .hm-feature-card:hover {
-  border-color: rgba(43, 65, 98, 0.3);
+  border-color: var(--netsuke-indigo-border);
   box-shadow: var(--netsuke-paper-shadow-lg);
   transform: translateY(-3px);
 }
