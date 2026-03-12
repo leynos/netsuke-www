@@ -268,7 +268,6 @@ body {
 
 .visually-hidden {
   border: 0;
-  clip: rect(0 0 0 0);
   clip-path: inset(50%);
   height: 1px;
   margin: -1px;
@@ -401,7 +400,7 @@ body {
 .filter-btn.active {
   background-color: var(--netsuke-indigo);
   border-color: var(--netsuke-indigo);
-  color: #fff;
+  color: var(--netsuke-white);
 }
 
 .hm-button {
@@ -425,7 +424,7 @@ body {
 .hm-button--primary {
   background: var(--netsuke-indigo);
   box-shadow: var(--netsuke-paper-shadow);
-  color: #fff;
+  color: var(--netsuke-white);
 }
 
 .hm-button--primary:hover {
@@ -435,7 +434,7 @@ body {
 .hm-button--accent {
   background: var(--netsuke-vermillion);
   box-shadow: var(--netsuke-paper-shadow);
-  color: #fff;
+  color: var(--netsuke-white);
 }
 
 .hm-button--accent:hover {
@@ -456,7 +455,7 @@ body {
 .hm-button--hero-ghost {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.28);
-  color: #fff;
+  color: var(--netsuke-white);
 }
 
 .hm-button--hero-ghost:hover {
