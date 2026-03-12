@@ -1,4 +1,5 @@
 :root {
+  --netsuke-white: #fff;
   --netsuke-charcoal: #2e2a25;
   --netsuke-charcoal-mid: #5c554d;
   --netsuke-charcoal-light: #8a8279;
@@ -15,6 +16,8 @@
   --netsuke-stone-light: #e5ddd0;
   --netsuke-matcha: #4a7c59;
   --netsuke-amber: #c48b2c;
+  --netsuke-surface-rgb: 255 255 255;
+  --netsuke-warm-surface-rgb: 245 237 224;
   --netsuke-paper-shadow: 0 4px 6px -1px rgba(46, 42, 37, 0.1),
     0 2px 4px -1px rgba(46, 42, 37, 0.06);
   --netsuke-paper-shadow-lg: 0 10px 15px -3px rgba(46, 42, 37, 0.1),
@@ -114,7 +117,7 @@ body {
 }
 
 .hm-card {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgb(var(--netsuke-surface-rgb) / 0.9);
   border: 1px solid var(--netsuke-stone);
   border-radius: 1rem;
   box-shadow: var(--netsuke-paper-shadow);
@@ -134,7 +137,7 @@ body {
 }
 
 .hm-card--warm {
-  background: rgba(245, 237, 224, 0.88);
+  background: rgb(var(--netsuke-warm-surface-rgb) / 0.88);
 }
 
 .hm-guide-card {
@@ -153,9 +156,9 @@ body {
 .hm-hero-panel {
   background: linear-gradient(
     155deg,
-    rgba(46, 42, 37, 0.74),
-    rgba(46, 42, 37, 0.46) 58%,
-    rgba(194, 59, 34, 0.18)
+    color-mix(in srgb, var(--netsuke-charcoal) 74%, transparent),
+    color-mix(in srgb, var(--netsuke-charcoal) 46%, transparent) 58%,
+    color-mix(in srgb, var(--netsuke-vermillion) 18%, transparent)
   );
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 1.75rem;
@@ -431,7 +434,7 @@ body {
 }
 
 .hm-footer-icon:hover {
-  background: #fff;
+  background: var(--netsuke-white);
   color: var(--netsuke-charcoal);
   transform: translateY(-1px);
 }

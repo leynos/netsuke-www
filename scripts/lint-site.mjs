@@ -14,13 +14,14 @@ const idsByFile = new Map();
 async function main() {
   for (const sourceRoot of SOURCE_ROOTS) {
     const absolutePath = path.join(ROOT, sourceRoot);
-    const stat = await safeStat(absolutePath);
+    const sourceStat = await safeStat(absolutePath);
 
-    if (!stat) {
+    if (!sourceStat) {
+      issues.push(`missing source root: ${sourceRoot}`);
       continue;
     }
 
-    if (stat.isDirectory()) {
+    if (sourceStat.isDirectory()) {
       await collectHtmlFiles(absolutePath);
       continue;
     }
@@ -133,9 +134,13 @@ function resolveReference(sourceFilePath, reference) {
     };
   }
 
-  const [rawPath, fragment = ""] = reference.split("#", 2);
+  const [pathWithQuery, fragment = ""] = reference.split("#", 2);
+  const [rawPath] = pathWithQuery.split("?", 1);
   const sourceDirectory = path.dirname(sourceFilePath);
-  let resolvedPath = path.resolve(sourceDirectory, rawPath);
+  const isRootRelative = rawPath.startsWith("/") && !rawPath.startsWith("//");
+  let resolvedPath = isRootRelative
+    ? path.join(ROOT, rawPath.slice(1))
+    : path.resolve(sourceDirectory, rawPath);
 
   if (rawPath.endsWith("/")) {
     resolvedPath = path.join(resolvedPath, "index.html");
