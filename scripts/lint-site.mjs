@@ -1,4 +1,4 @@
-import { readFile, readdir } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 
 const ROOT = process.cwd();
@@ -73,7 +73,7 @@ async function collectIds(filePath) {
   const html = await readFile(filePath, "utf8");
   const ids = new Set();
 
-  for (const match of html.matchAll(/\sid=(["'])([^"']+)\1/g)) {
+  for (const match of html.matchAll(/\sid=(["'])(.*?)\1/g)) {
     ids.add(match[2]);
   }
 
@@ -85,7 +85,7 @@ async function lintHtmlFile(filePath) {
   const relativeFilePath = toRelative(filePath);
 
   for (const attribute of LOCAL_LINK_ATTRIBUTES) {
-    const pattern = new RegExp(`\\s${attribute}=(["'])([^"']+)\\1`, "g");
+    const pattern = new RegExp(`\\s${attribute}=(["'])(.*?)\\1`, "g");
 
     for (const match of html.matchAll(pattern)) {
       const value = match[2];
@@ -176,7 +176,7 @@ function toRelative(filePath) {
 
 async function safeStat(targetPath) {
   try {
-    return await import("node:fs/promises").then(({ stat }) => stat(targetPath));
+    return await stat(targetPath);
   } catch {
     return null;
   }
