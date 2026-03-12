@@ -5,123 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Netsuke - Build systems, not build scripts</title>
     <script src="https://cdn.tailwindcss.com"></script>
-<script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        charcoal: {
-                            DEFAULT: '#2E2A25',
-                            mid: '#5C554D',
-                            light: '#8A8279',
-                        },
-                        indigo: {
-                            DEFAULT: '#2B4162',
-                            light: '#3A5A7C',
-                        },
-                        vermillion: {
-                            DEFAULT: '#C23B22',
-                            dim: '#9E3020',
-                        },
-                        boxwood: {
-                            DEFAULT: '#E8D5B5',
-                            light: '#F5EDE0',
-                            pale: '#FAF6F0',
-                        },
-                        stone: {
-                            DEFAULT: '#D1C7B8',
-                            light: '#E5DDD0',
-                        },
-                        matcha: '#4A7C59',
-                        amber: '#C48B2C',
-                    },
-                    fontFamily: {
-                        sans: ['"Source Sans 3"', 'sans-serif'],
-                        serif: ['"Fraunces"', 'serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    spacing: {
-                        '128': '32rem',
-                    },
-                    boxShadow: {
-                        'paper': '0 4px 6px -1px rgba(46, 42, 37, 0.1), 0 2px 4px -1px rgba(46, 42, 37, 0.06)',
-                        'paper-lg': '0 10px 15px -3px rgba(46, 42, 37, 0.1), 0 4px 6px -2px rgba(46, 42, 37, 0.05)',
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="assets/js/tailwind-config.js"></script>
     <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/himotoshi.css">
     <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
-    <style>
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #FAF6F0; }
-        ::-webkit-scrollbar-thumb { background: #D1C7B8; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #8A8279; }
-
-        .texture-paper {
-            background-color: #FAF6F0;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-        }
-
-        .glass-panel {
-            background: rgba(250, 246, 240, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(209, 199, 184, 0.4);
-        }
-
-        .code-window {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            background: #2E2A25;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .pipeline-connector {
-            position: absolute;
-            top: 50%;
-            left: 100%;
-            width: 2rem;
-            height: 2px;
-            background: #D1C7B8;
-            transform: translateY(-50%);
-            z-index: 0;
-        }
-
-        .pipeline-connector::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 6px;
-            height: 6px;
-            background: #D1C7B8;
-            border-radius: 50%;
-        }
-
-        @media (max-width: 1024px) {
-            .pipeline-connector {
-                display: none;
-            }
-        }
-    </style>
 </head>
-<body class="texture-paper text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white">
+<body class="shell-surface text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 glass-panel transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav id="navbar" class="fixed top-0 w-full z-50 shell-backdrop transition-all duration-300">
+        <div class="site-container">
             <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center space-x-3 cursor-pointer">
+                <a href="./" class="flex items-center space-x-3" aria-label="Home">
                     <!-- Logo mark inspired by Netsuke craftsmanship -->
-                    <div class="w-8 h-8 rounded-full bg-vermillion flex items-center justify-center text-white font-serif font-bold text-lg shadow-sm">N</div>
+                    <div class="w-8 h-8 rounded-full bg-vermillion flex items-center justify-center text-boxwood-light shadow-sm" aria-hidden="true"><svg class="h-5 w-5" width="32" height="32" viewBox="0 0 32 32" fill="none"><line x1="4.5" y1="16" x2="27.5" y2="16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></line><circle cx="20.5" cy="16" r="3.75" fill="currentColor"></circle></svg></div>
                     <span class="font-serif font-bold text-xl tracking-tight text-charcoal">Netsuke</span>
-                </div>
+                </a>
 
                 <!-- Desktop Nav -->
                 <div class="hidden lg:flex space-x-8">
@@ -133,10 +35,10 @@
                 </div>
 
                 <div class="flex items-center space-x-4">
-                    <a href="examples/" class="hidden sm:inline-flex items-center px-4 py-1.5 border border-charcoal/10 rounded-md text-sm font-medium text-charcoal hover:bg-boxwood-light transition-colors">
+                    <a href="https://github.com/leynos/netsuke" class="hm-button hm-button--ghost hidden sm:inline-flex items-center px-4 py-1.5 text-sm">
                         <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
                     </a>
-                    <a href="install/" class="inline-flex items-center px-4 py-1.5 bg-indigo text-white rounded-md text-sm font-medium shadow-sm hover:bg-indigo-light transition-colors">
+                    <a href="install/" class="hm-button hm-button--primary inline-flex items-center px-4 py-1.5 text-sm">
                         Install
                     </a>
                 </div>
@@ -145,23 +47,23 @@
     </nav>
 
     <!-- Hero Section -->
-    <header id="hero" class="relative w-full h-[800px] flex items-center overflow-hidden">
+    <header id="hero" class="relative w-full min-h-[800px] flex items-center overflow-hidden py-16">
         <!-- Background Image -->
-        <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 z-0 hm-hero-overlay">
              <img class="w-full h-full object-cover" src="assets/hero-carved-cat.png" alt="wooden carved cat figurine netsuke style, vibrant red floral japanese fabric background, warm lighting, macro photography, extremely detailed wood texture" />
              <!-- Gradient Overlay for readability -->
-             <div class="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/60 to-transparent"></div>
+             <div class="absolute inset-0 bg-[linear-gradient(115deg,rgba(46,42,37,0.9)_0%,rgba(46,42,37,0.7)_36%,rgba(46,42,37,0.28)_64%,rgba(245,237,224,0.08)_100%)]"></div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            <div class="max-w-2xl space-y-8">
-                <div class="inline-flex items-center px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-white text-xs font-semibold uppercase tracking-wider border border-white/20">
+        <div class="site-container relative z-10 w-full">
+            <div class="hm-hero-panel max-w-2xl space-y-8">
+                <div class="hm-kicker hm-kicker--hero">
                     <span class="w-2 h-2 rounded-full bg-matcha mr-2 animate-pulse"></span> v0.8.2 Stable Release
                 </div>
 
                 <h1 class="font-serif text-5xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight drop-shadow-lg">
                     Build systems,<br>
-                    not <span class="text-vermillion italic bg-white/10 px-2 rounded-lg">build scripts</span>.
+                    not <span class="text-vermillion italic bg-white/12 px-2 rounded-lg">build scripts</span>.
                 </h1>
 
                 <p class="text-xl text-stone-light max-w-lg leading-relaxed font-light drop-shadow-md">
@@ -169,19 +71,19 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                    <a href="docs/getting-started/" class="inline-flex justify-center items-center px-8 py-4 bg-vermillion text-white rounded-md font-medium shadow-lg hover:shadow-vermillion/40 hover:bg-vermillion-dim transition-all transform hover:-translate-y-0.5 text-lg">
+                    <a href="docs/getting-started/" class="hm-button hm-button--primary inline-flex justify-center items-center px-8 py-4 text-lg shadow-lg">
                         Get started
                         <span  class="iconify ml-2 text-sm" data-icon="carbon:arrow-right" aria-hidden="true"></span>
                     </a>
-                    <a href="examples/" class="inline-flex justify-center items-center px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-md font-medium hover:bg-white/20 transition-colors text-lg">
+                    <a href="https://github.com/leynos/netsuke" class="hm-button hm-button--hero-ghost inline-flex justify-center items-center px-8 py-4 text-lg">
                         <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> View on GitHub
                     </a>
                 </div>
 
-                <div class="pt-6 flex items-center space-x-6 text-sm text-stone-light font-mono">
-                    <span class="flex items-center"><span  class="iconify text-matcha mr-2" data-icon="carbon:checkmark" aria-hidden="true"></span> Rust-powered</span>
-                    <span class="flex items-center"><span  class="iconify text-matcha mr-2" data-icon="carbon:checkmark" aria-hidden="true"></span> Ninja backend</span>
-                    <span class="flex items-center"><span  class="iconify text-matcha mr-2" data-icon="carbon:checkmark" aria-hidden="true"></span> Zero-config C/C++</span>
+                <div class="hm-proof-list pt-2">
+                    <span class="hm-proof-pill"><span  class="iconify text-matcha" data-icon="carbon:checkmark" aria-hidden="true"></span> Rust-powered</span>
+                    <span class="hm-proof-pill"><span  class="iconify text-matcha" data-icon="carbon:checkmark" aria-hidden="true"></span> Ninja backend</span>
+                    <span class="hm-proof-pill"><span  class="iconify text-matcha" data-icon="carbon:checkmark" aria-hidden="true"></span> Zero-config C/C++</span>
                 </div>
             </div>
         </div>
@@ -189,7 +91,7 @@
 
     <!-- Value Propositions -->
     <section id="features" class="py-24 bg-white border-y border-stone-light">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="site-container">
             <div class="text-center mb-16">
                 <span class="text-vermillion font-mono text-sm font-semibold tracking-wider uppercase mb-2 block">Why Netsuke?</span>
                 <h2 class="font-serif text-4xl font-bold text-charcoal">Crafted for reliability</h2>
@@ -197,7 +99,7 @@
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Card 1 -->
-                <div class="p-8 bg-boxwood-pale rounded-xl border border-stone transition-all hover:shadow-paper hover:-translate-y-1">
+                <div class="hm-feature-card p-8">
                     <div class="w-12 h-12 rounded-lg bg-indigo text-white flex items-center justify-center mb-6 text-xl">
                         <span  class="iconify" data-icon="carbon:rule" aria-hidden="true"></span>
                     </div>
@@ -208,7 +110,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="p-8 bg-boxwood-pale rounded-xl border border-stone transition-all hover:shadow-paper hover:-translate-y-1">
+                <div class="hm-feature-card p-8">
                     <div class="w-12 h-12 rounded-lg bg-vermillion text-white flex items-center justify-center mb-6 text-xl">
                         <span  class="iconify" data-icon="carbon:flash" aria-hidden="true"></span>
                     </div>
@@ -219,7 +121,7 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="p-8 bg-boxwood-pale rounded-xl border border-stone transition-all hover:shadow-paper hover:-translate-y-1">
+                <div class="hm-feature-card p-8">
                     <div class="w-12 h-12 rounded-lg bg-matcha text-white flex items-center justify-center mb-6 text-xl">
                         <span  class="iconify" data-icon="carbon:security" aria-hidden="true"></span>
                     </div>
@@ -230,7 +132,7 @@
                 </div>
 
                 <!-- Card 4 -->
-                <div class="p-8 bg-boxwood-pale rounded-xl border border-stone transition-all hover:shadow-paper hover:-translate-y-1">
+                <div class="hm-feature-card p-8">
                     <div class="w-12 h-12 rounded-lg bg-amber text-white flex items-center justify-center mb-6 text-xl">
                         <span  class="iconify" data-icon="carbon:network-4" aria-hidden="true"></span>
                     </div>
@@ -245,7 +147,7 @@
 
     <!-- Code Example Section -->
     <section id="example" class="py-24 bg-boxwood-pale relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="site-container">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                     <span class="text-indigo font-mono text-sm font-semibold tracking-wider uppercase mb-2 block">The Netsukefile</span>
@@ -317,7 +219,7 @@
 
     <!-- Pipeline Process -->
     <section id="pipeline" class="py-24 bg-white border-y border-stone-light">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="site-container">
             <div class="text-center mb-16">
                 <span class="text-vermillion font-mono text-sm font-semibold tracking-wider uppercase mb-2 block">How it works</span>
                 <h2 class="font-serif text-4xl font-bold text-charcoal">The Six-Stage Pipeline</h2>
@@ -456,7 +358,7 @@
 
     <!-- Comparison Table -->
     <section id="compare" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="site-container">
             <div class="text-center mb-16">
                 <h2 class="font-serif text-3xl font-bold text-charcoal mb-4">What you give up vs. what you gain</h2>
                 <p class="text-charcoal-mid">Comparing Netsuke to traditional Makefiles.</p>
@@ -505,21 +407,20 @@
 
     <!-- Footer -->
     <footer id="footer" class="bg-charcoal pt-20 pb-10 text-stone-light border-t border-charcoal-light">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="site-container">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 <!-- Brand Column -->
                 <div class="col-span-1 md:col-span-2 lg:col-span-1">
                     <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-8 h-8 rounded-full bg-vermillion flex items-center justify-center text-white font-serif font-bold text-lg">N</div>
+                        <div class="w-8 h-8 rounded-full bg-vermillion flex items-center justify-center text-boxwood-light" aria-hidden="true"><svg class="h-5 w-5" width="32" height="32" viewBox="0 0 32 32" fill="none"><line x1="4.5" y1="16" x2="27.5" y2="16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></line><circle cx="20.5" cy="16" r="3.75" fill="currentColor"></circle></svg></div>
                         <span class="font-serif font-bold text-xl tracking-tight text-white">Netsuke</span>
                     </div>
                     <p class="text-sm text-charcoal-light leading-relaxed mb-6">
                         Netsuke is free, open-source, and written in Rust. It aims to bring the power of large-scale build systems to projects of any size.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="examples/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
-                        <a href="guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-x" aria-hidden="true"></span></a>
-                        <a href="guides/" class="w-8 h-8 rounded bg-charcoal-mid flex items-center justify-center hover:bg-white hover:text-charcoal transition-colors"><span  class="iconify" data-icon="carbon:logo-discord" aria-hidden="true"></span></a>
+                        <a href="https://github.com/leynos/netsuke" class="hm-footer-icon" aria-label="Netsuke on GitHub"><span  class="iconify" data-icon="carbon:logo-github" aria-hidden="true"></span></a>
+                        <a href="https://bsky.app/profile/df12.studio" class="hm-footer-icon" aria-label="df12 on Bluesky"><span  class="iconify" data-icon="carbon:logo-bluesky" aria-hidden="true"></span></a>
                     </div>
                 </div>
 
