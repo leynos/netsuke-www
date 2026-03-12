@@ -266,6 +266,19 @@ body {
   overflow: hidden;
 }
 
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 .code-preview {
   background-color: var(--netsuke-charcoal);
   border-radius: 0.5rem;
@@ -280,6 +293,12 @@ body {
   box-shadow: var(--netsuke-paper-shadow-xl);
   font-family: "JetBrains Mono", monospace;
   overflow: hidden;
+}
+
+.hm-file-tree {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .hm-file-tree-item {
@@ -352,6 +371,31 @@ body {
   background: color-mix(in srgb, var(--netsuke-indigo) 10%, transparent);
   border-color: color-mix(in srgb, var(--netsuke-indigo) 20%, transparent);
   color: var(--netsuke-indigo);
+}
+
+.hm-chip--filter {
+  background: var(--netsuke-white);
+  border-color: var(--netsuke-stone);
+  color: var(--netsuke-charcoal-mid);
+  cursor: pointer;
+  font-weight: 500;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.hm-chip--filter:hover {
+  background: var(--netsuke-boxwood-light);
+  border-color: var(--netsuke-indigo);
+  color: var(--netsuke-indigo);
+}
+
+.hm-chip--active {
+  background: var(--netsuke-charcoal);
+  border-color: var(--netsuke-charcoal);
+  color: var(--netsuke-white);
 }
 
 .filter-btn.active {

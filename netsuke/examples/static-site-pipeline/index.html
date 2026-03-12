@@ -100,11 +100,13 @@
                                 <span class="iconify text-indigo mr-2" data-icon="carbon:folder" aria-hidden="true"></span>
                                 <span class="font-bold">site-example/</span>
                             </div>
-                            <div class="hm-file-tree-item"><span class="iconify text-indigo mr-2" data-icon="carbon:folder" aria-hidden="true"></span><span>pages/</span></div>
-                            <div class="hm-file-tree-item"><span class="iconify text-stone mr-2" data-icon="carbon:document" aria-hidden="true"></span><span>index.md</span></div>
-                            <div class="hm-file-tree-item"><span class="iconify text-stone mr-2" data-icon="carbon:document" aria-hidden="true"></span><span>about.md</span></div>
-                            <div class="hm-file-tree-item"><span class="iconify text-indigo mr-2" data-icon="carbon:folder" aria-hidden="true"></span><span>site/</span></div>
-                            <div class="hm-file-tree-item"><span class="iconify text-vermillion mr-2" data-icon="carbon:cube" aria-hidden="true"></span><span class="font-bold text-charcoal">Netsukefile</span></div>
+                            <ul class="hm-file-tree">
+                                <li class="hm-file-tree-item"><span class="iconify text-indigo mr-2" data-icon="carbon:folder" aria-hidden="true"></span><span>pages/</span></li>
+                                <li class="hm-file-tree-item"><span class="iconify text-stone mr-2" data-icon="carbon:document" aria-hidden="true"></span><span>index.md</span></li>
+                                <li class="hm-file-tree-item"><span class="iconify text-stone mr-2" data-icon="carbon:document" aria-hidden="true"></span><span>about.md</span></li>
+                                <li class="hm-file-tree-item"><span class="iconify text-indigo mr-2" data-icon="carbon:folder" aria-hidden="true"></span><span>site/</span></li>
+                                <li class="hm-file-tree-item"><span class="iconify text-vermillion mr-2" data-icon="carbon:cube" aria-hidden="true"></span><span class="font-bold text-charcoal">Netsukefile</span></li>
+                            </ul>
                         </div>
                         <div class="flex flex-col justify-center space-y-4">
                             <p class="text-charcoal-mid">
@@ -158,14 +160,14 @@ defaults:
                             <div class="shrink-0 w-6 h-6 rounded-full bg-vermillion text-white text-sm font-bold flex items-center justify-center mt-0.5">1</div>
                             <div class="ml-4">
                                 <h4 class="font-bold text-charcoal text-sm mb-1">`foreach` expands the page set</h4>
-                                <p class="text-sm text-charcoal-mid">The target list comes from `glob(...)`, so each Markdown file becomes one HTML output without duplicating the rule block.</p>
+                                <p class="text-sm text-charcoal-mid">The target list comes from `glob(...)`, so each Markdown file becomes one `.partial.html` output without duplicating the rule block.</p>
                             </div>
                         </div>
                         <div class="flex items-start p-4 rounded-lg bg-boxwood-pale border border-stone">
                             <div class="shrink-0 w-6 h-6 rounded-full bg-vermillion text-white text-sm font-bold flex items-center justify-center mt-0.5">2</div>
                             <div class="ml-4">
                                 <h4 class="font-bold text-charcoal text-sm mb-1">Scripts still live inside the manifest</h4>
-                                <p class="text-sm text-charcoal-mid">The `index` rule uses a short shell script. Netsuke keeps it in the same graph as the Pandoc step instead of splitting logic across extra wrappers.</p>
+                                <p class="text-sm text-charcoal-mid">The `index` rule gathers `glob(site_dir ~ '/*.partial.html')` with a short shell script. Netsuke keeps it in the same graph as the Pandoc step instead of splitting logic across extra wrappers.</p>
                             </div>
                         </div>
                         <div class="flex items-start p-4 rounded-lg bg-boxwood-pale border border-stone">
@@ -195,9 +197,9 @@ defaults:
                         <div class="p-6 font-mono text-sm overflow-x-auto">
                             <div class="text-boxwood-pale mb-2"><span class="text-matcha">➜</span> <span class="text-indigo-light">~/site-example</span> <span class="text-boxwood">netsuke build site/index.html</span></div>
                             <div class="text-stone-light/80 mb-1"><span class="text-charcoal-light">0.0s</span> <span class="text-indigo font-bold">INFO</span> Parsed `Netsukefile` and expanded page targets from `glob(...)`.</div>
-                            <div class="text-stone-light/80 mb-1"><span class="text-charcoal-light">0.1s</span> <span class="text-indigo font-bold">INFO</span> [1/3] Rendering `pages/about.md` to `site/about.html`</div>
+                            <div class="text-stone-light/80 mb-1"><span class="text-charcoal-light">0.1s</span> <span class="text-indigo font-bold">INFO</span> [1/3] Rendering `pages/about.md` to `site/about.partial.html`</div>
                             <div class="text-stone-light/80 mb-1"><span class="text-charcoal-light">0.1s</span> <span class="text-indigo font-bold">INFO</span> [2/3] Rendering `pages/index.md` to `site/index.partial.html`</div>
-                            <div class="text-stone-light/80 mb-3"><span class="text-charcoal-light">0.2s</span> <span class="text-indigo font-bold">INFO</span> [3/3] Rebuilding `site/index.html` from generated HTML</div>
+                            <div class="text-stone-light/80 mb-3"><span class="text-charcoal-light">0.2s</span> <span class="text-indigo font-bold">INFO</span> [3/3] Rebuilding `site/index.html` from `glob(site_dir ~ '/*.partial.html')`</div>
                             <div class="text-matcha">Build complete: site/index.html</div>
                         </div>
                     </div>
@@ -211,7 +213,7 @@ defaults:
                         <div class="rounded-lg border border-stone bg-boxwood-pale p-4"><p class="font-bold text-charcoal mb-1">1. Discover</p><p class="text-charcoal-mid">Read `pages/*.md` with `glob(...)`.</p></div>
                         <div class="rounded-lg border border-stone bg-white p-4"><p class="font-bold text-charcoal mb-1">2. Expand</p><p class="text-charcoal-mid">Create one `page` target per input file.</p></div>
                         <div class="rounded-lg border border-stone bg-white p-4"><p class="font-bold text-charcoal mb-1">3. Render</p><p class="text-charcoal-mid">Invoke Pandoc for each Markdown page.</p></div>
-                        <div class="rounded-lg border border-stone bg-boxwood-pale p-4"><p class="font-bold text-charcoal mb-1">4. Assemble</p><p class="text-charcoal-mid">Concatenate the generated HTML into `site/index.html`.</p></div>
+                        <div class="rounded-lg border border-stone bg-boxwood-pale p-4"><p class="font-bold text-charcoal mb-1">4. Assemble</p><p class="text-charcoal-mid">Concatenate the generated `.partial.html` files into `site/index.html`.</p></div>
                     </div>
                 </section>
             </div>
