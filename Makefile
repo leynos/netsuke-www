@@ -1,7 +1,10 @@
 NODE := node
 NPM := npm
 
-.PHONY: check-fmt lint test
+.PHONY: dev check-fmt lint test
+
+dev:
+	caddy file-server --browse --listen :2016
 
 check-fmt:
 	$(NODE) scripts/check-format.mjs

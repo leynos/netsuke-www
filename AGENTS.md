@@ -37,6 +37,11 @@ shared before it is incorporated into the larger website.
 
 Use the `Makefile` as the primary entry point for repository checks.
 
+- `make dev`
+  - Runs `caddy file-server --browse --listen :2016`.
+  - Starts the local preview server on port `2016` for manual browsing.
+  - Do not invoke it yourself unless the user explicitly wants you to start the
+    preview server; the normal workflow is for the user to run Caddy.
 - `make check-fmt`
   - Runs `node scripts/check-format.mjs`.
   - Verifies whitespace, trailing-newline, and related formatting hygiene for
