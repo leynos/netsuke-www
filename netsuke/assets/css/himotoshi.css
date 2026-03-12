@@ -136,7 +136,7 @@ body {
   transform: translateY(-3px);
 }
 
-.hm-card--warm {
+.hm-card--accent {
   background: rgb(var(--netsuke-warm-surface-rgb) / 0.88);
 }
 
@@ -173,7 +173,7 @@ body {
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023.98px) {
   .hm-hero-panel {
     background: none;
     border: 0;
@@ -324,31 +324,31 @@ body {
   padding: 0.25rem 0.65rem;
 }
 
-.hm-chip--dark {
+.hm-chip--inverse {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.16);
   color: rgba(255, 255, 255, 0.88);
 }
 
-.hm-chip--amber {
+.hm-chip--warning {
   background: color-mix(in srgb, var(--netsuke-amber) 10%, transparent);
   border-color: color-mix(in srgb, var(--netsuke-amber) 20%, transparent);
   color: var(--netsuke-amber);
 }
 
-.hm-chip--stone {
+.hm-chip--muted {
   background: var(--netsuke-boxwood);
   border-color: var(--netsuke-stone);
   color: var(--netsuke-charcoal);
 }
 
-.hm-chip--matcha {
+.hm-chip--success {
   background: color-mix(in srgb, var(--netsuke-matcha) 10%, transparent);
   border-color: color-mix(in srgb, var(--netsuke-matcha) 20%, transparent);
   color: var(--netsuke-matcha);
 }
 
-.hm-chip--indigo {
+.hm-chip--brand {
   background: color-mix(in srgb, var(--netsuke-indigo) 10%, transparent);
   border-color: color-mix(in srgb, var(--netsuke-indigo) 20%, transparent);
   color: var(--netsuke-indigo);
@@ -462,7 +462,7 @@ body {
   width: 6px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023.98px) {
   .pipeline-connector {
     display: none;
   }

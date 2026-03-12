@@ -164,14 +164,17 @@ function resolveReference(sourceFilePath, reference) {
 }
 
 function shouldSkipReference(reference) {
+  const trimmedReference = reference.trimStart();
+
   return (
-    reference.length === 0 ||
-    reference.startsWith("data:") ||
-    reference.startsWith("http://") ||
-    reference.startsWith("https://") ||
-    reference.startsWith("mailto:") ||
-    reference.startsWith("tel:") ||
-    reference.startsWith("javascript:")
+    trimmedReference.length === 0 ||
+    trimmedReference.startsWith("data:") ||
+    trimmedReference.startsWith("http://") ||
+    trimmedReference.startsWith("https://") ||
+    trimmedReference.startsWith("//") ||
+    trimmedReference.startsWith("mailto:") ||
+    trimmedReference.startsWith("tel:") ||
+    trimmedReference.startsWith("javascript:")
   );
 }
 
