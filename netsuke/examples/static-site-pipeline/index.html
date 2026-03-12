@@ -142,13 +142,13 @@ rules:
 
 targets:
   - foreach: glob(pages_dir ~ '/*.md')
-    name: "{{ site_dir }}/{{ item | basename | replace('.md', '.html') }}"
+    name: "{{ site_dir }}/{{ item | basename | replace('.md', '.partial.html') }}"
     rule: page
     sources: "{{ item }}"
 
   - name: "{{ site_dir }}/index.html"
     rule: index
-    sources: "{{ glob(site_dir ~ '/*.html') | exclude(site_dir ~ '/index.html') | sorted }}"
+    sources: "{{ glob(site_dir ~ '/*.partial.html') | sorted }}"
 
 defaults:
   - "{{ site_dir }}/index.html"</code></pre>
