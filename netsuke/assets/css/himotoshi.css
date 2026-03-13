@@ -553,14 +553,16 @@ body {
   max-height: 0;
   opacity: 0;
   overflow: hidden;
+  overflow-y: hidden;
   transition:
     max-height 300ms ease,
     opacity 200ms ease;
 }
 
 #navbar .hm-mobile-menu.is-open {
-  max-height: 28rem;
+  max-height: min(32rem, calc(100vh - 4rem));
   opacity: 1;
+  overflow-y: auto;
 }
 
 #navbar .hm-mobile-menu__link {

@@ -22,12 +22,31 @@
       return menu.classList.contains(CLASSES.open);
     }
 
+    function getFocusableMenuItems() {
+      return menu.querySelectorAll(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+    }
+
+    function isToggleVisible() {
+      var style = window.getComputedStyle(toggle);
+      var rect = toggle.getBoundingClientRect();
+
+      return (
+        style.display !== "none" &&
+        style.visibility !== "hidden" &&
+        rect.width > 0 &&
+        rect.height > 0
+      );
+    }
+
     function openMenu() {
       menu.classList.remove(CLASSES.hidden);
       // Force a reflow so the transition triggers from max-height:0
       void menu.offsetHeight;
       menu.classList.add(CLASSES.open);
       toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("aria-label", "Close menu");
       if (openIcon) openIcon.style.display = "none";
       if (closeIcon) closeIcon.style.display = "";
       var first = menu.querySelector("a, button");
@@ -41,9 +60,10 @@
 
       menu.classList.remove(CLASSES.open);
       toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open menu");
       if (openIcon) openIcon.style.display = "";
       if (closeIcon) closeIcon.style.display = "none";
-      if (restoreFocus) toggle.focus();
+      if (restoreFocus && isToggleVisible()) toggle.focus();
       if (hideImmediately) {
         menu.classList.add(CLASSES.hidden);
         return;
@@ -106,27 +126,23 @@
     // directions while the menu is open.
     menu.addEventListener("keydown", function (e) {
       if (e.key !== "Tab" || !isOpen()) return;
-      var focusable = menu.querySelectorAll(
-        'a[href], button, [tabindex]:not([tabindex="-1"])'
-      );
+      var focusable = getFocusableMenuItems();
       if (!focusable.length) return;
       var first = focusable[0];
       var last = focusable[focusable.length - 1];
       if (e.shiftKey && document.activeElement === first) {
         e.preventDefault();
-        toggle.focus();
+        last.focus();
       } else if (!e.shiftKey && document.activeElement === last) {
         e.preventDefault();
-        toggle.focus();
+        first.focus();
       }
     });
 
     // When focus leaves toggle while menu is open, wrap to the matching edge.
     toggle.addEventListener("keydown", function (e) {
       if (e.key !== "Tab" || !isOpen()) return;
-      var focusable = menu.querySelectorAll(
-        'a[href], button, [tabindex]:not([tabindex="-1"])'
-      );
+      var focusable = getFocusableMenuItems();
       if (focusable.length) {
         e.preventDefault();
         if (e.shiftKey) focusable[focusable.length - 1].focus();

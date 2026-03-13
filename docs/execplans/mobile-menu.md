@@ -48,7 +48,7 @@ Ghost button: `<a href="../" ...><span data-icon="carbon:arrow-left"></span> Exa
 
 | Viewport | Nav Links | GitHub | Install | Hamburger |
 |----------|-----------|--------|---------|-----------|
-| >= 1024px (lg+) | Flex row, centred | Full text button | Full text button | Hidden |
+| >= 1024px (lg+) | Flex row, centred | Full-text button | Full-text button | Hidden |
 | 768–1023px (md–lg) | Flex row, pinned right | Icon-only square | Icon-only square | Hidden |
 | < 768px (below md) | Hidden | Hidden | Hidden | Visible |
 
@@ -127,13 +127,13 @@ Vanilla JS IIFE:
 
 Transform the existing navbar from:
 
-```
+```text
 Logo | [hidden lg:flex nav links] | [GitHub btn] [Install btn]
 ```
 
 To:
 
-```
+```text
 Logo | [hidden md:flex nav links] | [GitHub .hm-navbar-action] [Install .hm-navbar-action] [hamburger md:hidden]
      | [mobile menu pane (hidden by default)]
 ```
