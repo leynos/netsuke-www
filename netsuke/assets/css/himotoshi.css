@@ -266,6 +266,10 @@ body {
   overflow: hidden;
 }
 
+.hm-example-code-block pre {
+  overflow-x: auto;
+}
+
 .visually-hidden {
   border: 0;
   clip-path: inset(50%);
