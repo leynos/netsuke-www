@@ -714,4 +714,28 @@ body {
   section .hm-terminal-status {
     width: auto;
   }
+
+  section .hm-example-code-block {
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 0.65rem;
+    margin-inline: -1rem;
+    padding: 1rem;
+  }
+
+  section .hm-example-terminal {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 0.65rem;
+    margin-inline: -1rem;
+  }
+
+  section .hm-example-terminal__titlebar {
+    border-radius: 0;
+  }
+
+  section .hm-example-terminal__body {
+    padding: 1rem;
+  }
 }
