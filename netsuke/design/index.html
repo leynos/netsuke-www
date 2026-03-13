@@ -14,6 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Source+Sans+3:wght@300;400;500;600&amp;display=swap"
       rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/himotoshi.css">
+    <script src="../assets/js/mobile-nav.js"></script>
     <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
     <style>
 .code-block
@@ -50,9 +51,25 @@
               class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm">Tokens</a>
           </div>
           <div class="flex items-center space-x-4"><a href="https://github.com/leynos/netsuke"
-              class="hm-button hm-button--ghost hidden sm:inline-flex items-center px-4 py-1.5 text-sm"><span
-                 class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
-            </a></div>
+              class="hm-button hm-button--ghost hm-navbar-action--design hidden sm:inline-flex items-center px-4 py-1.5 text-sm"><span
+                class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span><span class="hm-navbar-action__label">GitHub</span></a>
+            <button id="navbar-mobile-toggle" type="button" class="hm-hamburger md:hidden" aria-expanded="false" aria-controls="navbar-mobile-menu" aria-label="Open menu">
+              <span class="iconify hm-hamburger__open" data-icon="carbon:menu" aria-hidden="true"></span>
+              <span class="iconify hm-hamburger__close" data-icon="carbon:close" aria-hidden="true" style="display:none"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="navbar-mobile-menu" class="hm-mobile-menu hidden md:hidden" role="navigation" aria-label="Mobile navigation">
+        <div class="py-3 px-4 space-y-1">
+          <a href="#intro" class="hm-mobile-menu__link">Introduction</a>
+          <a href="#colors" class="hm-mobile-menu__link">Visual Design</a>
+          <a href="#typography" class="hm-mobile-menu__link">Typography</a>
+          <a href="#components" class="hm-mobile-menu__link">Components</a>
+          <a href="#tokens" class="hm-mobile-menu__link">Tokens</a>
+        </div>
+        <div class="border-t border-stone-light/50 py-3 px-4 space-y-2">
+          <a href="https://github.com/leynos/netsuke" class="hm-mobile-menu__link"><span class="iconify mr-2 align-middle" data-icon="carbon:logo-github" aria-hidden="true"></span>GitHub</a>
         </div>
       </div>
     </nav><!-- Hero Section -->
