@@ -57,6 +57,16 @@
       );
     }
 
+    function isSamePageAnchor(link) {
+      if (!link || !link.hash) return false;
+
+      return (
+        link.origin === window.location.origin &&
+        link.pathname === window.location.pathname &&
+        link.search === window.location.search
+      );
+    }
+
     // Toggle on click
     toggle.addEventListener("click", function () {
       if (isOpen()) closeMenu({ restoreFocus: true });
@@ -75,6 +85,13 @@
       if (isOpen() && !navbar.contains(e.target)) {
         closeMenu();
       }
+    });
+
+    // Close after selecting an in-page link from the mobile menu.
+    menu.addEventListener("click", function (e) {
+      var link = e.target.closest('a[href]');
+      if (!link || !menu.contains(link) || !isOpen()) return;
+      if (isSamePageAnchor(link)) closeMenu();
     });
 
     // Close when viewport crosses md breakpoint
