@@ -512,7 +512,7 @@ body {
 }
 
 @media (max-width: 459.98px) {
-  #terminal .hm-terminal-window {
+  section .hm-faux-window {
     border: 0;
     border-radius: 0;
     box-shadow: none;
@@ -520,15 +520,19 @@ body {
     margin-inline: -1rem;
   }
 
-  #terminal .hm-terminal-titlebar {
+  section .hm-faux-window__titlebar {
     border-radius: 0;
   }
 
-  #terminal .hm-terminal-body {
+  section .hm-faux-window__body {
     padding: 1rem;
   }
 
-  #terminal .hm-terminal-status {
+  section .hm-faux-window__shadow {
+    display: none;
+  }
+
+  section .hm-terminal-status {
     width: auto;
   }
 }
