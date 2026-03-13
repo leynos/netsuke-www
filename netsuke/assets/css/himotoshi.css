@@ -623,6 +623,26 @@ body {
   border-color: var(--netsuke-stone);
 }
 
+/* ── Responsive navbar: visibility overrides ──────────────────────── */
+/* Our #navbar rules beat Tailwind CDN utilities on specificity, so   */
+/* responsive show/hide must live here rather than in class attrs.    */
+
+@media (min-width: 768px) {
+  #navbar .hm-hamburger {
+    display: none;
+  }
+
+  #navbar .hm-mobile-menu {
+    display: none;
+  }
+}
+
+@media (max-width: 767.98px) {
+  #navbar .hm-navbar-action {
+    display: none;
+  }
+}
+
 /* ── Design system page: icon-only collapse (sm–md) ──────────────── */
 
 @media (min-width: 640px) and (max-width: 767.98px) {
@@ -644,6 +664,12 @@ body {
 
   #navbar .hm-navbar-action--design .iconify {
     margin: 0;
+  }
+}
+
+@media (max-width: 639.98px) {
+  #navbar .hm-navbar-action--design {
+    display: none;
   }
 }
 
