@@ -598,6 +598,23 @@ body {
   background: var(--netsuke-indigo-light);
 }
 
+#navbar .hm-mobile-menu__link--secondary {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(46, 42, 37, 0.14);
+  border-left-width: 1px;
+  border-radius: 0.375rem;
+  color: var(--netsuke-charcoal);
+  font-weight: 600;
+  margin: 0.25rem 1rem;
+  padding: 0.625rem 1rem;
+  text-align: center;
+}
+
+#navbar .hm-mobile-menu__link--secondary:hover {
+  background: var(--netsuke-boxwood-light);
+  border-color: var(--netsuke-stone);
+}
+
 /* ── Responsive navbar: hamburger toggle button ──────────────────── */
 
 #navbar .hm-hamburger {
