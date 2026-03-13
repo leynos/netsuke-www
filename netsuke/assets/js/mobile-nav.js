@@ -70,7 +70,8 @@
       }
       menu.addEventListener(
         "transitionend",
-        function hide() {
+        function hide(e) {
+          if (e.propertyName !== "max-height") return;
           if (!isOpen()) menu.classList.add(CLASSES.hidden);
           menu.removeEventListener("transitionend", hide);
         }

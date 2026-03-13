@@ -92,12 +92,14 @@ New rules to add:
   max-height: 0;
   opacity: 0;
   overflow: hidden;
+  overflow-y: hidden;
   transition: max-height 300ms ease, opacity 200ms ease;
 }
 
 #navbar .hm-mobile-menu.is-open {
-  max-height: 28rem;
+  max-height: min(32rem, calc(100vh - 4rem));
   opacity: 1;
+  overflow-y: auto;
 }
 
 /* Mobile menu link styles */
@@ -219,7 +221,7 @@ Check all pages: homepage, one docs page, one example detail page, design system
 | Risk | Mitigation |
 |------|-----------|
 | Tailwind CDN `hidden` class fights JS toggle | JS removes `hidden` then uses `is-open` class; `hidden` is only the initial state |
-| `max-height` transition looks choppy | Use generous `28rem` ceiling; actual content ~20rem |
+| `max-height` transition looks choppy | Use a viewport-aware cap plus internal scrolling so short screens stay usable while the animation remains bounded |
 | Iconify async icon load delay | Already loaded on all pages; `carbon:download` + `carbon:menu` + `carbon:close` are new but from same set |
 
 ## Progress
@@ -245,11 +247,13 @@ Check all pages: homepage, one docs page, one example detail page, design system
 ## Post-Plan Follow-up: Mobile Width Fixes
 
 ### Fix 1: Example pages overflow at <460px (08b286c)
+
 CSS Grid `min-width: auto` on `lg:col-span-8` grid children prevented shrinking
 below `<pre>` intrinsic width. Fix: `min-w-0` on grid child + `overflow-x: auto`
 on `.hm-example-code-block pre`.
 
 ### Fix 2: Docs pages overflow at <460px (0283c7d)
+
 Three interacting issues:
 1. `.site-container`'s `margin-inline: auto` prevented flex stretch in the body's
    column layout — container sized to content instead of viewport.
