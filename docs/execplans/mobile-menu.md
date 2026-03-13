@@ -235,9 +235,34 @@ Check all pages: homepage, one docs page, one example detail page, design system
 
 ## Lessons Learned
 
-- **CSS specificity vs Tailwind CDN:** Our `#navbar .class` rules at specificity
-  `(1,1,0)` beat Tailwind CDN utility classes at `(0,1,0)`. Similarly, our
+- **CSS specificity vs Tailwind CDN:** `#navbar .class` rules at specificity
+  `(1,1,0)` beat Tailwind CDN utility classes at `(0,1,0)`. Similarly, the
   `.hm-button` rule at `(0,1,0)` beats same-specificity Tailwind rules because
-  our stylesheet loads later in the cascade. Responsive show/hide logic must
-  live in our own CSS media queries rather than relying on Tailwind utility
+  the stylesheet loads later in the cascade. Responsive show/hide logic must
+  live in CSS media queries rather than relying on Tailwind utility
   classes like `md:hidden` or `hidden md:inline-flex`.
+
+## Post-Plan Follow-up: Mobile Width Fixes
+
+### Fix 1: Example pages overflow at <460px (08b286c)
+CSS Grid `min-width: auto` on `lg:col-span-8` grid children prevented shrinking
+below `<pre>` intrinsic width. Fix: `min-w-0` on grid child + `overflow-x: auto`
+on `.hm-example-code-block pre`.
+
+### Fix 2: Docs pages overflow at <460px (0283c7d)
+Three interacting issues:
+1. `.site-container`'s `margin-inline: auto` prevented flex stretch in the body's
+   column layout — container sized to content instead of viewport.
+2. Grid children with `min-width: auto` expanded beyond track size.
+3. Two padding layers (site-container + main) vs one (manifest-reference) required
+   targeted padding zeroing via `.site-container > main.hm-docs-content`.
+
+CSS added to `@media (max-width: 459.98px)`:
+- `.site-container { width: 100%; margin-inline: 0; }`
+- `.site-container > main.hm-docs-content { padding-left: 0; padding-right: 0; }`
+- `main.hm-docs-content .grid > * { min-width: 0; }`
+- `main.hm-docs-content { overflow-wrap: break-word; }`
+
+**Key insight:** Tailwind CDN injects its `<style>` AFTER the stylesheet in the
+DOM (index 3 vs 1). At equal specificity Tailwind wins by source order. Must use
+higher specificity (e.g. `main.hm-docs-content` at 0,1,1) to override `px-4`.

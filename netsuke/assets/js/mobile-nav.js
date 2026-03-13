@@ -34,12 +34,15 @@
       if (first) first.focus();
     }
 
-    function closeMenu() {
+    function closeMenu(options) {
+      var opts = options || {};
+      var restoreFocus = !!opts.restoreFocus;
+
       menu.classList.remove(CLASSES.open);
       toggle.setAttribute("aria-expanded", "false");
       if (openIcon) openIcon.style.display = "";
       if (closeIcon) closeIcon.style.display = "none";
-      toggle.focus();
+      if (restoreFocus) toggle.focus();
       menu.addEventListener(
         "transitionend",
         function hide() {
@@ -51,14 +54,14 @@
 
     // Toggle on click
     toggle.addEventListener("click", function () {
-      if (isOpen()) closeMenu();
+      if (isOpen()) closeMenu({ restoreFocus: true });
       else openMenu();
     });
 
     // Close on Escape
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && isOpen()) {
-        closeMenu();
+        closeMenu({ restoreFocus: true });
       }
     });
 
@@ -77,7 +80,8 @@
     if (mql.addEventListener) mql.addEventListener("change", onBreakpoint);
     else mql.addListener(onBreakpoint);
 
-    // Focus trap: Tab cycles within menu + toggle button
+    // Focus trap: Tab cycles through the toggle and menu items in both
+    // directions while the menu is open.
     menu.addEventListener("keydown", function (e) {
       if (e.key !== "Tab" || !isOpen()) return;
       var focusable = menu.querySelectorAll(
@@ -95,16 +99,16 @@
       }
     });
 
-    // When focus leaves toggle via Shift+Tab while menu is open, go to last item
+    // When focus leaves toggle while menu is open, wrap to the matching edge.
     toggle.addEventListener("keydown", function (e) {
       if (e.key !== "Tab" || !isOpen()) return;
-      if (e.shiftKey) return; // allow normal backward nav out of menu
       var focusable = menu.querySelectorAll(
         'a[href], button, [tabindex]:not([tabindex="-1"])'
       );
       if (focusable.length) {
         e.preventDefault();
-        focusable[0].focus();
+        if (e.shiftKey) focusable[focusable.length - 1].focus();
+        else focusable[0].focus();
       }
     });
   }
