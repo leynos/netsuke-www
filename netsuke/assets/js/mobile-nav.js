@@ -37,12 +37,17 @@
     function closeMenu(options) {
       var opts = options || {};
       var restoreFocus = !!opts.restoreFocus;
+      var hideImmediately = !!opts.hideImmediately;
 
       menu.classList.remove(CLASSES.open);
       toggle.setAttribute("aria-expanded", "false");
       if (openIcon) openIcon.style.display = "";
       if (closeIcon) closeIcon.style.display = "none";
       if (restoreFocus) toggle.focus();
+      if (hideImmediately) {
+        menu.classList.add(CLASSES.hidden);
+        return;
+      }
       menu.addEventListener(
         "transitionend",
         function hide() {
@@ -75,7 +80,7 @@
     // Close when viewport crosses md breakpoint
     var mql = window.matchMedia("(min-width: 768px)");
     function onBreakpoint() {
-      if (mql.matches && isOpen()) closeMenu();
+      if (mql.matches && isOpen()) closeMenu({ hideImmediately: true });
     }
     if (mql.addEventListener) mql.addEventListener("change", onBreakpoint);
     else mql.addListener(onBreakpoint);
