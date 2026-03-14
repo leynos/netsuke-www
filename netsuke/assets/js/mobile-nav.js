@@ -106,9 +106,9 @@
       }
     });
 
-    // Close on click outside navbar
+    // Close on click outside both the navbar shell and the mobile menu pane.
     document.addEventListener("click", function (e) {
-      if (isOpen() && !navbar.contains(e.target)) {
+      if (isOpen() && !navbar.contains(e.target) && !menu.contains(e.target)) {
         closeMenu();
       }
     });

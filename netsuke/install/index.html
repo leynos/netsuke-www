@@ -39,7 +39,7 @@
 <body class="shell-surface text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 shell-backdrop transition-all duration-300">
+    <nav id="navbar" class="fixed top-0 w-full z-50 shell-backdrop transition-all duration-300" aria-label="Primary navigation">
         <div class="site-container">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center space-x-3 cursor-pointer">
@@ -59,7 +59,7 @@
                     <a href="https://github.com/leynos/netsuke" class="hm-button hm-button--ghost hm-navbar-action hidden md:inline-flex items-center px-4 py-1.5 text-sm">
                         <span class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span><span class="hm-navbar-action__label">GitHub</span>
                     </a>
-                    <a href="./" class="hm-button hm-button--primary hm-navbar-action hidden md:inline-flex items-center px-4 py-1.5 text-sm">
+                    <a href="./" class="hm-button hm-button--primary hm-navbar-action hidden md:inline-flex items-center px-4 py-1.5 text-sm" aria-current="page">
                         <span class="iconify mr-2" data-icon="carbon:download" aria-hidden="true"></span><span class="hm-navbar-action__label">Install</span>
                     </a>
                     <button id="navbar-mobile-toggle" type="button" class="hidden hm-hamburger md:hidden" aria-expanded="true" aria-controls="navbar-mobile-menu" aria-label="Close menu">
@@ -69,19 +69,19 @@
                 </div>
             </div>
         </div>
-        <nav id="navbar-mobile-menu" class="hm-mobile-menu is-open md:hidden" aria-label="Mobile navigation">
-            <ul class="list-none py-3 px-4 space-y-1">
-                <li><a href="../" class="hm-mobile-menu__link">Home</a></li>
-                <li><a href="../docs/" class="hm-mobile-menu__link">Docs</a></li>
-                <li><a href="../examples/" class="hm-mobile-menu__link">Examples</a></li>
-                <li><a href="../guides/" class="hm-mobile-menu__link">Guides</a></li>
-                <li><a href="../blog/" class="hm-mobile-menu__link">Blog</a></li>
-            </ul>
-            <ul class="list-none border-t border-stone-light/50 py-3 px-4 space-y-2">
-                <li><a href="https://github.com/leynos/netsuke" class="hm-mobile-menu__link hm-mobile-menu__link--secondary"><span class="iconify inline mr-2 align-middle" data-icon="carbon:logo-github" aria-hidden="true"></span>GitHub</a></li>
-                <li><a href="./" class="hm-mobile-menu__link hm-mobile-menu__link--primary"><span class="iconify inline mr-2 align-middle" data-icon="carbon:download" aria-hidden="true"></span>Install Netsuke</a></li>
-            </ul>
-        </nav>
+    </nav>
+    <nav id="navbar-mobile-menu" class="hm-mobile-menu is-open md:hidden" aria-label="Mobile navigation">
+        <ul class="list-none py-3 px-4 space-y-1">
+            <li><a href="../" class="hm-mobile-menu__link">Home</a></li>
+            <li><a href="../docs/" class="hm-mobile-menu__link">Docs</a></li>
+            <li><a href="../examples/" class="hm-mobile-menu__link">Examples</a></li>
+            <li><a href="../guides/" class="hm-mobile-menu__link">Guides</a></li>
+            <li><a href="../blog/" class="hm-mobile-menu__link">Blog</a></li>
+        </ul>
+        <ul class="list-none border-t border-stone-light/50 py-3 px-4 space-y-2">
+            <li><a href="https://github.com/leynos/netsuke" class="hm-mobile-menu__link hm-mobile-menu__link--secondary"><span class="iconify inline mr-2 align-middle" data-icon="carbon:logo-github" aria-hidden="true"></span>GitHub</a></li>
+            <li><a href="./" class="hm-mobile-menu__link hm-mobile-menu__link--primary" aria-current="page"><span class="iconify inline mr-2 align-middle" data-icon="carbon:download" aria-hidden="true"></span>Install Netsuke</a></li>
+        </ul>
     </nav>
 
     <!-- Main Content -->
