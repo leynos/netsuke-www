@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/himotoshi.css">
+    <script defer src="../../assets/js/mobile-nav.js"></script>
     <style>
         /* Syntax Highlighting Base */
         .token.comment { color: #8A8279; font-style: italic; }
@@ -29,7 +30,7 @@
 <body class="shell-surface text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 shell-backdrop transition-all duration-300">
+    <nav id="navbar" class="fixed top-0 w-full z-50 shell-backdrop transition-all duration-300" aria-label="Primary navigation">
         <div class="site-container">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center space-x-3 cursor-pointer">
@@ -39,7 +40,7 @@
                 </div>
 
                 <!-- Desktop Nav -->
-                <div class="hidden lg:flex space-x-8">
+                <div class="hidden md:flex space-x-8">
                     <a href="../../" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Home</a>
                     <a href="../" class="text-charcoal font-semibold border-b-2 border-vermillion transition-colors text-sm py-1">Docs</a>
                     <a href="../../examples/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Examples</a>
@@ -48,15 +49,32 @@
                 </div>
 
                 <div class="flex items-center space-x-4">
-                    <a href="https://github.com/leynos/netsuke" class="hm-button hm-button--ghost hidden sm:inline-flex items-center px-4 py-1.5 text-sm">
-                        <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
+                    <a href="https://github.com/leynos/netsuke" class="hm-button hm-button--ghost hm-navbar-action hidden md:inline-flex items-center px-4 py-1.5 text-sm">
+                        <span class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span><span class="hm-navbar-action__label">GitHub</span>
                     </a>
-                    <a href="../../install/" class="hm-button hm-button--primary inline-flex items-center px-4 py-1.5 text-sm">
-                        Install
+                    <a href="../../install/" class="hm-button hm-button--primary hm-navbar-action hidden md:inline-flex items-center px-4 py-1.5 text-sm">
+                        <span class="iconify mr-2" data-icon="carbon:download" aria-hidden="true"></span><span class="hm-navbar-action__label">Install</span>
                     </a>
+                    <button id="navbar-mobile-toggle" type="button" class="hidden hm-hamburger md:hidden" aria-expanded="true" aria-controls="navbar-mobile-menu" aria-label="Close menu">
+                        <span class="iconify hm-hamburger__open" data-icon="carbon:menu" aria-hidden="true"></span>
+                        <span class="iconify hm-hamburger__close" data-icon="carbon:close" aria-hidden="true" style="display:none"></span>
+                    </button>
                 </div>
             </div>
         </div>
+        <nav id="navbar-mobile-menu" class="hm-mobile-menu is-open md:hidden" aria-label="Mobile navigation">
+            <ul class="list-none py-3 px-4 space-y-1">
+                <li><a href="../../" class="hm-mobile-menu__link">Home</a></li>
+                <li><a href="../" class="hm-mobile-menu__link hm-mobile-menu__link--active">Docs</a></li>
+                <li><a href="../../examples/" class="hm-mobile-menu__link">Examples</a></li>
+                <li><a href="../../guides/" class="hm-mobile-menu__link">Guides</a></li>
+                <li><a href="../../blog/" class="hm-mobile-menu__link">Blog</a></li>
+            </ul>
+            <ul class="list-none border-t border-stone-light/50 py-3 px-4 space-y-2">
+                <li><a href="https://github.com/leynos/netsuke" class="hm-mobile-menu__link hm-mobile-menu__link--secondary"><span class="iconify inline mr-2 align-middle" data-icon="carbon:logo-github" aria-hidden="true"></span>GitHub</a></li>
+                <li><a href="../../install/" class="hm-mobile-menu__link hm-mobile-menu__link--primary"><span class="iconify inline mr-2 align-middle" data-icon="carbon:download" aria-hidden="true"></span>Install Netsuke</a></li>
+            </ul>
+        </nav>
     </nav>
 
     <!-- Main Content Area with Sidebar -->
@@ -124,7 +142,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main id="main-content" class="flex-1 min-w-0 py-12 px-4 sm:px-6 lg:px-12">
+        <main id="main-content" class="hm-docs-content flex-1 min-w-0 py-12 px-4 sm:px-6 lg:px-12">
 
             <!-- Breadcrumbs -->
             <nav class="flex items-center text-sm text-charcoal-light mb-8 font-mono">
@@ -157,7 +175,7 @@
                     Every <code class="font-mono text-sm">Netsukefile</code> is a YAML mapping. The common top-level sections are <code>netsuke_version</code>, <code>vars</code>, <code>macros</code>, <code>rules</code>, <code>targets</code>, <code>actions</code>, and <code>defaults</code>.
                 </p>
 
-                <div class="bg-charcoal rounded-xl border border-charcoal-mid shadow-lg overflow-hidden relative">
+                <div class="hm-faux-window bg-charcoal rounded-xl border border-charcoal-mid shadow-lg overflow-hidden relative">
                     <!-- Annotation Overlay -->
                     <div class="absolute right-6 top-16 hidden lg:block">
                         <div class="flex items-center mb-10">
@@ -174,15 +192,17 @@
                         </div>
                     </div>
 
-                    <div class="bg-charcoal-mid/30 px-4 py-2 flex items-center justify-between border-b border-white/10">
-                        <span class="text-xs font-mono text-stone-light">Netsukefile</span>
-                        <div class="flex space-x-1.5">
-                            <div class="w-2.5 h-2.5 rounded-full bg-vermillion"></div>
-                            <div class="w-2.5 h-2.5 rounded-full bg-amber"></div>
+                    <div class="hm-faux-window__titlebar bg-charcoal-mid/20 px-4 py-3 flex items-center justify-between border-b border-white/10">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-vermillion"></div>
+                            <div class="w-3 h-3 rounded-full bg-amber"></div>
+                            <div class="w-3 h-3 rounded-full bg-matcha"></div>
                         </div>
+                        <span class="text-xs font-mono text-stone-light">Netsukefile</span>
+                        <div class="w-12"></div>
                     </div>
 
-                    <div class="p-6 font-mono text-sm overflow-x-auto">
+                    <div class="hm-faux-window__body p-6 font-mono text-sm overflow-x-auto">
 <pre><code><span class="token comment"># 1. Schema version</span>
 <span class="token property">netsuke_version</span>: <span class="token string">"1.0.0"</span>
 

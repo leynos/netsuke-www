@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/himotoshi.css">
+    <script defer src="../assets/js/mobile-nav.js"></script>
     <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
     <style>
         .tab-btn.active {
@@ -38,7 +39,7 @@
 <body class="shell-surface text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 shell-backdrop transition-all duration-300">
+    <nav id="navbar" class="fixed top-0 w-full z-50 shell-backdrop transition-all duration-300" aria-label="Primary navigation">
         <div class="site-container">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center space-x-3 cursor-pointer">
@@ -46,7 +47,7 @@
                     <span class="font-serif font-bold text-xl tracking-tight text-charcoal">Netsuke</span>
                 </div>
 
-                <div class="hidden lg:flex space-x-8">
+                <div class="hidden md:flex space-x-8">
                     <a href="../" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Home</a>
                     <a href="../docs/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Docs</a>
                     <a href="../examples/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Examples</a>
@@ -55,15 +56,32 @@
                 </div>
 
                 <div class="flex items-center space-x-4">
-                    <a href="https://github.com/leynos/netsuke" class="hm-button hm-button--ghost hidden sm:inline-flex items-center px-4 py-1.5 text-sm">
-                        <span  class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> GitHub
+                    <a href="https://github.com/leynos/netsuke" class="hm-button hm-button--ghost hm-navbar-action hidden md:inline-flex items-center px-4 py-1.5 text-sm">
+                        <span class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span><span class="hm-navbar-action__label">GitHub</span>
                     </a>
-                    <a href="./" class="hm-button hm-button--primary">
-                        Install
+                    <a href="./" class="hm-button hm-button--primary hm-navbar-action hidden md:inline-flex items-center px-4 py-1.5 text-sm" aria-current="page">
+                        <span class="iconify mr-2" data-icon="carbon:download" aria-hidden="true"></span><span class="hm-navbar-action__label">Install</span>
                     </a>
+                    <button id="navbar-mobile-toggle" type="button" class="hidden hm-hamburger md:hidden" aria-expanded="true" aria-controls="navbar-mobile-menu" aria-label="Close menu">
+                        <span class="iconify hm-hamburger__open" data-icon="carbon:menu" aria-hidden="true"></span>
+                        <span class="iconify hm-hamburger__close" data-icon="carbon:close" aria-hidden="true" style="display:none"></span>
+                    </button>
                 </div>
             </div>
         </div>
+    </nav>
+    <nav id="navbar-mobile-menu" class="hm-mobile-menu is-open md:hidden" aria-label="Mobile navigation">
+        <ul class="list-none py-3 px-4 space-y-1">
+            <li><a href="../" class="hm-mobile-menu__link">Home</a></li>
+            <li><a href="../docs/" class="hm-mobile-menu__link">Docs</a></li>
+            <li><a href="../examples/" class="hm-mobile-menu__link">Examples</a></li>
+            <li><a href="../guides/" class="hm-mobile-menu__link">Guides</a></li>
+            <li><a href="../blog/" class="hm-mobile-menu__link">Blog</a></li>
+        </ul>
+        <ul class="list-none border-t border-stone-light/50 py-3 px-4 space-y-2">
+            <li><a href="https://github.com/leynos/netsuke" class="hm-mobile-menu__link hm-mobile-menu__link--secondary"><span class="iconify inline mr-2 align-middle" data-icon="carbon:logo-github" aria-hidden="true"></span>GitHub</a></li>
+            <li><a href="./" class="hm-mobile-menu__link hm-mobile-menu__link--primary" aria-current="page"><span class="iconify inline mr-2 align-middle" data-icon="carbon:download" aria-hidden="true"></span>Install Netsuke</a></li>
+        </ul>
     </nav>
 
     <!-- Main Content -->
