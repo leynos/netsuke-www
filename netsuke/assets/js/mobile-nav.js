@@ -88,6 +88,9 @@
       );
     }
 
+    // Collapse any markup that renders the menu open as a no-JS fallback.
+    closeMenu({ hideImmediately: true });
+
     // Toggle on click
     toggle.addEventListener("click", function () {
       if (isOpen()) closeMenu({ restoreFocus: true });

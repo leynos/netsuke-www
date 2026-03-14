@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/himotoshi.css">
-    <script src="../assets/js/mobile-nav.js"></script>
+    <script defer src="../assets/js/mobile-nav.js"></script>
 </head>
 <body class="shell-surface text-charcoal font-sans antialiased selection:bg-vermillion selection:text-white flex flex-col min-h-screen">
 
@@ -27,7 +27,7 @@
                 <div class="hidden md:flex space-x-8">
                     <a href="../" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Home</a>
                     <a href="../docs/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Docs</a>
-                    <a href="./" class="text-charcoal font-semibold border-b-2 border-vermillion transition-colors text-sm py-1">Examples</a>
+                    <a href="./" aria-current="page" class="text-charcoal font-semibold border-b-2 border-vermillion transition-colors text-sm py-1">Examples</a>
                     <a href="../guides/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Guides</a>
                     <a href="../blog/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Blog</a>
                 </div>
@@ -50,7 +50,7 @@
             <div class="py-3 px-4 space-y-1">
                 <a href="../" class="hm-mobile-menu__link">Home</a>
                 <a href="../docs/" class="hm-mobile-menu__link">Docs</a>
-                <a href="./" class="hm-mobile-menu__link hm-mobile-menu__link--active">Examples</a>
+                <a href="./" aria-current="page" class="hm-mobile-menu__link hm-mobile-menu__link--active">Examples</a>
                 <a href="../guides/" class="hm-mobile-menu__link">Guides</a>
                 <a href="../blog/" class="hm-mobile-menu__link">Blog</a>
             </div>
