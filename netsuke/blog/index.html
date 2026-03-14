@@ -24,7 +24,7 @@
                     <span class="font-serif font-bold text-xl tracking-tight text-charcoal">Netsuke</span>
                 </a>
 
-                <nav aria-label="Primary" class="hidden md:block">
+                <div class="hidden md:block">
                     <ul class="flex list-none space-x-8">
                         <li><a href="../" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Home</a></li>
                         <li><a href="../docs/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Docs</a></li>
@@ -32,7 +32,7 @@
                         <li><a href="../guides/" class="text-charcoal-mid hover:text-vermillion font-medium transition-colors text-sm py-1">Guides</a></li>
                         <li><a href="./" class="text-charcoal font-semibold border-b-2 border-vermillion transition-colors text-sm py-1">Blog</a></li>
                     </ul>
-                </nav>
+                </div>
 
                 <div class="flex items-center space-x-4">
                     <a href="https://github.com/leynos/netsuke" class="hm-button hm-button--ghost hm-navbar-action hidden md:inline-flex items-center px-4 py-1.5 text-sm">
@@ -41,14 +41,14 @@
                     <a href="../install/" class="hm-button hm-button--primary hm-navbar-action hidden md:inline-flex items-center px-4 py-1.5 text-sm">
                         <span class="iconify mr-2" data-icon="carbon:download" aria-hidden="true"></span><span class="hm-navbar-action__label">Install</span>
                     </a>
-                    <button id="navbar-mobile-toggle" type="button" class="hm-hamburger md:hidden" aria-expanded="false" aria-controls="navbar-mobile-menu" aria-label="Open menu">
+                    <button id="navbar-mobile-toggle" type="button" class="hidden hm-hamburger md:hidden" aria-expanded="true" aria-controls="navbar-mobile-menu" aria-label="Close menu">
                         <span class="iconify hm-hamburger__open" data-icon="carbon:menu" aria-hidden="true"></span>
                         <span class="iconify hm-hamburger__close" data-icon="carbon:close" aria-hidden="true" style="display:none"></span>
                     </button>
                 </div>
             </div>
         </div>
-        <nav id="navbar-mobile-menu" class="hm-mobile-menu hidden md:hidden" aria-label="Mobile navigation">
+        <nav id="navbar-mobile-menu" class="hm-mobile-menu is-open md:hidden" aria-label="Mobile navigation">
             <ul class="list-none py-3 px-4 space-y-1">
                 <li><a href="../" class="hm-mobile-menu__link">Home</a></li>
                 <li><a href="../docs/" class="hm-mobile-menu__link">Docs</a></li>
