@@ -15,6 +15,8 @@
     var navbar = document.querySelector(SELECTORS.navbar);
     if (!toggle || !menu || !navbar) return;
 
+    toggle.classList.remove(CLASSES.hidden);
+
     var openIcon = toggle.querySelector(".hm-hamburger__open");
     var closeIcon = toggle.querySelector(".hm-hamburger__close");
 
