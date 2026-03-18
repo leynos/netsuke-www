@@ -12,7 +12,7 @@ Status: IN PROGRESS
 `docs/site-gap-analysis.md` identifies twelve areas where the live website
 (`netsuke/`) does not reflect what the reference documents (`docs/`) specify.
 After this work, a reader of the website will understand Netsuke's
-accessibility model, localisation support, output-stream contract, network
+accessibility model, localization support, output-stream contract, network
 policy controls, full standard library surface, contributor workflow, and
 roadmap status — none of which the site currently explains adequately.
 
@@ -61,7 +61,7 @@ Run `make check-fmt lint test` with no failures.
 
 ## Progress
 
-- [x] (2026-03-18) Read and summarised all source files.
+- [x] (2026-03-18) Read and summarized all source files.
 - [x] (2026-03-18) Created ExecPlan.
 - [x] (2026-03-18) Expanded CLI/config page (accessible mode, locale, progress, stream separation, config discovery, network policy).
 - [x] (2026-03-18) Updated sidebar nav links on CLI page to include new anchors.
@@ -140,7 +140,7 @@ Add four new sections after the existing `#configuration` section, before
    `--accessible`, `NETSUKE_ACCESSIBLE`, static stage labels, emoji
    suppression (`NETSUKE_NO_EMOJI`).
 
-3. **`#localisation`** — Explain Fluent, `--locale`, `NETSUKE_LOCALE`, locale
+3. **`#localization`** — Explain Fluent, `--locale`, `NETSUKE_LOCALE`, locale
    precedence, supported locales (`en-US`, `es-ES`).
 
 4. **`#network-policy`** — Explain `--fetch-allow-scheme`, `--fetch-allow-host`,
@@ -203,7 +203,7 @@ Each HTML file write is idempotent. If interrupted, re-run the write step.
 ## Artifacts and notes
 
 Key anchors added to CLI page: `#output-streams`, `#accessible-output`,
-`#localisation`, `#network-policy`.
+`#localization`, `#network-policy`.
 
 Key section added to stdlib page: `#stdlib-extended`.
 
