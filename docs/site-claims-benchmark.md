@@ -21,13 +21,13 @@ The benchmark distinguishes between:
 ## Executive Summary
 
 The site gets the core architectural story broadly right: Netsuke is described
-as a YAML-plus-Jinja build-system compiler that produces a static Ninja plan,
+as a YAML Ain't Markup Language (YAML)-plus-Jinja build-system compiler that produces a static Ninja plan,
 and the six-stage pipeline is generally represented faithfully. The prototype
 also reflects the documented emphasis on readable manifests, explicit graph
 structure, deterministic planning, and validation before execution.
 
 The largest problems are not with the core compiler story. They are with
-product maturity and CLI capability framing. Several site pages market Netsuke
+product maturity and command-line interface (CLI) capability framing. Several site pages market Netsuke
 as a polished, stable, broadly adopted product with concrete release history,
 CI/CD integrations, configuration surfaces, and command options that the design
 documents either leave as future work or do not define at all. The site also

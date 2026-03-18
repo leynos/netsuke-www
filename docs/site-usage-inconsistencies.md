@@ -12,7 +12,7 @@ website against the interfaces and usage patterns described in:
 - `docs/users-guide.md`
 
 It focuses on inconsistencies in the way the site documents user interaction,
-CLI surface area, terminology, and documented behaviour.
+command-line interface (CLI) surface area, terminology, and documented behaviour.
 
 ## Executive Summary
 
@@ -22,9 +22,9 @@ Some of those differences are simple omissions. Others are substantive:
 
 - commands are renamed or regrouped
 - undocumented flags are shown as if they exist
-- prototype pages invent foreign API terminology
-- output examples use UI conventions that do not line up with the documented
-  accessible/localizable CLI model
+- prototype pages invent foreign application programming interface (API) terminology
+- output examples use user interface (UI) conventions that do not line up with the documented
+  accessible/localisable CLI model
 - navigation promises pages and workflows that are placeholders or absent
 
 The result is that a reader could come away with the wrong mental model for how
@@ -62,7 +62,7 @@ mode.
 
 This materially changes the expected UI surface for iterative development.
 
-### 4. The site's configuration UI looks final even though major config work is still tracked as incomplete
+### 4. The site's configuration user interface looks final even though major config work is still tracked as incomplete
 
 The site presents concrete config sections:
 
@@ -79,7 +79,7 @@ The inconsistency is not that configuration exists in principle. It is that the
 site presents a finished configuration interface where the reference set still
 shows active design/implementation movement.
 
-### 5. The site's output examples omit the documented accessible-mode UX
+### 5. The site's output examples omit the documented accessible-mode user experience (UX)
 
 The user guide documents an explicit accessible-mode interface:
 
