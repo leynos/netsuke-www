@@ -243,9 +243,13 @@
                                     <h3 class="font-mono text-lg font-bold text-charcoal">manifest</h3>
                                     <span class="px-2 py-0.5 rounded text-xs font-mono bg-indigo/10 text-indigo">Inspect</span>
                                 </div>
-                                <p class="text-charcoal-mid text-sm mb-4">Generates the Ninja build file and writes it to a path without executing Ninja. Use <code>-</code> to stream to stdout.</p>
+                                <p class="text-charcoal-mid text-sm mb-4">Generates the Ninja build file without executing Ninja. Takes an optional positional <code>OUTPUT</code> argument specifying the path to write the Ninja file, or <code>-</code> to stream it to stdout. If <code>OUTPUT</code> is omitted, the default output path is used.</p>
 
                                 <div class="space-y-2 mb-4">
+                                    <div class="flex items-start text-xs font-mono">
+                                        <span class="text-indigo w-24 shrink-0">OUTPUT</span>
+                                        <span class="text-charcoal-light">Optional path for the generated Ninja file; use <code>-</code> to write to stdout</span>
+                                    </div>
                                     <div class="flex items-start text-xs font-mono">
                                         <span class="text-indigo w-24 shrink-0">--file, -f</span>
                                         <span class="text-charcoal-light">Read manifest from a custom path</span>
@@ -253,7 +257,7 @@
                                 </div>
                             </div>
                             <div class="bg-boxwood-pale px-6 py-3 border-t border-stone text-xs font-mono text-charcoal-mid">
-                                netsuke manifest build.ninja
+                                netsuke manifest -
                             </div>
                         </div>
 

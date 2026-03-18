@@ -326,9 +326,9 @@
                             <div class="border-l-2 border-indigo pl-4 py-1">
                                 <div class="flex items-baseline justify-between">
                                     <code class="font-mono font-bold text-indigo">name</code>
-                                    <span class="text-xs text-charcoal-light font-mono">String or List</span>
+                                    <span class="text-xs text-charcoal-light font-mono">String (single-output) or List of String (multi-output)</span>
                                 </div>
-                                <p class="text-sm text-charcoal-mid mt-1">Output file path(s) this target produces. Doubles as the target's identity in the build graph.</p>
+                                <p class="text-sm text-charcoal-mid mt-1">Primary output path for this target. For single-output targets, use a String. For multi-output targets, use a List of Strings; all listed paths are produced by the same target and share a single identity in the build graph. Dependencies and <code class="bg-stone-light/30 px-1 rounded">sources</code> entries refer to the target as a whole, not to individual output paths.</p>
                             </div>
                             <div class="border-l-2 border-indigo pl-4 py-1">
                                 <div class="flex items-baseline justify-between">

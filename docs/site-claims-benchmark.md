@@ -29,7 +29,7 @@ structure, deterministic planning, and validation before execution.
 The largest problems are not with the core compiler story. They are with
 product maturity and command-line interface (CLI) capability framing. Several site pages market Netsuke
 as a polished, stable, broadly adopted product with concrete release history,
-CI/CD integrations, configuration surfaces, and command options that the design
+continuous integration / continuous delivery (CI/CD) integrations, configuration surfaces, and command options that the design
 documents either leave as future work or do not define at all. The site also
 injects some foreign terminology and API shapes that do not belong to the
 documented Netsuke model.
@@ -128,7 +128,7 @@ and `grep`, and the security section tells users to be careful with them. That
 means the safer benchmark is "structured and safer by default", not "hermetic"
 without qualification.
 
-### UX and diagnostics
+### User experience (UX) and diagnostics
 
 The site's "clear feedback" positioning is directionally correct. The CLI
 design and user guide both support:
