@@ -19,33 +19,33 @@ The website covers the architectural headline story reasonably well:
 - examples exist for several workflow types
 
 What the site does not cover well is the actual breadth of the documented command-line interface (CLI),
-runtime, security, accessibility, localisation, and diagnostic model. The
-design and user documents describe Netsuke as a localisable, accessibility-aware,
+runtime, security, accessibility, localization, and diagnostic model. The
+design and user documents describe Netsuke as a localizable, accessibility-aware,
 scriptable CLI with explicit output-channel behaviour, network-policy controls,
 Jinja standard-library semantics, and a richer operational story than the site
 currently exposes.
 
 ## Gaps By Area
 
-### 1. Localisation and translation workflows are barely documented on the site
+### 1. Localization and translation workflows are barely documented on the site
 
-The reference set gives localisation substantial weight:
+The reference set gives localization substantial weight:
 
 - the CLI design document devotes a major section to Fluent-based
-  internationalisation
-- the roadmap marks localisation items complete
+  internationalization
+- the roadmap marks localization items complete
 - the user guide documents `--locale`, `NETSUKE_LOCALE`, locale precedence, and
   English/Spanish fallback behaviour
 
-The site only gestures at localisation:
+The site only gestures at localization:
 
 - the guides page mentions "Translating Documentation"
 - the CLI/config page shows a toy `[locale]` config block
 
 What is missing from the site:
 
-- Fluent as the underlying localisation system
-- localisation of help text, status lines, and diagnostics
+- Fluent as the underlying localization system
+- localization of help text, status lines, and diagnostics
 - locale resolution precedence
 - supported locale examples such as `en-US` and `es-ES`
 - translation workflow and translator-facing guidance
@@ -181,7 +181,7 @@ discovery and precedence rules documented in the user guide:
 
 - defaults < config files < environment < CLI
 - `NETSUKE_CONFIG_PATH`
-- XDG locations
+- XDG Base Directory locations (XDG)
 - Windows application-data lookup
 - `$HOME/.netsuke.toml`
 - project-root discovery

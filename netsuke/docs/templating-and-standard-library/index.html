@@ -297,7 +297,7 @@
                         </div>
                         <p class="text-sm text-charcoal-mid mb-4">Replaces the file extension of a path. Accepts an optional count to replace multiple trailing extensions.</p>
                         <div class="text-xs font-mono text-stone-light bg-charcoal p-3 rounded group-hover:bg-charcoal-mid transition-colors">
-                            item | basename | with_suffix('.o')
+                            {{ item | basename | with_suffix('.o') }}
                         </div>
                     </div>
 

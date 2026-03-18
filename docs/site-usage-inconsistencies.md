@@ -24,7 +24,7 @@ Some of those differences are simple omissions. Others are substantive:
 - undocumented flags are shown as if they exist
 - prototype pages invent foreign application programming interface (API) terminology
 - output examples use user interface (UI) conventions that do not line up with the documented
-  accessible/localisable CLI model
+  accessible/localizable CLI model
 - navigation promises pages and workflows that are placeholders or absent
 
 The result is that a reader could come away with the wrong mental model for how
