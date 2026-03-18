@@ -247,7 +247,7 @@
                 <h2 class="font-serif text-2xl font-bold text-charcoal mb-6">Standard Library Usage</h2>
                 <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
                     <div id="stdLibChart" class="h-[350px] w-full"></div>
-                    <p class="text-xs text-center text-charcoal-light mt-4 font-mono">Based on analysis of top 500 public Netsuke repositories</p>
+                    <p class="text-xs text-center text-charcoal-light mt-4 font-mono">Illustrative relative frequency across example manifests in the Netsuke repository</p>
                 </div>
             </section>
 
@@ -266,36 +266,36 @@
                     <!-- Function Card 1 -->
                     <div class="function-card bg-white p-6 rounded-xl border border-stone transition-all duration-300 group cursor-pointer">
                         <div class="flex justify-between items-start mb-3">
-                            <code class="text-indigo font-bold font-mono text-sm bg-indigo/5 px-2 py-1 rounded">ctx.actions.run</code>
-                            <span class="text-xs text-charcoal-light border border-stone px-1.5 rounded">Action</span>
+                            <code class="text-indigo font-bold font-mono text-sm bg-indigo/5 px-2 py-1 rounded">fetch()</code>
+                            <span class="text-xs text-charcoal-light border border-stone px-1.5 rounded">Network</span>
                         </div>
-                        <p class="text-sm text-charcoal-mid mb-4">Registers an action that runs an executable. This is the primary mechanism for build steps.</p>
+                        <p class="text-sm text-charcoal-mid mb-4">Downloads content from a URL. Pass <code>cache=True</code> to cache the result in <code>.netsuke/fetch</code>. Marks the template as impure.</p>
                         <div class="text-xs font-mono text-stone-light bg-charcoal p-3 rounded group-hover:bg-charcoal-mid transition-colors">
-                            run(executable, inputs, outputs, ...)
+                            fetch("https://example.com/data", cache=True)
                         </div>
                     </div>
 
                     <!-- Function Card 2 -->
                     <div class="function-card bg-white p-6 rounded-xl border border-stone transition-all duration-300 group cursor-pointer">
                         <div class="flex justify-between items-start mb-3">
-                            <code class="text-indigo font-bold font-mono text-sm bg-indigo/5 px-2 py-1 rounded">ctx.actions.write</code>
-                            <span class="text-xs text-charcoal-light border border-stone px-1.5 rounded">File</span>
+                            <code class="text-indigo font-bold font-mono text-sm bg-indigo/5 px-2 py-1 rounded">shell_escape</code>
+                            <span class="text-xs text-charcoal-light border border-stone px-1.5 rounded">Security</span>
                         </div>
-                        <p class="text-sm text-charcoal-mid mb-4">Creates a file with the specified content. Useful for generating config files or scripts.</p>
+                        <p class="text-sm text-charcoal-mid mb-4">Safely quotes a string for use as a single shell argument. Use this whenever interpolating paths or variables into commands.</p>
                         <div class="text-xs font-mono text-stone-light bg-charcoal p-3 rounded group-hover:bg-charcoal-mid transition-colors">
-                            write(output, content, is_executable=False)
+                            {{ path | shell_escape }}
                         </div>
                     </div>
 
                     <!-- Function Card 3 -->
                     <div class="function-card bg-white p-6 rounded-xl border border-stone transition-all duration-300 group cursor-pointer">
                         <div class="flex justify-between items-start mb-3">
-                            <code class="text-indigo font-bold font-mono text-sm bg-indigo/5 px-2 py-1 rounded">ctx.file.expand</code>
-                            <span class="text-xs text-charcoal-light border border-stone px-1.5 rounded">Template</span>
+                            <code class="text-indigo font-bold font-mono text-sm bg-indigo/5 px-2 py-1 rounded">with_suffix</code>
+                            <span class="text-xs text-charcoal-light border border-stone px-1.5 rounded">Path</span>
                         </div>
-                        <p class="text-sm text-charcoal-mid mb-4">Expands a template file by substituting variables. Supports standard variable syntax.</p>
+                        <p class="text-sm text-charcoal-mid mb-4">Replaces the file extension of a path. Accepts an optional count to replace multiple trailing extensions.</p>
                         <div class="text-xs font-mono text-stone-light bg-charcoal p-3 rounded group-hover:bg-charcoal-mid transition-colors">
-                            expand(template, output, substitutions)
+                            item | basename | with_suffix('.o')
                         </div>
                     </div>
 
@@ -495,7 +495,7 @@
             try {
                 // Bar Chart for StdLib Usage
                 const trace1 = {
-                    x: ['ctx.actions.run', 'ctx.file.expand', 'depset', 'ctx.actions.write', 'select', 'glob'],
+                    x: ['glob', 'env', 'basename', 'with_suffix', 'shell_escape', 'fetch'],
                     y: [95, 82, 76, 65, 45, 30],
                     type: 'bar',
                     marker: {

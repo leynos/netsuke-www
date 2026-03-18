@@ -224,24 +224,33 @@
                         <div class="bg-white rounded-xl border border-stone shadow-sm overflow-hidden group hover:border-indigo transition-colors">
                             <div class="p-6">
                                 <div class="flex items-center justify-between mb-2">
-                                    <h3 class="font-mono text-lg font-bold text-charcoal">query</h3>
-                                    <span class="px-2 py-0.5 rounded text-xs font-mono bg-indigo/10 text-indigo">Analysis</span>
+                                    <h3 class="font-mono text-lg font-bold text-charcoal">manifest</h3>
+                                    <span class="px-2 py-0.5 rounded text-xs font-mono bg-indigo/10 text-indigo">Inspect</span>
                                 </div>
-                                <p class="text-charcoal-mid text-sm mb-4">Graph and manifest inspection commands help explain what Netsuke is about to hand to Ninja.</p>
+                                <p class="text-charcoal-mid text-sm mb-4">Generates the Ninja build file and writes it to a path without executing Ninja. Use <code>-</code> to stream to stdout.</p>
 
                                 <div class="space-y-2 mb-4">
                                     <div class="flex items-start text-xs font-mono">
-                                        <span class="text-indigo w-24 shrink-0">manifest</span>
-                                        <span class="text-charcoal-light">Render or inspect the manifest without building</span>
-                                    </div>
-                                    <div class="flex items-start text-xs font-mono">
-                                        <span class="text-indigo w-24 shrink-0">graph</span>
-                                        <span class="text-charcoal-light">Visualize the dependency graph</span>
+                                        <span class="text-indigo w-24 shrink-0">--file, -f</span>
+                                        <span class="text-charcoal-light">Read manifest from a custom path</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="bg-boxwood-pale px-6 py-3 border-t border-stone text-xs font-mono text-charcoal-mid">
-                                netsuke manifest --file Netsukefile
+                                netsuke manifest build.ninja
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl border border-stone shadow-sm overflow-hidden group hover:border-indigo transition-colors">
+                            <div class="p-6">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="font-mono text-lg font-bold text-charcoal">graph</h3>
+                                    <span class="px-2 py-0.5 rounded text-xs font-mono bg-indigo/10 text-indigo">Analysis</span>
+                                </div>
+                                <p class="text-charcoal-mid text-sm mb-4">Generates the build dependency graph via <code>ninja -t graph</code> and outputs DOT to stdout, suitable for Graphviz.</p>
+                            </div>
+                            <div class="bg-boxwood-pale px-6 py-3 border-t border-stone text-xs font-mono text-charcoal-mid">
+                                netsuke graph app &gt; build.dot
                             </div>
                         </div>
 
@@ -251,10 +260,10 @@
                                     <h3 class="font-mono text-lg font-bold text-charcoal">clean</h3>
                                     <span class="px-2 py-0.5 rounded text-xs font-mono bg-vermillion/10 text-vermillion">Maintenance</span>
                                 </div>
-                                <p class="text-charcoal-mid text-sm mb-4">Removes output files and caches. Use --expunge to remove the entire output directory.</p>
+                                <p class="text-charcoal-mid text-sm mb-4">Removes build artefacts by running <code>ninja -t clean</code>. Requires rules and targets to be properly configured for cleaning.</p>
                             </div>
                              <div class="bg-boxwood-pale px-6 py-3 border-t border-stone text-xs font-mono text-charcoal-mid">
-                                netsuke clean --expunge
+                                netsuke clean
                             </div>
                         </div>
                     </div>
@@ -316,9 +325,9 @@
                         <div class="bg-indigo/5 border border-indigo/20 rounded-lg p-5 flex items-start">
                             <span  class="iconify text-indigo mt-1 mr-3" data-icon="carbon:idea" aria-hidden="true"></span>
                             <div>
-                                <h4 class="font-bold text-indigo text-sm mb-1">Pro Tip: Watch Mode</h4>
+                                <h4 class="font-bold text-indigo text-sm mb-1">Tip: Inspect the Ninja plan</h4>
                                 <p class="text-xs text-charcoal-mid">
-                                    Use <code class="bg-white px-1 py-0.5 rounded border border-indigo/10 text-indigo font-mono">netsuke build ... --watch</code> to automatically rebuild targets when source files change. Perfect for rapid development loops.
+                                    Use <code class="bg-white px-1 py-0.5 rounded border border-indigo/10 text-indigo font-mono">netsuke manifest -</code> to stream the generated Ninja file to stdout. Pipe it into <code class="bg-white px-1 py-0.5 rounded border border-indigo/10 text-indigo font-mono">grep</code> or a pager to understand exactly what Netsuke handed to Ninja.
                                 </p>
                             </div>
                         </div>
