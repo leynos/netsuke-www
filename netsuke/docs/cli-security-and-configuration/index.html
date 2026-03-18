@@ -516,7 +516,7 @@ netsuke manifest - <span class="text-matcha">|</span> grep <span class="text-amb
                     <div>
                         <h4 class="font-bold text-indigo text-sm mb-1">CI and automation</h4>
                         <p class="text-xs text-charcoal-mid">
-                            When stdout is not a TTY (e.g. in CI pipelines), task progress automatically falls back to
+                            When stderr is not a TTY (e.g. in CI pipelines), task progress automatically falls back to
                             plain-text updates, keeping logs readable without interactive spinners. Use
                             <code class="bg-white px-1 py-0.5 rounded border border-indigo/10 text-indigo font-mono">--progress false</code>
                             to suppress progress entirely in environments where clean log output matters most.
@@ -554,7 +554,7 @@ netsuke manifest - <span class="text-matcha">|</span> grep <span class="text-amb
                     </div>
                     <div>
                         <h3 class="font-bold text-charcoal mb-4 text-sm uppercase tracking-wide">Manual control</h3>
-                        <p class="text-sm text-charcoal-mid mb-4">Force accessible mode on or off regardless of auto-detection. Explicit config always wins.</p>
+                        <p class="text-sm text-charcoal-mid mb-4">Force accessible mode on or off regardless of auto-detection. Any explicit setting disables auto-detection; if more than one is present, CLI flags override environment variables, which override config.</p>
                         <div class="space-y-2 text-xs font-mono">
                             <div class="flex items-start bg-white p-3 rounded border border-stone">
                                 <span class="text-indigo mr-2 shrink-0">CLI:</span>

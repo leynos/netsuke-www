@@ -212,9 +212,7 @@
                                 <span class="text-matcha mr-3">➜</span>
                                 <span>netsuke build</span>
                             </div>
-                            <div class="mt-2 text-stone-light">
-                                [1/1] printf 'hello\n' &gt; hello.txt
-                            </div>
+                            <pre class="mt-2 text-stone-light"><samp>[1/1] printf 'hello\n' &gt; hello.txt</samp></pre>
                         </div>
 
                         <div class="mt-6 flex gap-4">
@@ -290,7 +288,7 @@
                 <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
                     <h3 class="font-bold text-charcoal text-lg mb-2">Can I install a specific version?</h3>
                     <p class="text-charcoal-mid leading-relaxed">
-                        Yes. Use Cargo to install a specific release tag: <code>cargo install netsuke --version &lt;TAG&gt;</code>. Check the <a href="https://github.com/leynos/netsuke/releases" class="text-indigo hover:underline">GitHub releases page</a> for available versions.
+                        Yes. Use Cargo with a semantic version number: <code>cargo install netsuke --version &lt;VERSION&gt;</code>. The version must be a number without a leading <code>v</code> (for example <code>0.4.0</code>, not <code>v0.4.0</code>). Check the <a href="https://github.com/leynos/netsuke/releases" class="text-indigo hover:underline">GitHub releases page</a> for available versions.
                     </p>
                 </div>
 
@@ -304,7 +302,7 @@
                 <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
                     <h3 class="font-bold text-charcoal text-lg mb-2">Does it work with CI/CD?</h3>
                     <p class="text-charcoal-mid leading-relaxed">
-                        Yes. Install Netsuke on your CI agent the same way you would locally — via Cargo or a pre-built binary — then run <code>netsuke build</code> as a build step. When stdout is not a TTY, progress output falls back to plain text automatically. Dedicated CI integrations are planned but not yet available.
+                        Yes. Install Netsuke on your continuous integration (CI) agent via Cargo or a pre-built binary and run <code>netsuke build</code> as a build step. When standard output (stdout) is not a teletype/terminal (TTY), progress falls back to plain text automatically. Dedicated CI integrations are planned but not yet available.
                     </p>
                 </div>
             </div>

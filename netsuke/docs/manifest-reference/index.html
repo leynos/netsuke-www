@@ -335,7 +335,7 @@
                                     <code class="font-mono font-bold text-indigo">sources</code>
                                     <span class="text-xs text-charcoal-light font-mono">String or List</span>
                                 </div>
-                                <p class="text-sm text-charcoal-mid mt-1">Input file path(s) required to build this target. If a source matches another target's <code>name</code>, an implicit dependency is created.</p>
+                                <p class="text-sm text-charcoal-mid mt-1">Input file path(s) required to build this target. If a <code>sources</code> entry matches another target's <code>name</code>, an implicit dependency on that target is created. For multi-output targets (where <code>name</code> is a List of Strings), the lookup checks each string in the list; a match on any of them creates a dependency on the target as a whole. To depend on a specific output of a multi-output target, reference the exact output path as it appears in the target's <code>name</code> list.</p>
                             </div>
                             <div class="border-l-2 border-indigo pl-4 py-1">
                                 <div class="flex items-baseline justify-between">

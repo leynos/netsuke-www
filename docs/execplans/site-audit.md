@@ -122,7 +122,7 @@ The website lives under `netsuke/`. Three files are being modified:
 
 Reference documents:
 - `docs/users-guide.md` — Section 7 (stdlib), Section 8 (CLI/config)
-- `docs/netsuke-cli-design-document.md` — Localisation, accessibility,
+- `docs/netsuke-cli-design-document.md` — Localization, accessibility,
   output channels, configuration
 - `docs/roadmap.md` — Roadmap status for "implemented vs planned" framing
 
