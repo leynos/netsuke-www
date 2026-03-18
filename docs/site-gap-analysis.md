@@ -18,34 +18,34 @@ The website covers the architectural headline story reasonably well:
 - `foreach`, `when`, rules, targets, and defaults matter
 - examples exist for several workflow types
 
-What the site does not cover well is the actual breadth of the documented CLI,
-runtime, security, accessibility, localization, and diagnostic model. The
-design and user documents describe Netsuke as a localizable, accessibility-aware,
+What the site does not cover well is the actual breadth of the documented command-line interface (CLI),
+runtime, security, accessibility, localisation, and diagnostic model. The
+design and user documents describe Netsuke as a localisable, accessibility-aware,
 scriptable CLI with explicit output-channel behaviour, network-policy controls,
 Jinja standard-library semantics, and a richer operational story than the site
 currently exposes.
 
 ## Gaps By Area
 
-### 1. Localization and translation workflow are barely documented on the site
+### 1. Localisation and translation workflows are barely documented on the site
 
-The reference set gives localization substantial weight:
+The reference set gives localisation substantial weight:
 
 - the CLI design document devotes a major section to Fluent-based
-  internationalization
-- the roadmap marks localization items complete
+  internationalisation
+- the roadmap marks localisation items complete
 - the user guide documents `--locale`, `NETSUKE_LOCALE`, locale precedence, and
   English/Spanish fallback behaviour
 
-The site only gestures at localization:
+The site only gestures at localisation:
 
 - the guides page mentions "Translating Documentation"
 - the CLI/config page shows a toy `[locale]` config block
 
 What is missing from the site:
 
-- Fluent as the underlying localization system
-- localization of help text, status lines, and diagnostics
+- Fluent as the underlying localisation system
+- localisation of help text, status lines, and diagnostics
 - locale resolution precedence
 - supported locale examples such as `en-US` and `es-ES`
 - translation workflow and translator-facing guidance
@@ -87,7 +87,7 @@ The user guide documents scriptability in concrete terms:
 The site does not currently teach this operational model. It shows terminal
 mockups, but not the stream-separation contract or why it matters for:
 
-- CI pipelines
+- continuous integration (CI) pipelines
 - shell composition
 - editor integration
 - automation and log capture
@@ -164,7 +164,7 @@ set goes much further:
 - `miette`-style contextual diagnostics
 - localized error text
 - diagnostic codes for some failures
-- parse/schema/template/IR/build error categories
+- parse/schema/template/intermediate representation (IR)/build error categories
 - explicit hints and next-step guidance
 
 Missing site coverage includes:
