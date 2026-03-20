@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/himotoshi.css">
     <script defer src="../assets/js/mobile-nav.js"></script>
-    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
     <style>
         .tab-btn.active {
             background-color: #E8D5B5;
@@ -213,16 +212,7 @@
                                 <span class="text-matcha mr-3">➜</span>
                                 <span>netsuke build</span>
                             </div>
-                            <div class="flex mt-2">
-                                <span class="text-charcoal-light w-16">0.1s</span>
-                                <span class="text-indigo font-bold mr-2">INFO</span>
-                                <span>Parsing Netsukefile...</span>
-                            </div>
-                            <div class="flex">
-                                <span class="text-charcoal-light w-16">0.4s</span>
-                                <span class="text-matcha font-bold mr-2">SUCCESS</span>
-                                <span>Built default target hello.txt</span>
-                            </div>
+                            <pre class="mt-2 text-stone-light"><samp>[1/1] printf 'hello\n' &gt; hello.txt</samp></pre>
                         </div>
 
                         <div class="mt-6 flex gap-4">
@@ -275,31 +265,17 @@
             </div>
         </section>
 
-        <!-- Stats / Adoption -->
+        <!-- Community / Open Source -->
         <section class="py-16 bg-white border-y border-stone-light mb-12">
              <div class="site-container">
-                 <div class="grid md:grid-cols-2 gap-12 items-center">
-                     <div>
-                         <h2 class="font-serif text-3xl font-bold text-charcoal mb-4">Growing fast</h2>
-                         <p class="text-charcoal-mid mb-6">
-                             Netsuke is being adopted by teams who want explicit build graphs without falling back to hand-rolled shell glue.
-                         </p>
-                         <div class="grid grid-cols-3 gap-6">
-                             <div>
-                                 <div class="text-3xl font-bold text-indigo font-serif">12k+</div>
-                                 <div class="text-xs text-charcoal-mid font-medium uppercase tracking-wide mt-1">Downloads</div>
-                             </div>
-                             <div>
-                                 <div class="text-3xl font-bold text-vermillion font-serif">5.2k</div>
-                                 <div class="text-xs text-charcoal-mid font-medium uppercase tracking-wide mt-1">Stars</div>
-                             </div>
-                             <div>
-                                 <div class="text-3xl font-bold text-matcha font-serif">180+</div>
-                                 <div class="text-xs text-charcoal-mid font-medium uppercase tracking-wide mt-1">Contributors</div>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="h-[300px] w-full" id="downloadsChart"></div>
+                 <div class="max-w-2xl">
+                     <h2 class="font-serif text-3xl font-bold text-charcoal mb-4">Open source</h2>
+                     <p class="text-charcoal-mid mb-6">
+                         Netsuke is free and open source. The source, issues, and contribution guide are all on GitHub.
+                     </p>
+                     <a href="https://github.com/leynos/netsuke" class="hm-button hm-button--ghost inline-flex items-center px-5 py-2.5 text-sm">
+                         <span class="iconify mr-2" data-icon="carbon:logo-github" aria-hidden="true"></span> View on GitHub
+                     </a>
                  </div>
              </div>
         </section>
@@ -312,7 +288,7 @@
                 <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
                     <h3 class="font-bold text-charcoal text-lg mb-2">Can I install a specific version?</h3>
                     <p class="text-charcoal-mid leading-relaxed">
-                        Yes. You can pass a version tag to the install script or use Cargo to install a specific version: <code>cargo install netsuke --version 2.3.0</code>.
+                        Yes. Use Cargo with a semantic version number: <code>cargo install netsuke --version &lt;VERSION&gt;</code>. The version must be a number without a leading <code>v</code> (for example <code>0.4.0</code>, not <code>v0.4.0</code>). Check the <a href="https://github.com/leynos/netsuke/releases" class="text-indigo hover:underline">GitHub releases page</a> for available versions.
                     </p>
                 </div>
 
@@ -326,7 +302,7 @@
                 <div class="bg-white p-6 rounded-xl border border-stone shadow-sm">
                     <h3 class="font-bold text-charcoal text-lg mb-2">Does it work with CI/CD?</h3>
                     <p class="text-charcoal-mid leading-relaxed">
-                        Absolutely. We provide a GitHub Action <code>netsuke/setup-netsuke@v1</code> and Docker images for GitLab CI and others. Check the <a href="../docs/cli-security-and-configuration/" class="text-indigo hover:underline">CLI Security and Configuration guide</a>.
+                        Yes. Install Netsuke on your continuous integration (CI) agent via Cargo or a pre-built binary and run <code>netsuke build</code> as a build step. When standard output (stdout) is not a teletype/terminal (TTY), progress falls back to plain text automatically. Dedicated CI integrations are planned but not yet available.
                     </p>
                 </div>
             </div>
@@ -416,32 +392,6 @@
                 });
             });
 
-            // Chart
-            try {
-                const trace1 = {
-                    x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                    y: [1200, 1900, 3500, 5100, 8200, 12500],
-                    type: 'scatter',
-                    mode: 'lines+markers',
-                    line: { shape: 'spline', color: '#2B4162', width: 3 },
-                    marker: { size: 6, color: '#C23B22' },
-                    name: 'Downloads'
-                };
-
-                const layout = {
-                    title: { text: 'Monthly Downloads', font: { family: 'Fraunces', size: 16, color: '#2E2A25' } },
-                    margin: { t: 40, r: 20, b: 40, l: 40 },
-                    plot_bgcolor: 'rgba(0,0,0,0)',
-                    paper_bgcolor: 'rgba(0,0,0,0)',
-                    font: { family: 'Source Sans 3', color: '#5C554D' },
-                    xaxis: { showgrid: false },
-                    yaxis: { gridcolor: '#E5DDD0' }
-                };
-
-                Plotly.newPlot('downloadsChart', [trace1], layout, {responsive: true, displayModeBar: false});
-            } catch(e) {
-                console.error("Chart error:", e);
-            }
         });
     </script>
 </body>
