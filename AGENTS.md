@@ -22,7 +22,7 @@ correct:
 - semantic HTML
 - semantic class names
 
-## What Not to Optimise Yet
+## What Not to Optimize Yet
 
 Do not invest effort in build automation, build pipeline work, or large-scale
 refactoring for this prototype. That work will be handled later by the CMS
@@ -55,6 +55,11 @@ Use the `Makefile` as the primary entry point for repository checks.
   - Runs `npm run build` to regenerate `dist/`.
   - Then runs `node scripts/test-build.mjs` as a smoke test over the generated
     site output.
+- `make spelling`
+  - Refreshes the shared en-GB-oxendict dictionary only when its published
+    source is newer, regenerates `typos.toml`, and checks Markdown prose.
+  - Put narrow repository-only exceptions in `typos.local.toml`; do not edit
+    the generated configuration by hand.
 
 For commit gating in this repository, run `git diff --check`, `make check-fmt`,
 `make lint`, and `make test`, using `tee` logs under `/tmp/` as described in

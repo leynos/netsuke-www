@@ -1,2 +1,6 @@
 node_modules/
 dist/
+*.pyc
+__pycache__/
+.typos-oxendict-base.json
+.typos-oxendict-base.toml

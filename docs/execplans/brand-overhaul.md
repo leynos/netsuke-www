@@ -167,7 +167,7 @@ language, not its dummy destinations.
    and charcoal text on paper tones. This is now treated as a deliberate
    homepage exception that should be brought closer to Himotoshi, not removed.
 2. CTA families are inconsistent. The site mixes indigo solid buttons,
-   vermillion solid buttons, translucent white buttons, bordered ghost buttons,
+   vermilion solid buttons, translucent white buttons, bordered ghost buttons,
    and plain text links without a stable mapping to action priority.
 3. Card treatments vary page to page. Some cards are `rounded-xl`, some
    `rounded-lg`; some use `p-8`, others `p-6`; some hover on shadow, others on
@@ -252,7 +252,7 @@ Implementation-phase brand matrix, established 2026-03-09:
 - Legal and placeholder pages: keep them simple, but ensure they inherit the
   same font, paper texture, and token palette rather than falling back to
   isolated inline styling.
-- CTA hierarchy: indigo is the standard primary action, vermillion is the
+- CTA hierarchy: indigo is the standard primary action, vermilion is the
   heightened action where emphasis is intentional, and bordered or translucent
   ghost buttons are reserved for secondary actions.
 - Shared extraction boundary: `netsuke/assets/js/tailwind-config.js` owns the
