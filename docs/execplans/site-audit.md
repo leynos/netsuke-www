@@ -200,7 +200,7 @@ Quality criteria:
 
 Each HTML file write is idempotent. If interrupted, re-run the write step.
 
-## Artifacts and notes
+## Artefacts and notes
 
 Key anchors added to CLI page: `#output-streams`, `#accessible-output`,
 `#localization`, `#network-policy`.

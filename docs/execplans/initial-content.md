@@ -100,7 +100,7 @@ narratives.
 
 The reviewed source documents define Netsuke as a build system compiler:
 `Netsukefile` input, YAML validation first, Jinja expansion second, typed
-deserialisation, IR generation and validation, then Ninja synthesis and
+deserialization, IR generation and validation, then Ninja synthesis and
 execution. The website currently drifts from that model in several places.
 
 Concrete drift already verified in this repository:
@@ -118,7 +118,7 @@ Concrete drift already verified in this repository:
   and sandboxing claims not established by the reviewed docs.
 - `netsuke/install/index.html` claims a single-binary installer experience,
   references `netsuke init`, shows `netsuke 2.4.0 (stable)`, and promises graph
-  visualisation. The reviewed CLI docs do not establish those exact shipped
+  visualization. The reviewed CLI docs do not establish those exact shipped
   behaviours.
 - `netsuke/blog/index.html` contains fictional release posts for remote caching,
   Starlark debugging, and watch mode; those are not grounded in the reviewed
