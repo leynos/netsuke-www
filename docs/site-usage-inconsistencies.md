@@ -12,7 +12,8 @@ website against the interfaces and usage patterns described in:
 - `docs/users-guide.md`
 
 It focuses on inconsistencies in the way the site documents user interaction,
-command-line interface (CLI) surface area, terminology, and documented behaviour.
+command-line interface (CLI) surface area, terminology, and documented
+behaviour.
 
 ## Executive Summary
 
@@ -22,9 +23,10 @@ Some of those differences are simple omissions. Others are substantive:
 
 - commands are renamed or regrouped
 - undocumented flags are shown as if they exist
-- prototype pages invent foreign application programming interface (API) terminology
-- output examples use user interface (UI) conventions that do not line up with the documented
-  accessible/localizable CLI model
+- prototype pages invent foreign application programming interface (API)
+  terminology
+- output examples use user interface (UI) conventions that do not line up with
+  the documented accessible/localizable CLI model
 - navigation promises pages and workflows that are placeholders or absent
 
 The result is that a reader could come away with the wrong mental model for how
@@ -57,8 +59,7 @@ This is a direct usage inconsistency, not merely a missing detail.
 ### 3. The site shows `build ... --watch`, but the references do not
 
 The CLI/config page has a "Pro Tip: Watch Mode" block advertising
-`netsuke build ... --watch`. None of the supplied references document this
-mode.
+`netsuke build ... --watch`. None of the supplied references document this mode.
 
 This materially changes the expected UI surface for iterative development.
 
@@ -252,14 +253,14 @@ These issues can directly mislead users about how to operate Netsuke.
 - configuration UI presented as more settled than the roadmap indicates
 - inconsistent versioning across pages
 
-These are less likely to break first use immediately, but they still distort the
-documented product model.
+These are less likely to break first use immediately, but they still distort
+the documented product model.
 
 ## Conclusion
 
 The site presents a coherent visual experience, but not yet a coherent usage
 model. The reference set describes a specific CLI, manifest schema, and runtime
-behaviour; the website sometimes simplifies that model and sometimes replaces it
-with a different one. The most urgent corrections are the invented command
+behaviour; the website sometimes simplifies that model and sometimes replaces
+it with a different one. The most urgent corrections are the invented command
 surface, the wrong schema vocabulary, and the mismatch between prominent
 navigation promises and the actual content shipped in the prototype.

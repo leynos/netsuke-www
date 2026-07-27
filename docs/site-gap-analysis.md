@@ -18,12 +18,12 @@ The website covers the architectural headline story reasonably well:
 - `foreach`, `when`, rules, targets, and defaults matter
 - examples exist for several workflow types
 
-What the site does not cover well is the actual breadth of the documented command-line interface (CLI),
-runtime, security, accessibility, localization, and diagnostic model. The
-design and user documents describe Netsuke as a localizable, accessibility-aware,
-scriptable CLI with explicit output-channel behaviour, network-policy controls,
-Jinja standard-library semantics, and a richer operational story than the site
-currently exposes.
+What the site does not cover well is the actual breadth of the documented
+command-line interface (CLI), runtime, security, accessibility, localization,
+and diagnostic model. The design and user documents describe Netsuke as a
+localizable, accessibility-aware, scriptable CLI with explicit output-channel
+behaviour, network-policy controls, Jinja standard-library semantics, and a
+richer operational story than the site currently exposes.
 
 ## Gaps By Area
 
@@ -92,8 +92,8 @@ mockups, but not the stream-separation contract or why it matters for:
 - editor integration
 - automation and log capture
 
-This omission is important because the reference set treats stream separation as
-a first-class behavioural contract, not a minor implementation detail.
+This omission is important because the reference set treats stream separation
+as a first-class behavioural contract, not a minor implementation detail.
 
 ### 4. Network-policy controls for `fetch` are not surfaced
 
@@ -201,8 +201,8 @@ The user guide documents:
 - suppression rules when progress is disabled
 
 The site does not explain any of these interactions. Readers see terminal
-previews, but they do not learn how Netsuke's output is intentionally shaped for
-different environments and preferences.
+previews, but they do not learn how Netsuke's output is intentionally shaped
+for different environments and preferences.
 
 ### 10. Advanced usage for automation and CI is missing
 
@@ -247,8 +247,8 @@ gaps:
 - some site pages fill the silence by implying functionality that the roadmap
   still marks incomplete
 
-A site-facing "current status" or "what is implemented vs planned" section would
-close this gap significantly.
+A site-facing "current status" or "what is implemented vs planned" section
+would close this gap significantly.
 
 ## Feature Coverage Missing From The Website
 

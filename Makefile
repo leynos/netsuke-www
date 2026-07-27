@@ -2,13 +2,16 @@ NODE := node
 NPM := npm
 CADDY := caddy
 
-.PHONY: dev check-fmt lint spelling test
+.PHONY: dev check-fmt fmt lint spelling test
 
 TYPOS_VERSION ?= 1.48.0
 TYPOS := uv tool run typos@$(TYPOS_VERSION)
 
 dev:
 	$(CADDY) file-server --browse --listen :2016
+
+fmt:
+	mdformat-all
 
 check-fmt:
 	$(NODE) scripts/check-format.mjs

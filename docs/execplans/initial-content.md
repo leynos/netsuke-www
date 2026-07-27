@@ -1,9 +1,8 @@
 # Overhaul Netsuke website copy, examples, and inline code
 
-This ExecPlan (execution plan) is a living document. The sections
-`Constraints`, `Tolerances`, `Risks`, `Progress`, `Surprises & Discoveries`,
-`Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work
-proceeds.
+This ExecPlan (execution plan) is a living document. The sections `Constraints`,
+`Tolerances`, `Risks`, `Progress`, `Surprises & Discoveries`, `Decision Log`,
+and `Outcomes & Retrospective` must be kept up to date as work proceeds.
 
 Status: COMPLETE
 
@@ -13,11 +12,11 @@ The current prototype website does not describe the same product as the design
 and usage documents in `docs/`. Large parts of the site still present Netsuke
 as a Starlark-style, hermetic, Bazel-adjacent system with versioned release
 marketing, while the reviewed source documents define a YAML-first
-`Netsukefile`, Jinja-based templating, a six-stage compiler pipeline, and a
-CLI whose primary job is to compile to Ninja and execute builds. The goal of
-this overhaul is to bring the website copy, examples, and inline code back
-into alignment with those reviewed documents without changing layout, visual
-style, component structure, or page flow.
+`Netsukefile`, Jinja-based templating, a six-stage compiler pipeline, and a CLI
+whose primary job is to compile to Ninja and execute builds. The goal of this
+overhaul is to bring the website copy, examples, and inline code back into
+alignment with those reviewed documents without changing layout, visual style,
+component structure, or page flow.
 
 Success is observable in three ways. First, a reviewer can compare site copy in
 `netsuke/` against `docs/netsuke-design.md`,
@@ -227,10 +226,10 @@ commands and log paths in `Outcomes & Retrospective`.
 
 Use the existing HTML page structures as fixed shells. Treat each rewrite as a
 content transplant rather than a redesign. If a code window currently displays
-Starlark syntax, replace only the snippet body and any adjacent annotations.
-If a card currently advertises a fictional feature, replace its headline and
-copy with a supported concept of similar length instead of moving or removing
-the card.
+Starlark syntax, replace only the snippet body and any adjacent annotations. If
+a card currently advertises a fictional feature, replace its headline and copy
+with a supported concept of similar length instead of moving or removing the
+card.
 
 For copy style, prefer short claims followed by a grounded sentence. Example
 pattern for the landing page:
@@ -321,9 +320,9 @@ running them and record the results in `Outcomes & Retrospective`.
   overhaul scope. Reason: the user explicitly asked for examples and inline
   code, and the current examples contain syntax drift that would otherwise leak
   back into the site rewrite.
-- 2026-03-09 17:00 GMT: Chose to keep the plan at `docs/execplans/initial-content.md`
-  because the governing `AGENTS.md` requires the branch-name path
-  `docs/execplans/${GIT_BRANCH_NAME##*/}.md`.
+- 2026-03-09 17:00 GMT: Chose to keep the plan at
+  `docs/execplans/initial-content.md` because the governing `AGENTS.md`
+  requires the branch-name path `docs/execplans/${GIT_BRANCH_NAME##*/}.md`.
 - 2026-03-09 18:05 GMT: Chose to replace fictional release content in the blog
   with evergreen design-note style copy instead of leaving a release-shaped
   shell. Reason: the reviewed docs provide architecture and usage guidance but

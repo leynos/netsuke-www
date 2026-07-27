@@ -1,9 +1,8 @@
 # Overhaul the Netsuke website brand system and shared styling
 
-This ExecPlan (execution plan) is a living document. The sections
-`Constraints`, `Tolerances`, `Risks`, `Progress`, `Surprises & Discoveries`,
-`Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work
-proceeds.
+This ExecPlan (execution plan) is a living document. The sections `Constraints`,
+`Tolerances`, `Risks`, `Progress`, `Surprises & Discoveries`, `Decision Log`,
+and `Outcomes & Retrospective` must be kept up to date as work proceeds.
 
 Status: COMPLETE
 
@@ -75,43 +74,33 @@ every HTML file.
 
 - Risk: The design system file is a showcase, not a production site map, so
   some of its elements are illustrative rather than directly reusable.
-  Severity: medium
-  Likelihood: high
-  Mitigation: use it as the authority for tokens, typography, surfaces,
-  button families, and editorial mood, not for literal navigation labels or
-  placeholder links.
+  Severity: medium Likelihood: high Mitigation: use it as the authority for
+  tokens, typography, surfaces, button families, and editorial mood, not for
+  literal navigation labels or placeholder links.
 
 - Risk: Repeated inline Tailwind config and CSS appear on nearly every page,
   so partial extraction could leave the site in a half-shared state where one
-  edited page diverges from the rest.
-  Severity: high
-  Likelihood: high
-  Mitigation: move global tokens and shared component classes first, then
-  sweep every page to consume the shared layer before any page-specific
-  polish.
+  edited page diverges from the rest. Severity: high Likelihood: high
+  Mitigation: move global tokens and shared component classes first, then sweep
+  every page to consume the shared layer before any page-specific polish.
 
 - Risk: The current site mixes at least two visual directions: the lighter
-  editorial Himotoshi system and a darker marketing-hero treatment.
-  Severity: high
-  Likelihood: high
-  Mitigation: choose one primary art direction per page type and document the
-  exceptions explicitly in this plan before implementation.
+  editorial Himotoshi system and a darker marketing-hero treatment. Severity:
+  high Likelihood: high Mitigation: choose one primary art direction per page
+  type and document the exceptions explicitly in this plan before
+  implementation.
 
 - Risk: Some current calls to action labelled as GitHub do not point to a
-  GitHub destination at all.
-  Severity: medium
-  Likelihood: high
-  Mitigation: treat CTA semantics as part of the brand overhaul, not as
-  incidental copy cleanup.
+  GitHub destination at all. Severity: medium Likelihood: high Mitigation:
+  treat CTA semantics as part of the brand overhaul, not as incidental copy
+  cleanup.
 
 - Risk: A truly shared Tailwind component file normally wants `@apply` or a
   compile step, which conflicts with the prototype constraint against
-  build-pipeline work.
-  Severity: high
-  Likelihood: high
-  Mitigation: keep the shared layer buildless by using one shared Tailwind
-  config script plus one shared static CSS file of semantic classes. If the
-  user specifically wants compiled Tailwind source, escalate for approval.
+  build-pipeline work. Severity: high Likelihood: high Mitigation: keep the
+  shared layer buildless by using one shared Tailwind config script plus one
+  shared static CSS file of semantic classes. If the user specifically wants
+  compiled Tailwind source, escalate for approval.
 
 ## Orientation
 
@@ -130,8 +119,7 @@ fragmented:
 - `.texture-paper` is duplicated inline in the same 18 pages.
 - `.glass-panel` is duplicated inline in the same 18 pages.
 - The site-wide container utility
-  `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8` is repeated across the same 18
-  pages.
+  `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8` is repeated across the same 18 pages.
 - Plotly is still loaded in 8 pages even though the design need for it is not
   universal.
 - The homepage introduces a full-bleed photographic hero with a dark overlay,
@@ -235,8 +223,8 @@ For each page, record:
 - which page-specific treatments should survive, and
 - which treatments should be normalized or removed.
 
-The output of this phase is a short brand matrix added back into this
-ExecPlan before implementation starts. It should name the approved global shell
+The output of this phase is a short brand matrix added back into this ExecPlan
+before implementation starts. It should name the approved global shell
 patterns, CTA hierarchy, card families, typography scale, and imagery rules.
 
 Implementation-phase brand matrix, established 2026-03-09:
@@ -411,12 +399,11 @@ The overhaul is complete only when all of the following are true:
   Himotoshi system.
 - [x] 2026-03-09T23:56:00+00:00: Marked the plan `IN PROGRESS`, added the
   implementation-phase brand matrix, and extracted shared theme assets into
-  `netsuke/assets/js/tailwind-config.js` and
-  `netsuke/assets/css/himotoshi.css`.
+  `netsuke/assets/js/tailwind-config.js` and `netsuke/assets/css/himotoshi.css`.
 - [x] 2026-03-10T00:05:00+00:00: Applied the shared brand layer across the
-  homepage, examples hub, guides hub, blog hub, install page, docs hub, and
-  the leaf docs/examples pages so they now consume the extracted theme and
-  semantic component classes.
+  homepage, examples hub, guides hub, blog hub, install page, docs hub, and the
+  leaf docs/examples pages so they now consume the extracted theme and semantic
+  component classes.
 - [x] 2026-03-10T00:05:00+00:00: Harmonized the homepage banner without
   changing its structure by adding the shared hero panel, aligning CTA
   hierarchy to the Himotoshi button families, and reworking the overlay and
@@ -429,8 +416,8 @@ The overhaul is complete only when all of the following are true:
   after stripping trailing whitespace introduced during the extraction sweep.
 - [x] 2026-03-10T00:06:00+00:00: Validated the rendered result with Playwright
   on `/netsuke/`, `/netsuke/examples/`, `/netsuke/guides/`, `/netsuke/blog/`,
-  and `/netsuke/install/`, and spot-checked computed styles with `css-view`
-  for the shared hero panel, card, and button primitives.
+  and `/netsuke/install/`, and spot-checked computed styles with `css-view` for
+  the shared hero panel, card, and button primitives.
 
 ## Surprises & Discoveries
 
@@ -471,8 +458,8 @@ The overhaul is complete only when all of the following are true:
   explicitly says not to invest in build automation for this prototype.
 - 2026-03-09: Preserve the existing homepage hero-banner format as a project
   constraint. Harmonize that banner with Himotoshi tokens and component logic
-  instead of replacing it with the showcase hero pattern from the design
-  system file.
+  instead of replacing it with the showcase hero pattern from the design system
+  file.
 - 2026-03-09: Introduce the shared brand layer through static assets instead
   of a compiled Tailwind pipeline. The mechanical extraction pass should be
   visually conservative so later commits can focus on intentional restyling.
@@ -502,11 +489,11 @@ blog, install, docs, and leaf pages now share the same container, card, chip,
 button, and footer/nav treatments, which materially reduces the visual drift
 that existed before the overhaul.
 
-CTA semantics were cleaned up as part of the same pass. GitHub-labelled
-actions now point to the repository, issue actions point to GitHub Issues, and
+CTA semantics were cleaned up as part of the same pass. GitHub-labelled actions
+now point to the repository, issue actions point to GitHub Issues, and
 release/changelog actions point to GitHub Releases. Placeholder social icons
-that did not have a truthful destination were removed rather than left as
-false affordances.
+that did not have a truthful destination were removed rather than left as false
+affordances.
 
 Validation evidence for completion:
 

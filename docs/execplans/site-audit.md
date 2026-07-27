@@ -1,9 +1,8 @@
 # Action Site Gap Analysis: Expand Documentation to Match Reference Docs
 
-This ExecPlan (execution plan) is a living document. The sections
-`Constraints`, `Tolerances`, `Risks`, `Progress`, `Surprises & Discoveries`,
-`Decision Log`, and `Outcomes & Retrospective` must be kept up to date as work
-proceeds.
+This ExecPlan (execution plan) is a living document. The sections `Constraints`,
+`Tolerances`, `Risks`, `Progress`, `Surprises & Discoveries`, `Decision Log`,
+and `Outcomes & Retrospective` must be kept up to date as work proceeds.
 
 Status: IN PROGRESS
 
@@ -30,8 +29,8 @@ Run `make check-fmt lint test` with no failures.
 - All HTML must remain valid and use the existing design tokens and component
   patterns already present in the file.
 - Content must be grounded strictly in `docs/users-guide.md`,
-  `docs/netsuke-cli-design-document.md`, and `docs/roadmap.md`.
-  Do not invent features or behaviours not documented there.
+  `docs/netsuke-cli-design-document.md`, and `docs/roadmap.md`. Do not invent
+  features or behaviours not documented there.
 
 ## Tolerances
 
@@ -44,30 +43,31 @@ Run `make check-fmt lint test` with no failures.
 ## Risks
 
 - Risk: New sections make pages very long, harming usability.
-  Severity: low
-  Likelihood: medium
-  Mitigation: Use collapsible patterns already present on other pages;
-  group new content into discrete sections with clear headings.
+  Severity: low Likelihood: medium Mitigation: Use collapsible patterns already
+  present on other pages; group new content into discrete sections with clear
+  headings.
 
 - Risk: HTML copy errors (unclosed tags) break layout.
-  Severity: medium
-  Likelihood: medium
-  Mitigation: Validate with `make lint` after each file write.
+  Severity: medium Likelihood: medium Mitigation: Validate with `make lint`
+  after each file write.
 
 - Risk: Content diverges from reference docs.
-  Severity: high
-  Likelihood: low
-  Mitigation: Every fact must be traceable to a line in the reference docs.
+  Severity: high Likelihood: low Mitigation: Every fact must be traceable to a
+  line in the reference docs.
 
 ## Progress
 
 - [x] (2026-03-18) Read and summarized all source files.
 - [x] (2026-03-18) Created ExecPlan.
-- [x] (2026-03-18) Expanded CLI/config page (accessible mode, locale, progress, stream separation, config discovery, network policy).
+- [x] (2026-03-18) Expanded CLI/config page (accessible mode, locale, progress,
+      stream separation, config discovery, network policy).
 - [x] (2026-03-18) Updated sidebar nav links on CLI page to include new anchors.
-- [x] (2026-03-18) Expanded templating/standard library page (time helpers, file content filters, path filters, collection filters, command filters, which, filesystem tests).
+- [x] (2026-03-18) Expanded templating/standard library page (time helpers,
+      file content filters, path filters, collection filters, command filters,
+      which, filesystem tests).
 - [x] (2026-03-18) Updated stdlib chart to reflect broader function set.
-- [x] (2026-03-18) Replaced contributing placeholder with real content (contributor workflow, translation guide, developer testing story).
+- [x] (2026-03-18) Replaced contributing placeholder with real content
+      (contributor workflow, translation guide, developer testing story).
 - [ ] Run `make check-fmt lint test` and gate commit.
 - [ ] Commit changes.
 
@@ -82,22 +82,19 @@ Run `make check-fmt lint test` with no failures.
 ## Decision log
 
 - Decision: Expand the existing three pages rather than create new pages.
-  Rationale: The gap analysis recommends expanding existing pages first.
-  Adding new pages would require updating all sidebar navigation on all docs
-  pages and is out of scope for this pass.
-  Date/Author: 2026-03-18
+  Rationale: The gap analysis recommends expanding existing pages first. Adding
+  new pages would require updating all sidebar navigation on all docs pages and
+  is out of scope for this pass. Date/Author: 2026-03-18
 
 - Decision: The contributing page adopts the full site layout (with navbar,
-  sidebar, footer) to match the other docs pages.
-  Rationale: The placeholder used a stripped-down layout. Real contributor
-  content is substantial enough to warrant the full docs layout.
-  Date/Author: 2026-03-18
+  sidebar, footer) to match the other docs pages. Rationale: The placeholder
+  used a stripped-down layout. Real contributor content is substantial enough
+  to warrant the full docs layout. Date/Author: 2026-03-18
 
 - Decision: The stdlib chart will be updated to show a wider set of functions
-  reflecting the full documented surface.
-  Rationale: The current chart only shows 6 functions; the reference lists
-  ~25 functions. An updated chart better represents reality.
-  Date/Author: 2026-03-18
+  reflecting the full documented surface. Rationale: The current chart only
+  shows 6 functions; the reference lists ~25 functions. An updated chart better
+  represents reality. Date/Author: 2026-03-18
 
 ## Outcomes & retrospective
 
@@ -109,9 +106,9 @@ The website lives under `netsuke/`. Three files are being modified:
 
 1. `netsuke/docs/cli-security-and-configuration/index.html` — The CLI
    reference page. Currently covers `build`, `manifest`, `graph`, `clean`
-   commands, a shallow `[build]`/`[ui]`/`[locale]` config block, and a
-   generic security section. Missing: accessible mode, locale details, output
-   stream contract, network policy, configuration discovery, progress control.
+   commands, a shallow `[build]`/`[ui]`/`[locale]` config block, and a generic
+   security section. Missing: accessible mode, locale details, output stream
+   contract, network policy, configuration discovery, progress control.
 
 2. `netsuke/docs/templating-and-standard-library/index.html` — The template
    reference. Currently shows 6 stdlib cards. Missing: ~20 additional
@@ -121,6 +118,7 @@ The website lives under `netsuke/`. Three files are being modified:
    contribution and translation guide.
 
 Reference documents:
+
 - `docs/users-guide.md` — Section 7 (stdlib), Section 8 (CLI/config)
 - `docs/netsuke-cli-design-document.md` — Localization, accessibility,
   output channels, configuration
@@ -137,8 +135,8 @@ Add four new sections after the existing `#configuration` section, before
    piping examples, `--progress` flag.
 
 2. **`#accessible-output`** — Explain auto-detection (`TERM=dumb`, `NO_COLOR`),
-   `--accessible`, `NETSUKE_ACCESSIBLE`, static stage labels, emoji
-   suppression (`NETSUKE_NO_EMOJI`).
+   `--accessible`, `NETSUKE_ACCESSIBLE`, static stage labels, emoji suppression
+   (`NETSUKE_NO_EMOJI`).
 
 3. **`#localization`** — Explain Fluent, `--locale`, `NETSUKE_LOCALE`, locale
    precedence, supported locales (`en-US`, `es-ES`).
@@ -147,8 +145,8 @@ Add four new sections after the existing `#configuration` section, before
    `--fetch-block-host`, `--fetch-default-deny`.
 
 Also expand the `#configuration` section with the actual discovery and
-precedence rules (XDG, `NETSUKE_CONFIG_PATH`, `$HOME/.netsuke.toml`,
-`NETSUKE_` env var prefix, `__` nesting).
+precedence rules (XDG, `NETSUKE_CONFIG_PATH`, `$HOME/.netsuke.toml`, `NETSUKE_`
+env var prefix, `__` nesting).
 
 Update the sidebar nav to add links to the new sections.
 
@@ -191,6 +189,7 @@ make check-fmt lint test
 ## Validation and acceptance
 
 Quality criteria:
+
 - `make check-fmt lint test` passes with zero errors.
 - Each new section is reachable via the sidebar anchor links.
 - No content is present that contradicts the reference docs.
@@ -209,5 +208,5 @@ Key section added to stdlib page: `#stdlib-extended`.
 
 ## Interfaces and dependencies
 
-No new external dependencies. Uses existing Tailwind CDN, Iconify, and
-Plotly already loaded on each page.
+No new external dependencies. Uses existing Tailwind CDN, Iconify, and Plotly
+already loaded on each page.
