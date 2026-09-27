@@ -2,6 +2,14 @@ NODE := node
 NPM := npm
 CADDY := caddy
 
+# `make fmt` and `make check-fmt` call mdtablefix directly. `--git` selects the
+# Markdown files Git tracks and `--include-untracked` adds the untracked files
+# Git does not ignore, so a new document is formatted before it is staged.
+# Both modes need mdtablefix 0.6.0 or later.
+MDTABLEFIX ?= mdtablefix
+MDTABLEFIX_SELECT = --git --include-untracked
+MDTABLEFIX_RULES = --wrap --renumber --breaks --ellipsis --fences
+
 .PHONY: dev check-fmt fmt lint spelling test
 
 TYPOS_VERSION ?= 1.48.0
@@ -12,9 +20,11 @@ dev:
 
 fmt:
 	mdformat-all
+	$(MDTABLEFIX) --in-place $(MDTABLEFIX_SELECT) $(MDTABLEFIX_RULES)
 
 check-fmt:
 	$(NODE) scripts/check-format.mjs
+	$(MDTABLEFIX) --check $(MDTABLEFIX_SELECT) $(MDTABLEFIX_RULES)
 
 lint:
 	$(NODE) scripts/lint-site.mjs
