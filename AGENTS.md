@@ -46,6 +46,17 @@ Use the `Makefile` as the primary entry point for repository checks.
   - Runs `node scripts/check-format.mjs`.
   - Verifies whitespace, trailing-newline, and related formatting hygiene for
     the checked-in site files.
+  - Then runs `mdtablefix --check --git --include-untracked --wrap --renumber
+    --breaks --ellipsis --fences` over the Markdown Git tracks, plus untracked
+    Markdown Git does not ignore. Install mdtablefix 0.6.0 or later with
+    `cargo binstall --no-confirm mdtablefix@0.6.0` (or
+    `cargo install --locked mdtablefix@0.6.0`).
+- `make fmt`
+  - Rewrites Markdown with `mdtablefix --in-place` using the same selection and
+    rules, then runs `markdownlint-cli2 --fix "**/*.md"`.
+  - `.markdownlint-cli2.jsonc` carries the estate's canonical markdownlint
+    configuration; CI lints Markdown with the pinned
+    `DavidAnson/markdownlint-cli2-action` in `markdownlint.yml`.
 - `make lint`
   - Runs `node scripts/lint-site.mjs`.
   - Verifies site links and fragments across the HTML source files.
