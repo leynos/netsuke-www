@@ -66,11 +66,6 @@ Use the `Makefile` as the primary entry point for repository checks.
   - Runs `npm run build` to regenerate `dist/`.
   - Then runs `node scripts/test-build.mjs` as a smoke test over the generated
     site output.
-- `make spelling`
-  - Refreshes the shared en-GB-oxendict dictionary only when its published
-    source is newer, regenerates `typos.toml`, and checks Markdown prose.
-  - Put narrow repository-only exceptions in `typos.local.toml`; do not edit
-    the generated configuration by hand.
 
 For commit gating in this repository, run `git diff --check`, `make check-fmt`,
 `make lint`, and `make test`, using `tee` logs under `/tmp/` as described in
@@ -92,3 +87,19 @@ the computed and de-duped CSS cascade for the site. See the `$css-view` skill.
 ## Imagery
 
 Use the `$nanobanana` skill for generation of non-SVG imagery.
+
+<!-- typos-config-builder:agents-md:start -->
+
+## Spelling
+
+- `make spelling` runs the pinned `typos-config-builder gate`, which
+  regenerates `typos.toml` from the shared en-GB-oxendict dictionary and
+  `typos.local.toml`, then checks spelling and the shared phrase corrections.
+- `typos.toml` is generated: never edit it by hand. Put narrow
+  repository-specific exceptions in `typos.local.toml`, as exact or full-line
+  patterns rather than bare accepted words.
+- When `make spelling` changes `typos.toml`, commit the regenerated file. If
+  the change is unrelated to your work, commit it in a separate base pull
+  request and stack your branch on it, so each review diff stays focused.
+
+<!-- typos-config-builder:agents-md:end -->
