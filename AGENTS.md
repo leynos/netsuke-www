@@ -62,6 +62,11 @@ Use the `Makefile` as the primary entry point for repository checks.
   - Verifies site links and fragments across the HTML source files.
   - Also runs `node --check` against the repository JavaScript files and build
     scripts to catch syntax errors.
+  - Runs `make interrogate` first, which checks docstring coverage over
+    `scripts` through the vendored `scripts/uv_gate.py` helper (`uv_gate tool`,
+    offline first). The helper needs host `python3` 3.9 or newer and finds `uv`
+    on `PATH`; `--python 3.13` selects the interrogate tool's Python, not the
+    host's. The Makefile has no `UV` override.
 - `make test`
   - Runs `npm run build` to regenerate `dist/`.
   - Then runs `node scripts/test-build.mjs` as a smoke test over the generated
